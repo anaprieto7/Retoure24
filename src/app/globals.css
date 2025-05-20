@@ -1,0 +1,67 @@
+/* globals.css */
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, sans-serif;
+}
+
+/* Estilos para modo oscuro del DateRange */
+.dark .rdrCalendarWrapper {
+  background-color: #2D3748 !important; /* gray.800 de Chakra */
+  color: white !important;
+  border-radius: 8px;
+}
+
+.dark .rdrDayNumber span {
+  color: white !important;
+}
+
+.dark .rdrDayDisabled {
+  background-color: transparent !important;
+  opacity: 0.4;
+}
+
+.dark .rdrMonthAndYearPickers,
+.dark .rdrWeekDays {
+  background-color: #1A202C !important; /* más oscuro */
+  color: white !important;
+}
+
+.dark .rdrDayToday .rdrDayNumber span:after {
+  background: #F97316 !important; /* naranja */
+}
+
+.dark .rdrDayHovered,
+.dark .rdrDayActive,
+.dark .rdrInRange,
+.dark .rdrStartEdge,
+.dark .rdrEndEdge {
+  background: #F97316 !important;
+  color: white !important;
+}
+.chakra-ui-dark .rdrCalendarWrapper {
+  background-color: #2D3748 !important;
+  color: white !important;
+  border-radius: 8px;
+}
+
+.chakra-ui-dark .rdrDayNumber span {
+  color: white !important;
+}
+
+.chakra-ui-dark .rdrMonthAndYearPickers,
+.chakra-ui-dark .rdrWeekDays {
+  background-color: #1A202C !important;
+  color: white !important;
+}
+
+.chakra-ui-dark .rdrDayHovered,
+.chakra-ui-dark .rdrDayActive,
+.chakra-ui-dark .rdrInRange,
+.chakra-ui-dark .rdrStartEdge,
+.chakra-ui-dark .rdrEndEdge {
+  background: #F97316 !important;
+  color: white !important;
+}

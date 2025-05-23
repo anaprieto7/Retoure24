@@ -49,7 +49,7 @@ export default function GlobalSearch({ onSearch }) {
           <Icon as={FiSearch} color="gray.400" />
         </InputLeftElement>
         <Input
-          placeholder="Buscar producto, país o razón..."
+          placeholder="Such nach produkten, Länden o grund..."
           value={searchTerm}
           onChange={handleSearch}
           variant="filled"

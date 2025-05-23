@@ -2,90 +2,71 @@
 
 import {
   Box,
-  SimpleGrid,
+  Flex,
+  Icon,
   Stat,
   StatLabel,
   StatNumber,
   StatHelpText,
-  StatArrow,
-  Icon,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { ReactElement } from "react";
-import { useColorModeValue } from "@chakra-ui/react";
 
 type CardData = {
   label: string;
-  value: number;
-  change: number;
+  value: string | number;
+  change?: number;
   icon?: ReactElement;
-  color: string;       // ej. 'orange'
-  arrowColor: string;  // ej. 'green.500'
+  color: string;       // Chakra color (ej: 'orange', 'blue', etc.)
+  arrowColor?: string; // Chakra color for change indicator
 };
 
-
-type DashboardCardsProps = {
+type Props = {
   data: CardData[];
 };
 
-export default function DashboardCards({ data }: DashboardCardsProps) {
-  const bgCard = useColorModeValue("white", "gray.800"); // claro vs oscuro
-    const shadowCard = useColorModeValue("sm", "md");
-    const borderColor = useColorModeValue("gray.200", "gray.700");
+export default function DashboardCardsSingle({ data }: Props) {
+  const bg = useColorModeValue("white", "gray.800");
+
   return (
-    <SimpleGrid columns={{ base: 1, md: 2, lg: 4 }} spacing={4} mb={6}>
-      {data.map((card, index) => (
-       <Box
-       bg={bgCard} boxShadow={shadowCard} borderRadius="md" p={4}
-  key={index}
-  shadow="sm"
-  borderWidth="2px"
-  borderColor={borderColor}
-  transition="all 0.2s ease-in-out"
-  _hover={{
-    transform: "translateY(-4px)",
-    shadow: "lg",
-  }}
->
-
+    <Flex gap={6} wrap="wrap">
+      {data.map((card, idx) => (
+        <Box
+          key={idx}
+          flex="1 1 220px"
+          p={5}
+          borderRadius="md"
+          bg={bg}
+          borderLeft="6px solid"
+          borderColor={`${card.color}.400`}
+          boxShadow="sm"
+        >
           <Stat>
-  <Box
-  bg={`${card.color}.100`}
-  color={`${card.color}.500`}
-  borderRadius="full"
-  p={2}
-  display="inline-flex"
-  alignItems="center"
-  justifyContent="center"
-  boxSize="40px"
-  mb={2}
->
-  {card.icon && (
-  <Box
-    bg={useColorModeValue(`${card.color}.100`, `${card.color}.900`)}
-    color="white"
-    borderRadius="full"
-    p={2}
-    display="inline-flex"
-    alignItems="center"
-    justifyContent="center"
-    mb={2}
-  >
-    {card.icon}
-  </Box>
-)}
-
-</Box>
-<StatLabel>{card.label}</StatLabel>
-<StatNumber>{card.value.toLocaleString()}</StatNumber>
-<StatHelpText color={card.arrowColor}>
-  <StatArrow type={card.change >= 0 ? "increase" : "decrease"} />
-  {card.change > 0 ? `+${card.change}%` : `${card.change}%`} Last Week
-</StatHelpText>
-
-</Stat>
-
+            <StatLabel color="gray.500" mb={1}>
+              {card.label}
+            </StatLabel>
+            <StatNumber fontSize="2xl">{card.value}</StatNumber>
+            {typeof card.change === "number" && (
+              <StatHelpText color={card.change >= 0 ? "green.500" : "red.500"}>
+                {card.change >= 0 ? "▲" : "▼"} {Math.abs(card.change)}%
+              </StatHelpText>
+            )}
+          </Stat>
+          {card.icon && (
+            <Flex
+              mt={4}
+              w={8}
+              h={8}
+              align="center"
+              justify="center"
+              borderRadius="full"
+              bg={`${card.color}.100`}
+            >
+              <Icon as={card.icon} color={`${card.color}.500`} boxSize={5} />
+            </Flex>
+          )}
         </Box>
       ))}
-    </SimpleGrid>
+    </Flex>
   );
 }

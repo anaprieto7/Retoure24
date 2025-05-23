@@ -29,7 +29,7 @@ export default function RetourenNachGruenden() {
   const borderColor = useColorModeValue("gray.200", "gray.700");
   return (
     <Box bg={useColorModeValue("white", "gray.800")}
- p={5} borderRadius="md" boxShadow="sm" borderColor={borderColor} borderWidth="2px">
+ p={5} borderRadius="md" boxShadow="sm" borderColor={borderColor} shadow="sm">
       <Flex justify="space-between" align="start" mb={4}>
         <Heading size="md">Retouren nach Gründen</Heading>
         <Menu>

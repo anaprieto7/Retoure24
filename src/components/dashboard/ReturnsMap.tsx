@@ -115,7 +115,7 @@ const inactiveTextColor = useColorModeValue("gray.400", "gray.500");
   const borderColor = useColorModeValue("gray.200", "gray.700"); 
 
   return (
-    <Box bg={useColorModeValue("white", "gray.800")} p={5} borderRadius="md" boxShadow="sm" borderColor={borderColor} borderWidth="2px">
+    <Box bg={useColorModeValue("white", "gray.800")} p={5} borderRadius="md" boxShadow="sm" borderColor={borderColor} shadow="sm">
       <Flex justify="space-between" align="center" mb={3}>
         <Box>
           <Heading size="md">Retouren nach Ländern</Heading>
@@ -128,7 +128,7 @@ const inactiveTextColor = useColorModeValue("gray.400", "gray.500");
         <Popover placement="bottom-start" closeOnBlur>
           <PopoverTrigger>
             <Button leftIcon={<FiCalendar />} size="sm" variant="outline">
-              Seleccionar rango de fecha
+              Datumsbereich auswählen
             </Button>
           </PopoverTrigger>
           <Portal>
@@ -152,7 +152,9 @@ const inactiveTextColor = useColorModeValue("gray.400", "gray.500");
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
         <Box h="300px">
           <MapContainer center={[47, 10]} zoom={4} style={{ height: "100%", width: "100%" }}>
+
             <TileLayer
+
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution="&copy; OpenStreetMap contributors"
             />

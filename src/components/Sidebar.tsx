@@ -47,6 +47,7 @@ export default function Sidebar() {
   const sidebarContent = (
     <VStack align="start" spacing={4}>
       <SidebarItem icon={FiHome} label="Dashboard" href="/dashboard" active={pathname === '/dashboard'} onClick={() => setIsOpen(false)}/>
+      <SidebarItem icon={FiHome} label="Dashboard plus" href="/dashboardGlobal" active={pathname === '/dashboardGlobal'}  onClick={() => setIsOpen(false)} />
       <SidebarItem icon={FiList} label="Retoure Liste" href="/retoure-liste" active={pathname === '/retoure-liste'}  onClick={() => setIsOpen(false)} />
 
       <Box width="100%">

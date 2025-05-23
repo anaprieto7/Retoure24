@@ -1,112 +1,128 @@
 "use client";
 
 import {
-  Box,
   Flex,
-  Avatar,
+  Box,
+  Heading,
   Text,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  HStack,
   IconButton,
+  Avatar,
+  InputGroup,
+  InputLeftElement,
+  Input,
   useColorMode,
   useColorModeValue,
+  HStack,
+  Image,
 } from "@chakra-ui/react";
-import { FiLogOut } from "react-icons/fi";
-import { ChevronDownIcon } from "@chakra-ui/icons";
-import { FaMoon, FaSun, FaGlobe } from "react-icons/fa";
+import { FiSearch, FiBell, FiInfo, FiSettings, FiSun, FiMoon } from "react-icons/fi";
 
-const user = {
-  name: "John Doe",
-  role: "Admin",
-  avatarUrl: "/avatar.jpg", // o usa "https://i.pravatar.cc/150?img=3"
-  status: "active", // "hold" o "inactive"
-};
-
-const statusColor = {
-  active: "green.400",
-  hold: "yellow.400",
-  inactive: "gray.400",
-};
-
-export default function Header() {
+export default function Header({ user = "AP", lang = "en", location = "Kiel" }) {
   const { colorMode, toggleColorMode } = useColorMode();
+
+  // Colores adaptados a modo claro/oscuro
+  const bgHeader = useColorModeValue("white", "gray.800");
+  const bgSearch = useColorModeValue("gray.50", "whiteAlpha.100");
+  const iconColor = useColorModeValue("gray.500", "gray.300");
+  const avatarBg = useColorModeValue("blue.900", "blue.300");
+  const avatarColor = useColorModeValue("white", "black");
 
   return (
     <Flex
       as="header"
-      bg={useColorModeValue("white", "gray.800")}
-      height="64px"
-      px={6}
-      boxShadow="sm"
-      align="center"
-      justify="space-between"
       position="sticky"
-      top={0}
-      zIndex={10}
+      top="20px"
+      mx="auto"
+      px={6}
+      py={4}
+      zIndex={1000}
+      maxW="95%"
+      bg="rgba(255, 255, 255, 0.75)"
+      _dark={{ bg: "rgba(26, 32, 44, 0.75)" }} // para dark mode
+      backdropFilter="blur(5px)"
+      boxShadow="md"
+      borderRadius="2xl"
+      justify="space-between"
+      align="center"
+      gap={4}
     >
-      {/* Left side: Empty or Logo */}
-      <Box />
+      {/* Parte izquierda: título */}
+      <Box>
+        <Text fontSize="sm" color="gray.500">
+          Pages / Main Dashboard
+        </Text>
+        <Heading size="md" fontWeight="bold">
+          Main Dashboard
+        </Heading>
+      </Box>
 
-      {/* Right side */}
+      {/* Parte derecha: controles */}
       <HStack spacing={4}>
-        {/* Language switcher */}
-        <Menu>
-          <MenuButton
-            as={IconButton}
-            icon={<FaGlobe />}
-            variant="ghost"
-            aria-label="Idioma"
-            size="sm"
-          />
-          <MenuList>
-            <MenuItem>Deutsch</MenuItem>
-            <MenuItem>English</MenuItem>
-          </MenuList>
-        </Menu>
+        {/* Buscador */}
+       <InputGroup
+  bg={bgSearch}
+  borderRadius="full"
+  px={3}
+  w="280px" // más ancho
+  h="40px"  // más alto
+>
+  <InputLeftElement
+    pointerEvents="none"
+    children={<FiSearch size="16px" />} // tamaño consistente
+    mt="2px" // pequeño ajuste vertical
+    color={iconColor}
+  />
+  <Input
+    variant="unstyled"
+    placeholder="Search..."
+    _placeholder={{ color: iconColor }}
+    pl="10" // padding izquierdo extra para que el texto no se monte sobre el ícono
+    fontSize="sm"
+    h="100%" // altura igual al InputGroup
+  />
+</InputGroup>
 
-        {/* Dark mode toggle */}
+
+        {/* Iconos */}
         <IconButton
-          icon={colorMode === "light" ? <FaMoon /> : <FaSun />}
+          aria-label="Notifications"
+          icon={<FiBell />}
           variant="ghost"
-          aria-label="Toggle Color Mode"
           size="sm"
+          color={iconColor}
+        />
+        <IconButton
+          aria-label="Info"
+          icon={<FiInfo />}
+          variant="ghost"
+          size="sm"
+          color={iconColor}
+        />
+        <IconButton
+          aria-label="Settings"
+          icon={<FiSettings />}
+          variant="ghost"
+          size="sm"
+          color={iconColor}
+        />
+        <IconButton
+          aria-label="Toggle dark mode"
+          icon={colorMode === "light" ? <FiMoon /> : <FiSun />}
           onClick={toggleColorMode}
+          variant="ghost"
+          size="sm"
+          color={iconColor}
         />
 
-        {/* User Menu */}
-        <Menu>
-          <MenuButton>
-            <HStack spacing={3}>
-              <Box position="relative">
-                <Avatar size="sm" name={user.name} src={user.avatarUrl} />
-                <Box
-                  position="absolute"
-                  bottom={0}
-                  right={0}
-                  boxSize="10px"
-                  bg={statusColor[user.status]}
-                  border="2px solid white"
-                  borderRadius="full"
-                />
-              </Box>
-              <Box textAlign="right" display={{ base: "none", md: "block" }}>
-                <Text fontSize="sm" fontWeight="semibold">
-                  {user.name}
-                </Text>
-                <Text fontSize="xs" color="gray.500">
-                  {user.role}
-                </Text>
-              </Box>
-              <ChevronDownIcon />
-            </HStack>
-          </MenuButton>
-          <MenuList>
-            <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
-          </MenuList>
-        </Menu>
+        {/* Avatar */}
+        <Avatar
+          size="sm"
+          name={user}
+          bg={avatarBg}
+          color={avatarColor}
+          fontWeight="bold"
+          fontSize="xs"
+        />
       </HStack>
     </Flex>
   );

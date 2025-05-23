@@ -80,7 +80,6 @@ export default function TopProducts({ searchTerm }: { searchTerm: string }) {
       w="full"
       h="100%"
       borderColor={borderColor}
-      borderWidth="2px"
     >
       <Flex justify="space-between" align="start" mb={4}>
         <Heading size="md">Retouren nach Produkten</Heading>

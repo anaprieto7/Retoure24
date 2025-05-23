@@ -51,7 +51,7 @@ export default function ReturnOverTimeChart() {
 
   return (
 <Box bg={useColorModeValue("white", "gray.800")} p={5} borderRadius="md" boxShadow="sm" position="relative" 
-          borderColor={borderColor} borderWidth="2px">
+          borderColor={borderColor}>
   <Flex justify="space-between" align="center" mb={2}>
     <Box>
       <Heading size="md">Retouren im Zeitverlauf</Heading>

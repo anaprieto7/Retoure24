@@ -29,23 +29,20 @@ export default function Header({ user = "AP", lang = "en", location = "Kiel" }) 
 
   return (
     <Flex
-      as="header"
-      position="sticky"
-      top="20px"
-      mx="auto"
-      px={6}
-      py={4}
-      zIndex={1000}
-      maxW="95%"
-      bg="rgba(255, 255, 255, 0.75)"
-      _dark={{ bg: "rgba(26, 32, 44, 0.75)" }} // para dark mode
-      backdropFilter="blur(5px)"
-      boxShadow="md"
-      borderRadius="2xl"
-      justify="space-between"
-      align="center"
-      gap={4}
-    >
+  as="header"
+  position="sticky"
+  top="0"
+  w="100%"
+  px={6}
+  py={4}
+  bg={useColorModeValue("white", "gray.800")}
+  justify="space-between"
+  align="center"
+  gap={4}
+  zIndex={1000}
+  _dark={{ bg: "rgba(36, 47, 69, 0.75)" }} // para dark mode
+>
+
       {/* Parte izquierda: título */}
       <Box>
         <Text fontSize="sm" color="gray.500">

@@ -48,7 +48,7 @@ export default function Sidebar() {
     <VStack align="start" spacing={4}>
       <SidebarItem icon={FiHome} label="Dashboard" href="/dashboard" active={pathname === '/dashboard'} onClick={() => setIsOpen(false)}/>
       <SidebarItem icon={FiHome} label="Dashboard plus" href="/dashboardGlobal" active={pathname === '/dashboardGlobal'}  onClick={() => setIsOpen(false)} />
-      <SidebarItem icon={FiList} label="Retoure Liste" href="/retoure-liste" active={pathname === '/retoure-liste'}  onClick={() => setIsOpen(false)} />
+      <SidebarItem icon={FiList} label="Retouren Liste" href="/returnList" active={pathname === '/returnList'}  onClick={() => setIsOpen(false)} />
 
       <Box width="100%">
       <SidebarItem
@@ -111,7 +111,7 @@ export default function Sidebar() {
   return (
     <Box
       as="aside"
-      bg="gray.800"
+      bg="blue.950"
       color="white"
       w="250px"
       minH="100vh"
@@ -163,16 +163,16 @@ function SidebarItem({
   width="100%"
   fontSize={small ? 'sm' : 'md'}
   fontWeight={active ? 'semibold' : 'normal'}
-  bg={active ? 'gray.700' : 'transparent'}
+  bg={active ? 'blue.900' : 'transparent'}
   color={active ? 'white' : 'gray.300'}
   px={3}
   py={2}
   borderRadius="md"
-  _hover={{ bg: 'gray.600', color: 'white' }}
+  _hover={{ bg: 'blue.800', color: 'white' }}
   borderLeft={active ? '4px solid' : 'none'}
   borderColor={active ? 'orange.400' : 'transparent'}
 >
-  <Box display="flex" alignItems="center">
+  <Box display="flex" alignItems="center" >
     <Icon as={icon} mr={3} />
     <Text>{label}</Text>
   </Box>

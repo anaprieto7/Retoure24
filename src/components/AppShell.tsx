@@ -7,17 +7,24 @@ import Header from "@/components/Header";
 import { useColorModeValue } from "@chakra-ui/react";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
-    const bgMain = useColorModeValue("gray.50", "gray.900");
   return (
     <Flex>
       <Sidebar />
-      <Box flex="1">
+      <Box flex="1" minH="100vh">
         <Header />
-        <Box bg={useColorModeValue("gray.50", "gray.900")} minH="100vh" p={6}>
-             {children}
+        {/* Aquí va el fondo/padding para todas las páginas */}
+        <Box
+          bg={useColorModeValue("gray.50", "gray.900")}
+          minH="100vh"
+          p={{ base: 4, md: 6 }}
+        >
+          {children}
         </Box>
-
       </Box>
     </Flex>
   );
 }
+
+// This component serves as the main layout for the application, providing a sidebar and header.
+// It uses Chakra UI for styling and layout, ensuring a responsive design.
+// The sidebar is fixed, while the header and content area are flexible.

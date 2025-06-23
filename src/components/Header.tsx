@@ -45,12 +45,7 @@ export default function Header({ user = "AP", lang = "en", location = "Kiel" }) 
 
       {/* Parte izquierda: título */}
       <Box>
-        <Text fontSize="sm" color="gray.500">
-          Pages / Main Dashboard
-        </Text>
-        <Heading size="md" fontWeight="bold">
-          Main Dashboard
-        </Heading>
+       
       </Box>
 
       {/* Parte derecha: controles */}

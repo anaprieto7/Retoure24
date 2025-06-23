@@ -195,6 +195,8 @@ const exportToPDF = (data: ReturnItem[]) => {
   const allChecked = pagedData.length > 0 && pagedData.every(item => selectedRows.includes(item.id));
 const isIndeterminate = selectedRows.length > 0 && !allChecked && pagedData.some(item => selectedRows.includes(item.id));
 
+
+
   // ---- Render ----
   return (
     <Box mt={6}
@@ -438,8 +440,9 @@ const isIndeterminate = selectedRows.length > 0 && !allChecked && pagedData.some
               <Tooltip label="View details of this return">
                 <ChakraLink
                   as={NextLink}
-                  href={`/returns/${item.id}`}
+                  href="/ReturnDetails" // Cambia esto por el enlace correcto
                   _hover={{ textDecoration: "none" }}
+                  
                 >
                   <ViewDetailsButton />
                 </ChakraLink>

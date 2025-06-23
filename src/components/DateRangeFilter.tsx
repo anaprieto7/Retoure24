@@ -43,9 +43,8 @@ const DateRangeFilter: React.FC<DateRangeFilterProps> = ({ value, onChange }) =>
           cursor="pointer"
           pr={value.startDate && value.endDate ? "2.5rem" : "2rem"}
           fontSize="sm"
-          bg={useColorModeValue("white", "gray.900")}
+          variant={"filled"}
           color={useColorModeValue("gray.800", "gray.100")}
-          borderColor={useColorModeValue("gray.200", "gray.700")}
           _placeholder={{ color: useColorModeValue("gray.400", "gray.400") }}
           _hover={{ borderColor: useColorModeValue("blue.300", "blue.600") }}
           _focus={{

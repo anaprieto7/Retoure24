@@ -1,12 +1,17 @@
 'use client'
 
-import { Heading, Box, Input, Button, HStack, Badge, IconButton, useColorModeValue } from '@chakra-ui/react'
+import { Heading, Icon, Box, Input, Button, HStack, Badge, IconButton, useColorModeValue, InputGroup, InputLeftElement } from '@chakra-ui/react'
 import React, { useState } from "react";
 import ReturnTable, { ReturnItem } from "@/components/ReturnTable";
 import MultiSelectDropdown from "@/components/MultiSelectDropdown";
 import DateRangeFilter from "@/components/DateRangeFilter";
 import { CloseIcon, DownloadIcon } from "@chakra-ui/icons";
 import Papa from "papaparse";
+import BreadcrumbNav from "@/components/BreadcrumbNav";
+import PageTitle from "@/components/PageTitle";
+import { FiHome, FiList, FiSearch } from "react-icons/fi";
+
+
 
 
 
@@ -111,31 +116,43 @@ const areFiltersActive =
   selectedStatuses.length > 0 ||
   selectedReasons.length > 0;
 
+ 
+
   return (
     <main>
-      <Heading mb={6}>Retoure Liste</Heading>
-      <Box display="flex" gap={4} mb={4} flexWrap="wrap">
-         <Input
-          placeholder="Search by any field..."
-          value={search}
-          fontSize="sm"
-          onChange={handleFilterChange(e => setSearch(e.target.value))}
-          maxW="250px"
-          bg={useColorModeValue("white", "gray.900")}
-          borderColor={useColorModeValue("gray.200", "gray.700")}
-          color={useColorModeValue("gray.800", "gray.100")}
-          _placeholder={{ color: useColorModeValue("gray.400", "gray.400") }}
-          _hover={{ borderColor: useColorModeValue("blue.300", "blue.600") }}
-          _focus={{
-            borderColor: useColorModeValue("blue.400", "blue.500"),
-            boxShadow: "0 0 0 1px #3182ce",
-          }}
-        />
+       <BreadcrumbNav
+        items={[
+           { label: "Dashboard", href: "/dashboard", icon: FiHome },
+          { label: "Retoure Liste", icon: FiList }
+        ]}
+      />
+      <PageTitle title="Retouren Liste" />
+      <Box display="flex" gap={4} mb={4} mt={6} alignItems={"left"} flexWrap="wrap">
+        <Box maxW="500px" width={"100%"}> 
+          <InputGroup> 
+            <InputLeftElement pointerEvents="none">
+              <Icon as={FiSearch} color="gray.400" />
+            </InputLeftElement>
+            <Input
+              placeholder="Search by any field..."
+              value={search}
+              fontSize="sm"
+              onChange={handleFilterChange(e => setSearch(e.target.value))}
+              variant={'filled'}
+              color={useColorModeValue("gray.800", "gray.100")}
+              _placeholder={{ color: useColorModeValue("gray.400", "gray.400") }}
+              _hover={{ borderColor: useColorModeValue("blue.300", "blue.600") }}
+              _focus={{
+                borderColor: useColorModeValue("blue.400", "blue.500"),
+                boxShadow: "0 0 0 1px #3182ce",
+              }}
+            />
+          </InputGroup>
+        </Box>
         <DateRangeFilter
-  value={dateRange}
-  onChange={handleFilterChange(setDateRange)}
-
-/>
+          value={dateRange}
+          onChange={handleFilterChange(setDateRange)}
+        />
         <MultiSelectDropdown
           options={statuses}
           selected={selectedStatuses}

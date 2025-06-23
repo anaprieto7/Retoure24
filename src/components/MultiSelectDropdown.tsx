@@ -40,7 +40,7 @@ const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
           <MenuButton
             as={Button}
             rightIcon={<ChevronDownIcon />}
-            variant="outline"
+            variant="filled"
             fontSize="sm"
             bg={isOpen || hasSelection ? bgOpenOrSelected : bgDefault}
             color={isOpen || hasSelection ? colorOpenOrSelected : colorDefault}

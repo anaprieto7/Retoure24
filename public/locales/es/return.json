@@ -1,0 +1,63 @@
+{
+  "contact": "Contactar",
+  "copied": "¡Copiado!",
+  "copy": "Copiar",
+  "copy_toast_title": "Dirección copiada",
+  "copy_toast_desc": "La dirección se copió al portapapeles.",
+  "status": {
+    "Registered": "Registrado",
+    "Approved": "Aprobado",
+    "Received": "Recibido",
+    "Refunded": "Reembolsado",
+    "Rejected": "Rechazado",
+    "Cancelled": "Cancelado"
+  },
+   "retoure_id": "Devolución #{{id}}",
+  "date_label": "Fecha",
+  "returned_products": "Productos devueltos",
+  "quantity": "Cantidad",
+  "reason": "Motivo",
+
+  "sku": "SKU",
+  "view_detail": "Ver detalle",
+  "comments": "Comentarios",
+  "no_comments": "Sin comentarios.",
+  "write_comment": "Escribe un comentario…",
+  "return_history": "Historial de devoluciones",
+  "no_history": "Sin historial.",
+  "note": "Nota",
+   "status_registered": "Registrada",
+  "status_approved": "Aprobada",
+  "status_transit": "en Transito",
+  "status_received": "Recibida",
+  "status_refunded": "Reembolsada",
+  "status_rejected": "Rechazada",
+  "status_cancelled": "Cancelado",
+  "status_registered_tooltip": "la devolucion ha sido registrada.",
+  "status_approved_tooltip": "La devolución ha sido aprobada. el cliente puede edevolver el producto.",
+  "status_transit_tooltip": "el producto(s)/devolucion ha sido enviado por el cliente.",
+  "status_received_tooltip": "Han recibido el producto en el almacen",
+  "status_refunded_tooltip": "El reembolso ha sido procesado exitosamente.",
+  "status_rejected_tooltip": "La solicitud fue rechazada. No cumple con la política de devoluciones.",
+  "status_cancelled_tooltip": "La solicitud fue cancelada por el cliente o por la empresa.",
+  "status_legend_completed": "Completado",
+  "status_legend_active": "Actual",
+  "status_legend_pending": "Pendiente",
+  "status_legend_error": "Rechazado / Cancelado",
+  "no_note": "— Sin nota",
+  "write_note": "Escribe una nota...",
+  "add_note": "Agregar nota/comentario",
+  "save": "Guardar",
+  "note_by":"Nota por",
+  "prev": "Anterior",
+  "next": "Siguiente",
+  "page": "Página",
+  "of": "de",
+  "items_per_page": "Items por página",
+  "price":"precio"
+
+
+
+
+
+}

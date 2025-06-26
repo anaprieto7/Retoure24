@@ -1,9 +1,16 @@
-// src/app/providers.tsx
-"use client";
+'use client';
 
-import { ChakraProvider } from "@chakra-ui/react";
-import theme from "@/theme"; // Asegúrate de que la ruta sea correctas
+import { ChakraProvider } from '@chakra-ui/react';
+import { ReactNode } from 'react';
+import I18nProvider from '@/i18n/I18nProvider';
+import theme from '@/theme'; // Si no tienes uno, quítalo o usa el default
 
-export default function Providers({ children }: { children: React.ReactNode }) {
-  return <ChakraProvider theme={theme}>{children}</ChakraProvider>;
+export default function Providers({ children }: { children: ReactNode }) {
+  return (
+    <ChakraProvider theme={theme}>
+      <I18nProvider>
+        {children}
+      </I18nProvider>
+    </ChakraProvider>
+  );
 }

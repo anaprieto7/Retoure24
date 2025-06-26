@@ -1,0 +1,66 @@
+{
+  "contact": "Kontaktieren",
+  "copied": "Kopiert!",
+  "copy": "Kopieren",
+  "copy_toast_title": "Adresse kopiert",
+  "copy_toast_desc": "Die Adresse wurde in die Zwischenablage kopiert.",
+  "status": {
+    "Registered": "Registriert",
+    "Approved": "Genehmigt",
+    "Received": "Erhalten",
+    "Refunded": "Erstattet",
+    "Rejected": "Abgelehnt",
+    "Cancelled": "Storniert"
+  },
+  "retoure_id": "Retoure #{{id}}",
+  "date_label": "Datum",
+  
+  "returned_products": "Zurückgesendete Produkte",
+  "quantity": "Menge",
+  "reason": "Grund",
+  "sku": "Artikelnummer",
+  "view_detail": "Details anzeigen",
+  "comments": "Kommentare",
+  "no_comments": "Keine Kommentare.",
+  "write_comment": "Kommentar schreiben…",
+  "return_history": "Rücksendungsverlauf",
+  "no_history": "Kein Verlauf.",
+  "note": "Notiz",
+  "status_registered": "Registriert",
+  "status_approved": "Genehmigt",
+  "status_transit": "im Transit",
+  "status_received": "Erhalten",
+  "status_refunded": "Erstattet",
+  "status_rejected": "Abgelehnt",
+  "status_cancelled": "Storniert",
+  "status_registered_tooltip": "Die Rücksendung wurde registriert.",
+  "status_approved_tooltip": "Die Rücksendung wurde genehmigt. Der Kunde kann das Produkt zurücksenden.",
+   "status_transit_tooltip": "Das Produkt/die Produkte/die Rücksendung wurde vom Kunden versandt.",
+  "status_received_tooltip": "Das Produkt wurde im Lager erhalten.",
+  "status_refunded_tooltip": "Die Rückerstattung wurde erfolgreich bearbeitet.",
+  "status_rejected_tooltip": "Der Antrag wurde abgelehnt. Er entspricht nicht den Rückgabebedingungen.",
+  "status_cancelled_tooltip": "Der Antrag wurde vom Kunden oder vom Unternehmen storniert.",
+  "status_legend_completed": "Erledigt",
+  "status_legend_active": "Aktiv",
+  "status_legend_pending": "Unerledigt",
+  "status_legend_error": "Abgelehnt / Storniert",
+  "no_note": "— Keine Notiz",
+  "write_note": "Notiz schreiben...",
+  "add_note": "Notiz/Bemerkung hinzufügen",
+  "save": "Speichern",
+   "note_by":"Note by",
+   "prev": "Zurück",
+  "next": "Weiter",
+  "page": "Seite",
+  "of": "von",
+  "items_per_page": "Items per seite",
+  "price":"preise"
+
+
+  
+
+
+}
+
+
+ 

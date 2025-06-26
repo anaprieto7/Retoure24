@@ -1,30 +1,35 @@
+"use client";
 import { Flex, Heading, Badge, Text, Spacer } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
 
 interface ReturnDetailHeaderProps {
   returnId: string;
-  status: "Pending" | "Recibida" | "Reembolsada" | "Rechazada";
-  date: string; // Puedes usar string o Date
+  status: "Registered" | "Approved" | "Received" | "Refunded" | "Rejected" | "Cancelled";
+  date: string;
 }
 
 const statusColors = {
-  Pending: "orange",
-  Recibida: "blue",
-  Reembolsada: "green",
-  Rechazada: "red",
+  Registered: "orange",
+  Approved: "blue",
+  Received: "teal",
+  Refunded: "green",
+  Rejected: "red",
+  Cancelled: "red"
 };
 
 export default function ReturnDetailHeader({ returnId, status, date }: ReturnDetailHeaderProps) {
+  const { t } = useTranslation("return");
+
   return (
     <Flex align="center" gap={4} mb={1}>
-      <Heading size="lg">Retoure #{returnId}</Heading>
-      <Badge colorScheme={statusColors[status] || "gray"} fontSize="1em">
-        {status}
+      <Heading size="md">{t("retoure_id", { id: returnId })}</Heading>
+      <Badge colorScheme={statusColors[status] || "gray"} fontSize="0.8em">
+        {t(`status.${status}`)}
       </Badge>
       <Spacer />
       <Text color="gray.500" fontSize="sm">
-        Datum: {date}
+        {t("date_label")} {date}
       </Text>
     </Flex>
   );
 }
- 

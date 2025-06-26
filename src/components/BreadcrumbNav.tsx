@@ -1,3 +1,4 @@
+"use client";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Flex, Text, useColorModeValue } from "@chakra-ui/react";
 import NextLink from "next/link";
 import { ChevronRightIcon } from "@chakra-ui/icons";

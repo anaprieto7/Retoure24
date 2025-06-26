@@ -16,6 +16,7 @@ import {
   Image,
 } from "@chakra-ui/react";
 import { FiSearch, FiBell, FiInfo, FiSettings, FiSun, FiMoon } from "react-icons/fi";
+import LanguageSelector from "@/components/LanguageSelector";
 
 export default function Header({ user = "AP", lang = "en", location = "Kiel" }) {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -105,6 +106,9 @@ export default function Header({ user = "AP", lang = "en", location = "Kiel" }) 
           size="sm"
           color={iconColor}
         />
+
+         {/* 🌐 lANGUAGE SELECTOR*/}
+           <LanguageSelector />
 
         {/* Avatar */}
         <Avatar

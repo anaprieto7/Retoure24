@@ -1,13 +1,13 @@
+"use client";
 import {
   Box,
   HStack,
   VStack,
   Text,
   Image,
-  Badge,
   StackDivider,
   useColorModeValue,
-  Button,
+  IconButton,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -16,15 +16,17 @@ import {
   ModalCloseButton,
   useDisclosure,
   Input,
-  IconButton,
+  Button,
+  Select
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { FiSend } from "react-icons/fi";
+import { useTranslation } from "react-i18next";
 
 interface Comment {
   id: string;
   user: string;
-  date: string; // formato corto o ISO
+  date: string;
   message: string;
 }
 
@@ -41,7 +43,7 @@ interface ProductItem {
   sku?: string;
   quantity: number;
   reason: string;
-  status?: "Pendiente" | "Aprobado" | "Rechazado";
+  price: number;
   imageUrl?: string;
   comments?: Comment[];
   history?: HistoryItem[];
@@ -49,35 +51,35 @@ interface ProductItem {
 
 interface ReturnProductsListProps {
   products: ProductItem[];
+  subtotal?: number;
+  deductions?: number;
+  total?: number;
 }
 
-const statusColor = {
-  Pendiente: "orange",
-  Aprobado: "green",
-  Rechazado: "red",
-};
-
-export default function ReturnProductsList({ products }: ReturnProductsListProps) {
+export default function ReturnProductsList({
+  products,
+  subtotal,
+  deductions,
+  total,
+}: ReturnProductsListProps) {
+  const { t } = useTranslation("return");
   const bg = useColorModeValue("white", "gray.800");
   const [selectedProduct, setSelectedProduct] = useState<ProductItem | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // Estado local para comentarios y texto de comentario NUEVO
   const [comments, setComments] = useState<Comment[]>([]);
   const [commentText, setCommentText] = useState("");
 
-  // Cuando abres el detalle, inicializas los comentarios del producto seleccionado
   const handleOpenDetail = (product: ProductItem) => {
     setSelectedProduct(product);
     setComments(product.comments ?? []);
     onOpen();
   };
 
-  // Handler para agregar comentario
   const handleAddComment = () => {
     if (!commentText.trim()) return;
     const newComment: Comment = {
       id: Date.now().toString(),
-      user: "Usuario actual", // Cambia esto por el usuario real
+      user: "Usuario actual",
       date: new Date().toLocaleDateString("de-DE"),
       message: commentText.trim(),
     };
@@ -85,15 +87,53 @@ export default function ReturnProductsList({ products }: ReturnProductsListProps
     setCommentText("");
   };
 
+const [currentPage, setCurrentPage] = useState(1);
+const [itemsPerPage, setItemsPerPage] = useState(5);
+
+const totalPages = Math.ceil(products.length / itemsPerPage);
+
+const paginatedProducts = products.slice(
+  (currentPage - 1) * itemsPerPage,
+  currentPage * itemsPerPage
+);
+
+
   return (
     <Box bg={bg} p={5} rounded="xl" boxShadow="sm">
-      <Text fontWeight="bold" mb={3} fontSize="lg">Productos devueltos</Text>
+      <Text fontWeight="bold" mb={3} fontSize="lg">
+        {t("returned_products")}
+      </Text>
+
       <VStack
         divider={<StackDivider borderColor={useColorModeValue("gray.100", "gray.700")} />}
         align="stretch"
         spacing={3}
       >
-        {products.map((prod) => (
+        {totalPages > 1 && (
+          <Box display="flex" justifyContent="flex-end" mt={4}>
+            <HStack spacing={2}>
+              <Button
+                size="sm"
+                onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                isDisabled={currentPage === 1}
+              >
+                {t("prev")}
+              </Button>
+              <Text fontSize="sm">
+                {t("page")} {currentPage} {t("of")} {totalPages}
+              </Text>
+              <Button
+                size="sm"
+                onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                isDisabled={currentPage === totalPages}
+              >
+                {t("next")}
+              </Button>
+            </HStack>
+          </Box>
+          )}
+
+        {paginatedProducts.map((prod) => (
           <HStack key={prod.id} align="center" spacing={4}>
             {prod.imageUrl && (
               <Image
@@ -109,35 +149,56 @@ export default function ReturnProductsList({ products }: ReturnProductsListProps
               <Text fontWeight="semibold">{prod.name}</Text>
               {prod.sku && (
                 <Text fontSize="xs" color="gray.400">
-                  SKU: {prod.sku}
+                  {t("sku")}: {prod.sku}
                 </Text>
               )}
               <Text fontSize="sm">
-                Cantidad: <b>{prod.quantity}</b>
+                {t("quantity")}: <b>{prod.quantity}</b>
               </Text>
               <Text fontSize="sm">
-                Motivo: <b>{prod.reason}</b>
+                {t("reason")}: <b>{prod.reason}</b>
               </Text>
+              {typeof prod.price === "number" ? (
+               <Text fontSize="sm">
+                    {t("price")}: <b>{prod.price.toFixed(2)} €</b>
+                  </Text>
+                ) : (
+                  <Text fontSize="sm">
+                    {t("price")}: <b>{(prod.price ?? 0).toFixed(2)} €</b>
+                  </Text>
+                )}
             </VStack>
-            {prod.status && (
-              <Badge colorScheme={statusColor[prod.status]} px={3}>
-                {prod.status}
-              </Badge>
-            )}
-            <Button size="sm" onClick={() => handleOpenDetail(prod)}>
-              Ver detalle
-            </Button>
           </HStack>
         ))}
       </VStack>
+      {totalPages > 1 && (
+      <HStack justify="center" mt={4}>
+        <Button
+          size="sm"
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          isDisabled={currentPage === 1}
+        >
+          {t("prev")}
+        </Button>
+        <Text fontSize="sm">
+          {t("page")} {currentPage} {t("of")} {totalPages}
+        </Text>
+        <Button
+          size="sm"
+          onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+          isDisabled={currentPage === totalPages}
+        >
+          {t("next")}
+        </Button>
+      </HStack>
+    )}
 
-      {/* Modal para ver detalle del producto */}
+
+      {/* Modal */}
       <Modal isOpen={isOpen} onClose={onClose} isCentered size="md">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>
-            {selectedProduct?.name}
-          </ModalHeader>
+          <ModalHeader>{selectedProduct?.name}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             {selectedProduct && (
@@ -151,42 +212,50 @@ export default function ReturnProductsList({ products }: ReturnProductsListProps
                     mb={2}
                   />
                 )}
-                <Text><b>SKU:</b> {selectedProduct.sku || "—"}</Text>
-                <Text><b>Menge:</b> {selectedProduct.quantity}</Text>
-                <Text><b>Gruend:</b> {selectedProduct.reason}</Text>
                 <Text>
-                  <b>Status:</b>{" "}
-                  <Badge colorScheme={statusColor[selectedProduct.status || "Pendiente"]}>
-                    {selectedProduct.status}
-                  </Badge>
+                  <b>{t("sku")}:</b> {selectedProduct.sku || "—"}
+                </Text>
+                <Text>
+                  <b>{t("quantity")}:</b> {selectedProduct.quantity}
+                </Text>
+                <Text>
+                  <b>{t("reason")}:</b> {selectedProduct.reason}
+                </Text>
+                <Text>
+                  <b>{t("price")}:</b> {selectedProduct.price.toFixed(2)} €
                 </Text>
 
                 {/* Comentarios */}
                 <Box w="100%">
-                  <Text mt={4} mb={2} fontWeight="bold">Comentarios</Text>
+                  <Text mt={4} mb={2} fontWeight="bold">
+                    {t("comments")}
+                  </Text>
                   <VStack align="start" spacing={2}>
-                    {comments.length > 0 ? comments.map((c) => (
-                      <Box key={c.id} bg="gray.50" p={2} rounded="md" w="100%">
-                        <Text fontSize="xs" color="gray.500">
-                          {c.user} • {c.date}
-                        </Text>
-                        <Text fontSize="sm">{c.message}</Text>
-                      </Box>
-                    )) : (
-                      <Text fontSize="sm" color="gray.400">Sin comentarios.</Text>
+                    {comments.length > 0 ? (
+                      comments.map((c) => (
+                        <Box key={c.id} bg="gray.50" p={2} rounded="md" w="100%">
+                          <Text fontSize="xs" color="gray.500">
+                            {c.user} • {c.date}
+                          </Text>
+                          <Text fontSize="sm">{c.message}</Text>
+                        </Box>
+                      ))
+                    ) : (
+                      <Text fontSize="sm" color="gray.400">
+                        {t("no_comments")}
+                      </Text>
                     )}
                   </VStack>
-                  {/* Input para nuevo comentario */}
                   <HStack mt={3}>
                     <Input
-                      placeholder="Escribe un comentario…"
+                      placeholder={t("write_comment")}
                       value={commentText}
-                      onChange={e => setCommentText(e.target.value)}
+                      onChange={(e) => setCommentText(e.target.value)}
                       size="sm"
                     />
                     <IconButton
                       icon={<FiSend />}
-                      aria-label="Agregar comentario"
+                      aria-label={t("add_comment")}
                       size="sm"
                       colorScheme="orange"
                       onClick={handleAddComment}
@@ -195,9 +264,34 @@ export default function ReturnProductsList({ products }: ReturnProductsListProps
                   </HStack>
                 </Box>
 
-                {/* Historial de devoluciones */}
+                {/* Historial */}
                 <Box w="100%" mt={4}>
-                  <Text mb={2} fontWeight="bold">Historial de devoluciones</Text>
+                  <Text mb={2} fontWeight="bold">
+                    {t("return_history")}
+                  </Text>
+                  <HStack justify="space-between" mb={3}>
+                    <Text fontWeight="bold" fontSize="lg">
+                      {t("returned_products")}
+                    </Text>
+                    <HStack spacing={2}>
+                      <Text fontSize="sm" color="gray.500">
+                        {t("items_per_page")}:
+                      </Text>
+                      <Select
+                        size="sm"
+                        width="70px"
+                        value={itemsPerPage}
+                        onChange={(e) => {
+                          setItemsPerPage(Number(e.target.value));
+                          setCurrentPage(1); // Reset page
+                        }}
+                      >
+                        <option value={5}>5</option>
+                        <option value={10}>10</option>
+                        <option value={20}>20</option>
+                      </Select>
+                    </HStack>
+                  </HStack>
                   <VStack align="start" spacing={2}>
                     {selectedProduct.history && selectedProduct.history.length > 0 ? (
                       selectedProduct.history.map((h) => (
@@ -206,13 +300,19 @@ export default function ReturnProductsList({ products }: ReturnProductsListProps
                             {h.date}
                           </Text>
                           <Text fontSize="sm">
-                            <b>Status:</b> {h.status}
+                            <b>{t("status")}:</b> {h.status}
                           </Text>
-                          {h.note && <Text fontSize="sm"><b>Nota:</b> {h.note}</Text>}
+                          {h.note && (
+                            <Text fontSize="sm">
+                              <b>{t("note")}:</b> {h.note}
+                            </Text>
+                          )}
                         </Box>
                       ))
                     ) : (
-                      <Text fontSize="sm" color="gray.400">Sin historial.</Text>
+                      <Text fontSize="sm" color="gray.400">
+                        {t("no_history")}
+                      </Text>
                     )}
                   </VStack>
                 </Box>

@@ -1,5 +1,5 @@
 // src/app/layout.tsx
-import './globals.css'
+import './globals.css';
 import "leaflet/dist/leaflet.css";
 import { Metadata } from 'next';
 import Providers from './providers';
@@ -14,7 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="de">
       <body>
-        <Providers>
+        <Providers> {/* chakra + i18n */}
           <AppShell>{children}</AppShell>
         </Providers>
       </body>

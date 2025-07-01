@@ -41,7 +41,7 @@ export default function Sidebar() {
   const isMobile = useBreakpointValue({ base: true, md: false })
   const [isOpen, setIsOpen] = useState(false)
   const [isSettingsOpen, setIsSettingsOpen] = useState(
-  pathname?.startsWith('/einstellungen') // se abre si ya estás en esa ruta
+  pathname?.startsWith('/setup/account') // se abre si ya estás en esa ruta
 )
 
   const sidebarContent = (
@@ -63,15 +63,16 @@ export default function Sidebar() {
     <FiChevronRight />
   </Box>
     }
-    active={pathname?.startsWith('/einstellungen')}
+    active={pathname?.startsWith('/setup') || pathname === '/setup/account' || pathname === '/setup/addresses' || pathname === '/setup/shipping' || pathname === '/setup/email-tracking'}
   />
 
   {isSettingsOpen && (
     <VStack align="start" pl={6} mt={2} spacing={2}>
-      <SidebarItem icon={FiUser} label="Konto" href="/einstellungen/konto" small active={pathname === '/einstellungen/konto'} />
-      <SidebarItem icon={FiMapPin} label="Adressen" href="/einstellungen/adressen" small active={pathname === '/einstellungen/adressen'} />
-      <SidebarItem icon={FiTruck} label="Versanddienstleister" href="/einstellungen/versanddienstleister" small active={pathname === '/einstellungen/versanddienstleister'} />
-      <SidebarItem icon={FiMail} label="Email Tracking" href="/einstellungen/email-tracking" small active={pathname === '/einstellungen/email-tracking'} />
+      <SidebarItem icon={FiUser} label="Account" href="/setup/account" small active={pathname === '/setup/account'} />
+      <SidebarItem icon={FiMapPin} label="Addresses" href="/setup/addresses" small active={pathname === '/setup/addresses'} />
+      <SidebarItem icon={FiTruck} label="Shipping Providers" href="/setup/shipping" small active={pathname === '/setup/shipping'} />
+      <SidebarItem icon={FiMail} label="Email Tracking" href="/setup/email-tracking" small active={pathname === '/setup/email-tracking'} />
+
     </VStack>
   )}
 </Box>
@@ -108,31 +109,46 @@ export default function Sidebar() {
     )
   }
 
-  return (
-    <Box
-      as="aside"
-      bg="blue.950"
-      color="white"
-      w="250px"
-      minH="100vh"
-      px={4}
-      py={6}
-      position="sticky"
-      top={0}
-    >
-      <NextLink href="/dashboard">
-  <Image
-    src="/logo-retoure.png"
-    alt="Retoure24 Logo"
-    width={140}
-    height={40}
-    style={{ marginBottom: '1rem', cursor: 'pointer' }}
-  />
-</NextLink>
+ return (
+  <Box
+    as="aside"
+    zIndex={1000}
+    bg="blue.950"
+    color="white"
+    w="250px"
+    h="100vh"
+    px={4}
+    py={6}
+    position="fixed"
+    top={0}
+    left={0}
+    overflowY="auto"
+    sx={{
+      scrollbarWidth: 'thin',
+      '&::-webkit-scrollbar': {
+        width: '4px',
+      },
+      '&::-webkit-scrollbar-thumb': {
+        background: 'gray.600',
+        borderRadius: 'full',
+      },
+    }}
+    _hover={{ overflowY: 'auto' }}
+  >
+    <NextLink href="/dashboard">
+      <Image
+        src="/logo-retoure.png"
+        alt="Retoure24 Logo"
+        width={140}
+        height={40}
+        style={{ marginBottom: '1rem', cursor: 'pointer' }}
+      />
+    </NextLink>
 
-      {sidebarContent}
-    </Box>
-  )
+    {sidebarContent}
+  </Box>
+)
+
 }
 
 function SidebarItem({

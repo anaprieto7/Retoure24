@@ -230,7 +230,7 @@ const areFiltersActive =
     </Badge>
   ))}
 
-  {/* Date range badge */}
+  {/* Date range badge */} 
   {(dateRange.startDate && dateRange.endDate) && (
     <Badge
       colorScheme="orange"

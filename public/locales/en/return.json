@@ -53,8 +53,186 @@
   "page": "Page",
   "of": "of",
   "items_per_page": "Items per pages",
-  "price":"price"
+  "price":"price",
 
+   "summary": {
+    "title": "Return Summary",
+    "summary.products_returned": "Products returned",
+    "products_count": "{{count}} products",
+    "subtotal": "Subtotal",
+    "deductions": "Deductions",
+    "total": "Total",
+    "currency": "€"
+  },
+  "actions": {
+ "change_status": "Change status",
+ "confirm_change": "Confirm change"
+ },
+ "confirm_status_change_title": "Confirm new status",
+ "confirm_status_change": "Are you sure to change the status to '{{status}}'? ",
+ "status_updated": "Status updated",
+ "status_changed_to": "The return is now in status '{{status}}'.",
+ "error_updating_status": "Error updating status",
+ "optional_note": "Note (optional)",
+ "confirm": "Confirm",
+ "cancel": "Cancel",
+ "current": "current",
+ "latest_update": "Latest update",
+
+   "title": "Account Information",
+ "name_label": "First and Last Name",
+ "email_label": "Email",
+ "phone_label": "Phone Number",
+ "company_label": "Company",
+ "field_required": "This field is required.",
+ "edit": "Edit",
+ "error_required": "All fields are required",
+ "success_updated": "Information updated",
+
+ "logo": {
+ "title": "Company logo",
+ "instructions": "Resolution required 880x400, maximum 10MB",
+ "alt": "Company logo",
+ "choose": "Choose file",
+ "delete": "Delete",
+ "updated": "Logo updated",
+ "deleted": "Logo deleted",
+ "file_too_large": "File exceeds 10MB"
+ },
+
+ "access": {
+    "title": "Options for Accessing the Returns Page",
+    "zip": "Order number + Zip code",
+    "email": "Order number + E-mail",
+    "phone": "Order number + Phone number",
+    "credit": "Order number + Last 4 digits of the credit card used",
+    "passport": "ID/Passport + Order Number",
+    "recommended": "Recommended",
+    "optional": "Optional",
+    "selected": "Selected"
+  },
+
+  "user": {
+    "title": "User Management",
+    "add_user": "Add User",
+    "edit_user": "Edit User",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role", 
+    "status": "Status",
+    "actions": "Actions",
+    "add": "Add User",
+    "edit": "Edit User",
+    "delete": "Delete User",
+    "delete_confirm": "Are you sure you want to delete this user?",
+    "delete_success": "User deleted successfully",
+    "delete_error": "Error deleting user",
+    "update_success": "User updated successfully",
+    "update_error": "Error updating user",
+    "add_success": "User added successfully",
+    "add_error": "Error adding user",
+    "role_admin": "Admin",
+    "role_editor": "Editor",
+    "status_active": "Active",
+    "status_inactive": "Inactive",
+    "fill_all_fields": "Please fill all the fields",
+    "admin": "Admin",
+    "editor": "Editor",
+    "active": "Active",
+    "inactive": "Inactive",
+    "user_added": "User added",
+    "user_updated": "User updated",
+    "user_deleted": "User deleted",
+    "cancel": "Cancel",
+    "save": "Save"
+  },
+
+  "return_reason": {
+    "return_reasons": "Return Reasons",
+    "add_reason": "Add New Reason",
+    "edit_reason": "Edit Reason",
+    "reason": "Reason",
+    "description": "Description",
+    "status_table": "Status",
+    "actions": "Actions",
+    "reason_updated": "Reason updated",
+    "reason_added": "Reason added",
+    "reason_deleted": "Reason deleted",
+    "fill_all_fields": "Please complete all fields",
+    "cancel": "Cancel",
+    "save": "Save",
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "reasons": {
+      "size": "Wrong Size or Model",
+      "size_desc": "The product had been sent in a wrong size or model.",
+      "defect": "Defective or Damaged Product",
+      "defect_desc": "Manufacturing defects, shipping damage or doesn't work properly.",
+      "not_expected": "Doesn't meet expectations",
+      "not_expected_desc": "Doesn't look or function as the customer expected (e.g. color, size, or quality).",
+      "new_reason": "New reason",
+      "new_description": "New description"
+    }
+  },
+
+  "setting": {
+  "setting": "Settings",
+  "sidebar_title": "Settings",
+  "account": "Account",
+  "addresses": "Addresses",
+  "shipping": "Shipping Providers",
+  "email_tracking": "Email Tracking",
+  "open_sidebar": "Open settings menu"
+},
+
+"settingHeadings": {
+  "account": "Account Information",
+  "addresses": "Addresses",
+  "shipping": "Shipping Providers",
+  "email-tracking": "Email Tracking"
+},
+
+"address_info": {
+  "title": "Addresses",
+  "intro": "In this section, you can configure the following addresses:",
+  "sender": "Sender",
+  "sender_desc": "The address that will appear on the shipping label.",
+  "receiver": "Receiver",
+  "receiver_desc": "The address where the package will be sent.",
+  "notification": "Email Notifications",
+  "notification_desc": "The address that will be shown in the email notifications sent to customers."
+},
+
+"address_form": {
+  "add_button": "+ Add New Address",
+  "title": "Add New Address",
+  "contact_section": "Contact Details",
+  "company": "Company Name",
+  "name": "Name & Surname",
+  "email": "Email",
+  "phone": "Phone number",
+  "address_section": "Address",
+  "street": "Street",
+  "number": "Number",
+  "additional": "Aditional (optional)",
+  "zip": "ZIP",
+  "city": "City",
+  "country": "Country",
+  "additional_section": "Additional Information",
+  "type": "Select Address Type",
+  "sender": "Sender Address",
+  "receiver": "Receiver Address",
+  "notification": "Address on Email Notifications",
+  "select_type": "Choose a type",
+  "status": "Deactivate / Active",
+  "set_main": "Set as Main Address",
+  "save": "Save",
+  "saving": "Saving...",
+  "saved": "Saved",
+  "main_address": "Main Address"
+}
 
 
 

@@ -1,180 +1,140 @@
 "use client";
 import {
-  HStack,
+  VStack,
   Button,
-  Icon,
-  Badge,
-  Text,
+  Select,
   useToast,
-  Box,
+  Text,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  Textarea,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { FiCheck, FiXCircle, FiDownload, FiRotateCw } from "react-icons/fi";
+import { useTranslation } from "react-i18next";
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 
-type RefundStatus = "Pending" | "Approved" | "Rejected";
+export const RETURN_STATUSES = [
+  "Registered",
+  "Approved",
+  "Received",
+  "Refunded",
+  "Rejected",
+  "Cancelled",
+];
 
 interface ReturnActionsProps {
-  initialStatus: RefundStatus;
-  onApprove?: () => void;
-  onReject?: () => void;
-  onDownloadLabel?: () => void;
+  initialStatus: string;
+  onStatusChange: (newStatus: string, note?: string) => void;
 }
 
 export default function ReturnActions({
   initialStatus,
-  onApprove,
-  onReject,
-  onDownloadLabel,
+  onStatusChange,
 }: ReturnActionsProps) {
-  const [status, setStatus] = useState<RefundStatus>(initialStatus);
-  const [undoTimeout, setUndoTimeout] = useState<NodeJS.Timeout | null>(null);
-  const [prevStatus, setPrevStatus] = useState<RefundStatus | null>(null);
+  const { t } = useTranslation("return");
+  const [selectedStatus, setSelectedStatus] = useState(initialStatus);
+  const [note, setNote] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 
-  const handleApprove = () => {
-    setPrevStatus(status);
-    setStatus("Approved");
-    onApprove?.();
-    toast({
-      title: "Return approved",
-      status: "success",
-      duration: 1200,
-      isClosable: true,
-    });
-    startUndoTimeout();
+  const handleOpenModal = () => {
+    if (selectedStatus === initialStatus) return;
+    onOpen();
   };
 
-  const handleReject = () => {
-    setPrevStatus(status);
-    setStatus("Rejected");
-    onReject?.();
-    toast({
-      title: "Return rejected",
-      status: "error",
-      duration: 1200,
-      isClosable: true,
-    });
-    startUndoTimeout();
-  };
+  const handleConfirm = async () => {
+    setIsLoading(true);
+    try {
+      await new Promise((res) => setTimeout(res, 1000)); // simula API
 
-  const handleDownload = () => {
-    onDownloadLabel?.();
-    toast({
-      title: "Label downloaded",
-      status: "info",
-      duration: 1000,
-      isClosable: true,
-    });
-  };
+      toast({
+        title: t("status_updated"),
+        description: t("status_changed_to", {
+          status: t(`status.${selectedStatus}`),
+        }),
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
 
-  // Undo logic
-  const startUndoTimeout = () => {
-    if (undoTimeout) clearTimeout(undoTimeout);
-    const timeout = setTimeout(() => {
-      setPrevStatus(null);
-    }, 3000);
-    setUndoTimeout(timeout);
+      onStatusChange(selectedStatus, note); // ← pasamos la nota
+      setNote("");
+      onClose();
+    } catch (err) {
+      toast({
+        title: t("error_updating_status"),
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
-
-  const handleUndo = () => {
-    if (prevStatus) setStatus(prevStatus);
-    setPrevStatus(null);
-    if (undoTimeout) clearTimeout(undoTimeout);
-  };
-
-  console.log("Initial status:", initialStatus, "Current status:", status);
-    // Renderiza los botones y badges según el estado actual
 
   return (
-    <AnimatePresence mode="wait">
-      <Box key={status} as={motion.div} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -8 }} transition={{ duration: 0.2 }}>
-        <HStack spacing={4}>
-          {status === "Pending" && (
-            <>
-              <Button
-                _hover={{ boxShadow: "md", opacity: 0.9 }}
-                leftIcon={<FiCheck />}
-                colorScheme="green"
-                size="md"
-                onClick={handleApprove}
-                variant="solid"
-              >
-                Approve
-              </Button>
-              <Button
-                _hover={{ boxShadow: "md", opacity: 0.9 }}
-                leftIcon={<FiXCircle />}
-                colorScheme="red"
-                size="md"
-                variant="outline"
-                onClick={handleReject}
-              >
-                Reject
-              </Button>
-            </>
-          )}
-          {status === "Approved" && (
-            <>
-              <Badge colorScheme="green" px={4} py={1} borderRadius="lg" fontSize="md">
-                <Icon as={FiCheck} mr={1} /> Approved
-              </Badge>
-              {prevStatus && (
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  leftIcon={<FiRotateCw />}
-                  onClick={handleUndo}
-                  colorScheme="gray"
-                >
-                  Undo
-                </Button>
-              )}
-            </>
-          )}
-          {status === "Rejected" && (
-            <>
-              <Badge colorScheme="red" px={4} py={1} borderRadius="lg" fontSize="md">
-                <Icon as={FiXCircle} mr={1} /> Rejected
-              </Badge>
-              {prevStatus && (
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  leftIcon={<FiRotateCw />}
-                  onClick={handleUndo}
-                  colorScheme="gray"
-                >
-                  Undo
-                </Button>
-              )}
-            </>
-          )}
-          <Button
-            leftIcon={<FiDownload />}
-            colorScheme="orange"
-            size="md"
-            variant="ghost"
-            onClick={handleDownload}
-          >
-            Download label
-          </Button>
-        </HStack>
-        {/* Mensaje animado */}
-        {prevStatus && (
-          <motion.div
-            initial={{ opacity: 0, y: -4 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            style={{ marginTop: 4 }}
-          >
-            <Text color="gray.500" fontSize="xs">
-              You can undo this action for 3 seconds.
+    <>
+      <VStack spacing={4} align="stretch">
+        <Text fontWeight="bold">{t("actions.change_status")}</Text>
+
+        <Select
+          value={selectedStatus}
+          onChange={(e) => setSelectedStatus(e.target.value)}
+        >
+          {RETURN_STATUSES.map((status) => (
+            <option key={status} value={status}>
+              {t(`status.${status}`)} {status === initialStatus ? `(${t("current")})` : ""}
+            </option>
+          ))}
+        </Select>
+
+        <Button
+          colorScheme="blue"
+          onClick={handleOpenModal}
+          isDisabled={selectedStatus === initialStatus}
+        >
+          {t("actions.confirm_change")}
+        </Button>
+      </VStack>
+
+      {/* Modal de confirmación */}
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>{t("confirm_status_change_title")}</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text mb={3}>
+              {t("confirm_status_change", {
+                status: t(`status.${selectedStatus}`),
+              })}
             </Text>
-          </motion.div>
-        )}
-      </Box>
-    </AnimatePresence>
+           {/* <Textarea
+              placeholder={t("optional_note")}
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+            /> */}
+          </ModalBody>
+          <ModalFooter>
+            <Button onClick={onClose} variant="ghost" mr={3}>
+              {t("cancel")}
+            </Button>
+            <Button
+              colorScheme="blue"
+              onClick={handleConfirm}
+              isLoading={isLoading}
+            >
+              {t("confirm")}
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
   );
 }
-// Este componente maneja las acciones de devolución como aprobar, rechazar y descargar etiquetas.

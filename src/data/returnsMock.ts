@@ -13,6 +13,7 @@ const returnsMock = [
         status: "Offen",
         imageUrl: "https://dummyimage.com/64x64/ccc/fff&text=SG",
         comments: [],
+        price: 125.5,
         history: []
       }
     ],
@@ -41,6 +42,7 @@ const returnsMock = [
         reason: "Falsches Modell geliefert",
         imageUrl: "https://dummyimage.com/64x64/aaa/fff&text=XR",
         comments: [],
+        price: 125.5,
         history: []
       }
     ],
@@ -209,9 +211,7 @@ const returnsMock = [
       avatarUrl: "https://randomuser.me/api/portraits/men/25.jpg",
       customerId: "KUNDE-2025-004"
     },
-    subtotal: 120,
-    deductions: 10,
-    total: 110,
+  
     events: [
       {
         id: "1",

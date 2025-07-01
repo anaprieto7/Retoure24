@@ -87,6 +87,12 @@ const theme = extendTheme({
     heading: "Inter, sans-serif",
     body: "Inter, sans-serif",
   },
+  sizes: {
+    container: {
+      sidebar: '250px', // Ancho centralizado del sidebar
+      header: '64px' // Altura del header
+    }
+  },
 });
 
 export default theme;

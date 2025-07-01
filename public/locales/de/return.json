@@ -54,13 +54,196 @@
   "page": "Seite",
   "of": "von",
   "items_per_page": "Items per seite",
-  "price":"preise"
+  "price":"preise",
 
+   "summary": {
+    "title": "Retoure Zusammenfassung",
+    "summary.products_returned": "Zurückgesendete Produkte",
+    "products_count": "{{count}} Produkte",
+    "subtotal": "Zwischensumme",
+    "deductions": "Abzüge",
+    "total": "Gesamt",
+    "currency": "€"
+    },
+  
+  "actions": {
+   "change_status": "Status ändern",
+ "confirm_change": "Änderung bestätigen"
+ },
+ "confirm_status_change_title": "Bestätigen Sie den neuen Status",
+ "confirm_status_change": "Sind Sie sicher, dass der Status auf ‚{{status}}‘ geändert werden soll? ",
+ "status_updated": "Status aktualisiert",
+ "status_changed_to": "Die Rückgabe ist jetzt im Status '{{status}}'.",
+ "error_updating_status": "Fehler beim Aktualisieren des Status",
+ "optional_note": "Notiz (optional)",
+ "confirm": "Bestätigen",
+ "cancel": "Abbrechen",
+ "current": "Aktuell",
+ "latest_update": "Letzte Aktualisierung",
 
   
 
 
+ "title": "Kontoinformationen",
+ "name_label": "Vor- und Nachname",
+ "email_label": "E-Mail",
+ "phone_label": "Telefonnummer",
+ "company_label": "Unternehmen",
+ "field_required": "Dieses Feld ist erforderlich.",
+ "edit": "Bearbeiten",
+ "error_required": "Alle Felder sind erforderlich",
+ "success_updated": "Informationen aktualisiert",
+
+ "logo": {
+ "title": "Firmenlogo",
+ "instructions": "Auflösung erforderlich 880x400, maximal 10MB",
+ "alt": "Firmenlogo",
+ "choose": "Datei auswählen",
+ "delete": "Löschen",
+ "update": "Logo aktualisiert",
+ "deleted": "Logo gelöscht",
+ "file_too_large": "Datei überschreitet 10MB"
+ },
+
+ "access": {
+    "title": "Zugangsoptionen zur Rückgabeseite",
+    "zip": "Bestellnummer + Postleitzahl",
+    "email": "Bestellnummer + E-Mail",
+    "phone": "Bestellnummer + Telefonnummer",
+    "credit": "Bestellnummer + Letzte 4 Ziffern der verwendeten Kreditkarte",
+    "passport": "Ausweis/Pass + Bestellnummer",
+    "recommended": "Empfohlen",
+    "optional": "Optional",
+    "selected": "Ausgewählt"
+  },
+
+  "user": {
+ "title": "Benutzerverwaltung",
+ "add_user": "Benutzer hinzufügen",
+ "edit_user": "Benutzer bearbeiten",
+ "name": "Name",
+ "email": "E-Mail",
+ "role": "Role", 
+ "status": "Status",
+ "actions": "Actions",
+ "add": "Benutzer hinzufügen",
+ "bearbeiten": "Benutzer bearbeiten",
+ "delete": "Benutzer löschen",
+ "delete_confirm": "Sind Sie sicher, dass Sie diesen Benutzer löschen wollen?",
+ "delete_success": "Benutzer erfolgreich gelöscht",
+ "delete_error": "Fehler beim Löschen des Benutzers",
+ "update_success": "Benutzer erfolgreich aktualisiert",
+ "update_error": "Fehler beim Aktualisieren des Benutzers",
+ "add_success": "Benutzer erfolgreich hinzugefügt",
+ "add_error": "Fehler beim Hinzufügen des Benutzers",
+ "role_admin": "Admin",
+ "role_editor": "Editor",
+ "status_active": "Aktiv",
+ "status_inactive": "Inaktiv",
+ "fill_all_fields": "Bitte füllen Sie alle Felder aus",
+ "admin": "Admin",
+ "editor": "Editor",
+ "active": "Aktiv",
+ "inactive": "Inaktiv",
+ "user_added": "Benutzer hinzugefügt",
+ "user_updated": "Benutzer aktualisiert",
+ "user_deleted": "Benutzer gelöscht",
+ "cancel": "Cancel",
+ "save": "Speichern"
+ },
+
+ "return_reason": {
+    "return_reasons": "Rücksendegründe",
+    "add_reason": "Grund hinzufügen",
+    "edit_reason": "Grund bearbeiten",
+    "reason": "Grund",
+    "description": "Beschreibung",
+    "status_table": "Status",
+    "actions": "Aktionen",
+    "reason_updated": "Grund aktualisiert",
+    "reason_added": "Grund hinzugefügt",
+    "reason_deleted": "Grund gelöscht",
+    "fill_all_fields": "Bitte alle Felder ausfüllen",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "status": {
+      "active": "Aktiv",
+      "inactive": "Inaktiv"
+    },
+    "reasons": {
+      "size": "Falsche Größe oder Modell",
+      "size_desc": "Das Produkt wurde in der falschen Größe oder im falschen Modell geliefert.",
+      "defect": "Defektes oder beschädigtes Produkt",
+      "defect_desc": "Produktionsfehler, Transportschäden oder funktioniert nicht richtig.",
+      "not_expected": "Entspricht nicht den Erwartungen",
+      "not_expected_desc": "Entspricht nicht den Erwartungen des Kunden (z. B. Farbe, Größe oder Qualität).",
+      "new_reason": "Neuer Grund",
+      "new_description": "Neue Beschreibung"
+    }
+  },
+
+  "setting": {
+  "setting": "Einstellungen",
+  "sidebar_title": "Einstellungen",
+  "account": "Konto",
+  "addresses": "Adressen",
+  "shipping": "Versanddienstleister",
+  "email_tracking": "E-Mail-Verfolgung",
+  "open_sidebar": "Einstellungsmenü öffnen"
+},
+
+"settingHeadings": {
+  "setting": "Einstellungen",
+  "account": "Kontoinformationen",
+  "addresses": "Adressen",
+  "shipping": "Versanddienstleister",
+  "email-tracking": "E-Mail-Verfolgung"
+},
+
+"address_info": {
+  "title": "Adressen",
+  "intro": "In diesem Abschnitt kannst du die folgenden Adressen konfigurieren:",
+  "sender": "Absender",
+  "sender_desc": "Die Adresse, die auf dem Versandetikett erscheint.",
+  "receiver": "Empfänger",
+  "receiver_desc": "Die Adresse, an die das Paket gesendet wird.",
+  "notification": "E-Mail-Benachrichtigungen",
+  "notification_desc": "Die Adresse, die in den E-Mail-Benachrichtigungen für Kunden erscheint."
+},
+
+"address_form": {
+  "add_button": "+ Neue Adresse hinzufügen",
+  "title": "Neue Adresse hinzufügen",
+  "contact_section": "Kontaktdaten",
+  "company": "Firmenname",
+  "name": "Vor- und Nachname",
+  "email": "E-Mail",
+  "phone": "Telefonnummer",
+  "address_section": "Adresse",
+  "street": "Straße",
+  "number": "Hausnummer",
+  "additional": "Zusatz (optional)",
+  "zip": "PLZ",
+  "city": "Stadt",
+  "country": "Land",
+  "additional_section": "Zusätzliche Informationen",
+  "type": "Adresse-Typ auswählen",
+  "sender": "Absenderadresse",
+  "receiver": "Empfängeradresse",
+  "notification": "Adresse für E-Mail-Benachrichtigungen",
+  "select_type": "Typ auswählen",
+  "status": "Deaktivieren / Aktivieren",
+  "set_main": "Als Hauptadresse festlegen",
+  "save": "Speichern",
+  "saving": "Speichern...",
+  "saved": "Gespeichert",
+  "main_address": "Hauptadresse",
+}
 }
 
+ 
+
+
+  
 
  

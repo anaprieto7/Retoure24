@@ -9,7 +9,7 @@ import {
   Icon,
   Button,
   Input,
-  Avatar, // ✅ IMPORTADO AQUÍ
+  Avatar,
 } from "@chakra-ui/react";
 import {
   FiEdit3,
@@ -28,15 +28,16 @@ interface TimelineEvent {
   status: string;
   note?: string;
   user?: string;
-  userAvatar?: string; // opcional: si se tiene imagen
+  userAvatar?: string;
 }
 
 interface ReturnTimelineProps {
   events: TimelineEvent[];
+  currentStatus: string;
 }
 
-export default function ReturnTimeline({ events }: ReturnTimelineProps) {
-  const { t } = useTranslation();
+export default function ReturnTimeline({ events, currentStatus }: ReturnTimelineProps) {
+  const { t } = useTranslation("return");
   const [editedNotes, setEditedNotes] = useState<{ [key: string]: string }>({});
   const [editing, setEditing] = useState<{ [key: string]: boolean }>({});
 
@@ -62,6 +63,26 @@ export default function ReturnTimeline({ events }: ReturnTimelineProps) {
     Cancelled: "gray.500",
   };
 
+  const alreadyExists = events.some((e) => e.status === currentStatus);
+
+  const generatedEvent: TimelineEvent = {
+    id: "generated",
+    date: new Date().toISOString(),
+    status: currentStatus,
+    note: t("timeline.status_changed_to", {
+      status: t(`status_${currentStatus.replace(" ", "_").toLowerCase()}`),
+    }),
+    user: t("timeline.system_user"),
+    userAvatar: "/user-icon.png",
+  };
+
+  const fullEvents = alreadyExists ? events : [...events, generatedEvent];
+
+  // Orden descendente por fecha
+  const sortedEvents = [...fullEvents].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
+
   const handleSaveNote = (id: string) => {
     const updatedNote = editedNotes[id] || "";
     console.log("Guardar nota para", id, ":", updatedNote);
@@ -69,17 +90,12 @@ export default function ReturnTimeline({ events }: ReturnTimelineProps) {
     // TODO: llamada a API para guardar nota
   };
 
-  const sortedEvents = [...events].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
-
   return (
     <Box>
       <Text fontWeight="bold" mb={3} fontSize="lg">
         {t("return_history")}
       </Text>
       <VStack align="start" spacing={4} position="relative">
-        {/* Línea vertical continua */}
         <Box
           position="absolute"
           top="14px"
@@ -93,6 +109,7 @@ export default function ReturnTimeline({ events }: ReturnTimelineProps) {
           const IconComp = statusIcon[ev.status] || FiEdit3;
           const iconColor = statusColor[ev.status] || "gray.400";
           const label = t(`status_${ev.status.replace(" ", "_").toLowerCase()}`);
+          const isLatest = idx === 0;
 
           return (
             <motion.div
@@ -104,7 +121,7 @@ export default function ReturnTimeline({ events }: ReturnTimelineProps) {
             >
               <HStack align="start" spacing={3} w="100%" position="relative">
                 <VStack position="relative" spacing={0} align="center" minW="24px">
-                   <Circle
+                  <Circle
                     size="28px"
                     bg={useColorModeValue("white", "gray.800")}
                     border="2px solid"
@@ -118,10 +135,26 @@ export default function ReturnTimeline({ events }: ReturnTimelineProps) {
                 </VStack>
 
                 <Box pl={1} pb={4} w="100%">
-                  <Text fontSize="sm" color="gray.500" fontWeight={idx === 0 ? "bold" : "normal"}>
-                    {ev.date}
-                  </Text>
-                  <Text fontWeight={idx === 0 ? "bold" : "normal"} color={iconColor}>
+                  <HStack justifyContent="space-between" w="100%">
+                    <Text fontSize="sm" color="gray.500" fontWeight={isLatest ? "bold" : "normal"}>
+                      {new Date(ev.date).toLocaleString()}
+                    </Text>
+                    {isLatest && (
+                      <Text
+                        fontSize="xs"
+                        color="white"
+                        bg="orange.400"
+                        px={2}
+                        py={0.5}
+                        rounded="full"
+                        fontWeight="bold"
+                      >
+                        {t("latest_update")}
+                      </Text>
+                    )}
+                  </HStack>
+
+                  <Text fontWeight={isLatest ? "bold" : "normal"} color={iconColor}>
                     {label}
                   </Text>
 
@@ -131,20 +164,14 @@ export default function ReturnTimeline({ events }: ReturnTimelineProps) {
                         {ev.note || t("no_note")}
                       </Text>
 
-                      {/* 👤 show avatar if had an user note */}
                       {ev.note && ev.user && (
-                      <VStack align="start" spacing={1} mt={2}>
-                        <Avatar
-                          name={ev.user}
-                          src={ev.userAvatar}
-                          size="xs"
-                          bg="gray.200"
-                        />
-                        <Text fontSize="xs" color="gray.500">
-                          {t("note_by")}: <strong>{ev.user}</strong>
-                        </Text>
-                      </VStack>
-                    )}
+                        <VStack align="start" spacing={1} mt={2}>
+                          <Avatar name={ev.user} src={ev.userAvatar} size="xs" bg="gray.200" />
+                          <Text fontSize="xs" color="gray.500">
+                            {t("note_by")}: <strong>{ev.user}</strong>
+                          </Text>
+                        </VStack>
+                      )}
                     </>
                   )}
 

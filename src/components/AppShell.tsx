@@ -1,27 +1,30 @@
 // src/components/AppShell.tsx
+// src/components/AppShell.tsx
 "use client";
 
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, useTheme } from "@chakra-ui/react";
 import Sidebar from "@/components/Sidebar";
 import Header from "@/components/Header";
 import { useColorModeValue } from "@chakra-ui/react";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
+  const theme = useTheme();
+  const sidebarWidth = theme.sizes.container?.sidebar || "250px";
+
   return (
-    <Flex>
+    <Box minH="100vh" pl={{ base: 0, md: sidebarWidth }}>
       <Sidebar />
-      <Box flex="1" minH="100vh">
+      <Box>
         <Header />
-        {/* Aquí va el fondo/padding para todas las páginas */}
         <Box
           bg={useColorModeValue("gray.50", "gray.900")}
           minH="100vh"
-          p={{ base: 4, md: 6 }}
+          p={6}
         >
           {children}
         </Box>
       </Box>
-    </Flex>
+    </Box>
   );
 }
 

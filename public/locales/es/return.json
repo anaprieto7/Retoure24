@@ -54,8 +54,187 @@
   "page": "Página",
   "of": "de",
   "items_per_page": "Items por página",
-  "price":"precio"
+  "price":"precio",
+  "summary": {
+    "title": "Resumen de la devolución",
+    "summary.products_returned": "Suma de Productos devueltos",
+    "products_count": "{{count}} productos",
+    "subtotal": "Subtotal",
+    "deductions": "Deducciones",
+    "total": "Total",
+    "currency": "€"
+  },
 
+  
+ "actions": {
+    "change_status": "Cambiar estado",
+    "confirm_change": "Confirmar cambio"
+  },
+  "confirm_status_change_title": "Confirmar nuevo estado",
+  "confirm_status_change": "¿Estás seguro de cambiar el estado a '{{status}}'?",
+  "status_updated": "Estado actualizado",
+  "status_changed_to": "La devolución ahora está en estado '{{status}}'.",
+  "error_updating_status": "Error al actualizar el estado",
+  "optional_note": "Nota (opcional)",
+  "confirm": "Confirmar",
+  "cancel": "Cancelar",
+  "current": "actual",
+  "latest_update": "Última actualización",
+
+  "title": "Información de la cuenta",
+  "name_label": "Nombre y Apellido",
+  "email_label": "Correo electrónico",
+  "phone_label": "Número de teléfono",
+  "company_label": "Empresa",
+  "field_required": "Este campo es obligatorio.",
+  "edit": "Editar",
+  "error_required": "Todos los campos son obligatorios",
+  "success_updated": "Información actualizada",
+
+"logo": {
+    "title": "Logo de la empresa",
+    "instructions": "Resolución requerida 880x400, máximo 10MB",
+    "alt": "Logo de la empresa",
+    "choose": "Elegir archivo",
+    "delete": "Eliminar",
+    "updated": "Logo actualizado",
+    "deleted": "Logo eliminado",
+    "file_too_large": "El archivo excede los 10MB"
+  },
+
+  "access": {
+    "title": "Opciones para acceder a la página de devoluciones",
+    "zip": "Número de pedido + Código postal",
+    "email": "Número de pedido + Correo electrónico",
+    "phone": "Número de pedido + Número de teléfono",
+    "credit": "Número de pedido + Últimos 4 dígitos de la tarjeta de crédito",
+    "passport": "ID/Pasaporte + Número de pedido",
+    "recommended": "Recomendado",
+    "optional": "Opcional",
+    "selected": "Seleccionado"
+  },
+
+"user": {
+ "title": "Gestión de usuarios",
+ "add_user": "Añadir usuario",
+ "edit_user": "Editar usuario",
+ "name": "Nombre",
+ "email": "Correo electrónico",
+ "role": "Rol", 
+ "status": "Status",
+ "actions": "Acciones",
+ "add": "Añadir usuario",
+ "edit": "Editar usuario",
+ "delete": "Eliminar usuario",
+ "delete_confirm": "¿Está seguro de que desea eliminar este usuario?",
+ "delete_success": "Usuario borrado con éxito",
+ "delete_error": "Error al borrar usuario",
+ "update_success": "Usuario actualizado con éxito",
+ "update_error": "Error actualizando usuario",
+ "add_success": "Usuario añadido con éxito",
+ "add_error": "Error al añadir usuario",
+ "role_admin": "Admin",
+ "role_editor": "Editor",
+ "status_active": "Activo",
+ "status_inactive": "Inactivo",
+ "fill_all_fields": "Por favor, rellena todos los campos",
+ "admin": "Admin",
+ "editor": "Editor",
+ "active": "Activo",
+ "inactive": "Inactivo",
+ "user_added": "Usuario añadido",
+ "user_updated": "Usuario actualizado",
+ "user_deleted": "Usuario eliminado",
+ "cancel": "Cancelar",
+ "save": "Guardar"
+ },
+
+ "return_reason": {
+    "return_reasons": "Razones de Devolución",
+    "add_reason": "Agregar razón",
+    "edit_reason": "Editar razón",
+    "reason": "Razón",
+    "description": "Descripción",
+    "status_table": "Estado",
+    "actions": "Acciones",
+    "reason_updated": "Razón actualizada",
+    "reason_added": "Razón añadida",
+    "reason_deleted": "Razón eliminada",
+    "fill_all_fields": "Por favor completa todos los campos",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "status": {
+      "active": "Activa",
+      "inactive": "Inactiva"
+    },
+    "reasons": {
+      "size": "Talla o modelo incorrecto",
+      "size_desc": "El producto fue enviado en una talla o modelo incorrecto.",
+      "defect": "Producto defectuoso o dañado",
+      "defect_desc": "Defectos de fabricación, daños por envío o no funciona correctamente.",
+      "not_expected": "No cumple con las expectativas",
+      "not_expected_desc": "No se ve o funciona como el cliente esperaba (color, tamaño o calidad).",
+      "new_reason": "Nueva razón",
+      "new_description": "Nueva descripción"
+    }
+  },
+
+  "setting": {
+  "sidebar_title": "Configuración",
+  "setting": "Configuración",
+  "account": "Cuenta",
+  "addresses": "Direcciones",
+  "shipping": "Proveedores de envío",
+  "email_tracking": "Seguimiento de correo",
+  "open_sidebar": "Abrir menú de configuración"
+},
+
+"settingHeadings": {
+  "account": "Información de la Cuenta",
+  "addresses": "Direcciones",
+  "shipping": "Proveedores de Envío",
+  "email-tracking": "Seguimiento de Correos"
+},
+
+"address_info": {
+  "title": "Direcciones",
+  "intro": "En esta sección puedes configurar las siguientes direcciones:",
+  "sender": "Remitente",
+  "sender_desc": "La dirección que aparecerá en la etiqueta de envío.",
+  "receiver": "Destinatario",
+  "receiver_desc": "La dirección donde se enviará el paquete.",
+  "notification": "Notificaciones por correo",
+  "notification_desc": "La dirección que aparecerá en los correos enviados a los clientes."
+},
+
+"address_form": {
+  "add_button": "+ Agregar nueva dirección",
+  "title": "Agregar nueva dirección",
+  "contact_section": "Datos de contacto",
+  "company": "Nombre de la empresa",
+  "name": "Nombre y apellido",
+  "email": "Correo electrónico",
+  "phone": "Número de teléfono",
+  "address_section": "Dirección",
+  "street": "Calle",
+  "number": "Número",
+  "additional": "Adicional (opcional)",
+  "zip": "Código postal",
+  "city": "Ciudad",
+  "country": "País",
+  "additional_section": "Información adicional",
+  "type": "Seleccionar tipo de dirección",
+  "sender": "Dirección del remitente",
+  "receiver": "Dirección del destinatario",
+  "notification": "Dirección para notificaciones por email",
+  "select_type": "Elegir tipo",
+  "status": "Desactivar / Activar",
+  "set_main": "Establecer como dirección principal",
+  "save": "Guardar",
+  "saving": "Guardando...",
+  "saved": "Guardado",
+  "main_address": "Dirección principal"
+}
 
 
 

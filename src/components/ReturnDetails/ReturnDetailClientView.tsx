@@ -18,11 +18,19 @@ import ReturnSummaryCard from "@/components/ReturnDetails/ReturnSummaryCard";
 import ReturnActions from "@/components/ReturnDetails/ReturnActions";
 import { useTranslation } from "react-i18next";
 import returnsMock from "@/data/returnsMock";
+import { useState } from "react";
+
+// Este componente es la vista principal del detalle de una devolución para el cliente.
+// Muestra el estado actual, productos, timeline de eventos y acciones disponibles.
+// Utiliza Chakra UI para el diseño y i18next para las traducciones.
 
 export default function ReturnDetailClientView({ returnData }: { returnData: any }) {
   if (!returnData) return <div>Devolución no encontrada</div>;
  
+  const [currentStatus, setCurrentStatus] = useState(returnData.status);
+  const [note, setNote] = useState<string | undefined>(undefined);
   const { i18n } = useTranslation();
+  
 
   const stepIndex = {
     Pending: 0,
@@ -53,39 +61,47 @@ export default function ReturnDetailClientView({ returnData }: { returnData: any
           <VStack align="stretch" spacing={5}>
             {/* Línea superior */}
             <Box bg={useColorModeValue("white", "gray.800")} p={5} rounded="xl" boxShadow="sm">
-              <ReturnStatusStepper status={returnData.status as any} />
+              <ReturnStatusStepper status={currentStatus} />
             </Box>
             
             <Box bg={useColorModeValue("white", "gray.800")} p={5} rounded="xl" boxShadow="sm">
               <ReturnProductsList products={returnData.products} />
             </Box>
             <Box bg={useColorModeValue("white", "gray.800")} p={5} rounded="xl" boxShadow="sm">
-              <ReturnTimeline events={returnData.events || []} />
+              <ReturnTimeline
+                events={returnData.events || []}
+                currentStatus={currentStatus}
+                currentNote={note}
+              />
+
             </Box>
           </VStack>
         </GridItem>
         <GridItem>
           <VStack align="stretch" spacing={5}>
             <Box bg={useColorModeValue("white", "gray.800")} p={5} rounded="xl" boxShadow="sm">
-              <ReturnActions
-                initialStatus={returnData.status}
-                onApprove={() => {}}
-                onReject={() => {}}
-                onDownloadLabel={() => {}}
-              />
+             <ReturnActions
+              initialStatus={currentStatus}
+              onApprove={() => setCurrentStatus("Approved")}
+              onReject={() => setCurrentStatus("Rejected")}
+              onDownloadLabel={() => {}}
+              onStatusChange={(newStatus, userNote) => {
+                setCurrentStatus(newStatus);
+                setNote(userNote);
+              }}
+            />
             </Box>
             <Box bg={useColorModeValue("white", "gray.800")} p={5} rounded="xl" boxShadow="sm">
               <ReturnCustomerInfo key={i18n.language} {...returnData.client} />
             </Box>
             <Box bg={useColorModeValue("white", "gray.700")} p={5} rounded="xl" boxShadow="sm">
               <ReturnSummaryCard
-                productsCount={returnData.products.length}
-                subtotal={returnData.subtotal}
-                deductions={returnData.deductions}
-                total={returnData.total}
+                products={returnData.products || []}
+                deductions={returnData.deductions || 0}
                 currency="€"
                 refundStatus={returnData.refundStatus}
               />
+
             </Box>
           </VStack>
         </GridItem>

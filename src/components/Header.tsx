@@ -40,7 +40,7 @@ export default function Header({ user = "AP", lang = "en", location = "Kiel" }) 
   justify="space-between"
   align="center"
   gap={4}
-  zIndex={1000}
+  zIndex={900}
   _dark={{ bg: "rgba(36, 47, 69, 0.75)" }} // para dark mode
 >
 

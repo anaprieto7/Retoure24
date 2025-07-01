@@ -220,7 +220,7 @@ const [searchTerm, setSearchTerm] = useState("");
     : `- ${selectedStores.map((s) => s.label).join(", ")}`}
 </Heading>
 
-      {/* KPIs (puedes usar metricData simuladas aquí) */}
+      {/* KPIs (puedes usar metricData simuladas aquí) */} 
       <DashboardCardsGlobal data={metricDataGlobal} />
 
 

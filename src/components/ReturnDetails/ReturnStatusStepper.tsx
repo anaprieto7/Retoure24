@@ -65,13 +65,13 @@ export default function ReturnStatusStepper({ status }: ReturnStatusStepperProps
   ];
 
   const steps = isRejected
-    ? [...baseSteps.slice(0, 2), {
+    ? [...baseSteps.slice(0, 1), {
         key: "Rejected",
         label: t("status_rejected"),
         tooltip: t("status_rejected_tooltip")
       }]
     : isCancelled
-    ? [...baseSteps.slice(0, 2), {
+    ? [...baseSteps.slice(0, 1), {
         key: "Cancelled",
         label: t("status_cancelled"),
         tooltip: t("status_cancelled_tooltip")
@@ -146,7 +146,7 @@ export default function ReturnStatusStepper({ status }: ReturnStatusStepperProps
       </HStack>
 
       {/* Leyenda de colores */}
-      <HStack spacing={6} mt={2} wrap="wrap">
+      <HStack spacing={2} mt={2} wrap="wrap">
         <HStack>
           <Circle size="12px" bg={completedColor} />
           <Text fontSize="xs" color={textColor}>{t("status_legend_completed")}</Text>

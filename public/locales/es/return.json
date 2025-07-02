@@ -234,9 +234,82 @@
   "saving": "Guardando...",
   "saved": "Guardado",
   "main_address": "Dirección principal"
-}
+},
 
 
+  "shipping": {
+    "add_new_provider": "Agregar nuevo proveedor",
+    "edit_provider": "Editar proveedor",
+    "add_provider": "Agregar proveedor",
+    "provider_name": "Nombre del proveedor",
+    "provider_name_placeholder": "Ej. DHL, GLS, DPS",
+    "contract_number": "Número de contrato",
+    "contract_number_placeholder": "Ej. CONTR-12345",
+    "country": "País",
+    "select_country": "Selecciona un país",
+    "logo_url": "URL del logo",
+    "logo_url_placeholder": "http://ejemplo.com/logo.png",
+    "cancel": "Cancelar",
+    "save_changes": "Guardar cambios",
+    "add": "Agregar",
+    "edit": "Editar",
+    "contract": "Contrato",
+    "national": "Nacional",
+    "international": "Internacional",
+    "no_providers": "No hay proveedores disponibles",
+    "description": "En esta sección puede añadir y configurar los distribuidores, puede añadir distribuidores nacionales e internacionales",
+    "validation": {
+      "name_required": "El nombre del proveedor es obligatorio.",
+      "contract_required": "El número de contrato es obligatorio.",
+      "country_required": "Debe seleccionar un país."
+    },
+    "countries": {
+      "NACIONAL": "Nacional",
+      "DE": "Alemania",
+      "FR": "Francia",
+      "ES": "España",
+      "IT": "Italia",
+      "NL": "Países Bajos"
+    }
+},
 
+"emailTracking": {
+    "templates": {
+      "title": "Plantillas de Email",
+      "returnAccepted": "Devolución aceptada",
+      "returnDelivered": "Devolución entregada al courier",
+      "receivedWarehouse": "Recibido en almacén",
+      "subject": "Asunto",
+      "subjectPlaceholder": "Escribe el asunto del email",
+      "content": "Contenido",
+      "contentPlaceholder": "Escribe el contenido del email aquí...",
+      "saveTemplate": "Guardar plantilla",
+      "saving": "Guardando..."
+    },
+    "placeholdersInfo": {
+      "showInfo": "Mostrar información de marcadores",
+      "hideInfo": "Ocultar información de marcadores",
+      "title": "¿Sabías que puedes agregar datos del pedido al mensaje?",
+      "description": "En el asunto y cuerpo puedes usar los siguientes marcadores que serán sustituidos por datos reales del pedido.",
+      "tag": "Marcador",
+      "attribute": "Atributo",
+      "tags": {
+        "orderId": "ID del pedido",
+        "customerName": "Nombre del cliente",
+        "customerPhone": "Teléfono del cliente",
+        "customerEmail": "Email del cliente"
+      }
+  },
+  "validation": {
+      "invalidEmailFrom": "Email de envío no es válido.",
+      "invalidEmailCCO": "Email CCO no es válido.",
+      "emptySubject": "El asunto no puede estar vacío para la plantilla",
+      "emptyContent": "El contenido no puede estar vacío para la plantilla"
+    },
+    "saveSuccess": "Configuración guardada con éxito.",
+    "saveError": "Error al guardar configuración.",
+    "saveAll": "Guardar todo",
+    "saving": "Guardando..."
+  }
+  }
 
-}

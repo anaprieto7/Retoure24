@@ -232,8 +232,84 @@
   "saving": "Saving...",
   "saved": "Saved",
   "main_address": "Main Address"
-}
+},
 
 
+  "shipping": {
+    "add_new_provider": "Add New Provider",
+    "edit_provider": "Edit Provider",
+    "add_provider": "Add Provider",
+    "provider_name": "Provider Name",
+    "provider_name_placeholder": "e.g. DHL, GLS, DPS",
+    "contract_number": "Contract Number",
+    "contract_number_placeholder": "e.g. CONTR-12345",
+    "country": "Country",
+    "select_country": "Select a country",
+    "logo_url": "Logo URL",
+    "logo_url_placeholder": "http://example.com/logo.png",
+    "cancel": "Cancel",
+    "save_changes": "Save Changes",
+    "add": "Add",
+    "edit": "Edit",
+    "contract": "Contract",
+    "national": "National",
+    "international": "International",
+    "no_providers": "No providers available",
+    "description": "in this section you can add and configurate the dispatchers, you can add national and international dispatchers",
+    "validation": {
+      "name_required": "Provider name is required.",
+      "contract_required": "Contract number is required.",
+      "country_required": "You must select a country."
+    },
+    "countries": {
+      "NACIONAL": "National",
+      "DE": "Germany",
+      "FR": "France",
+      "ES": "Spain",
+      "IT": "Italy",
+      "NL": "Netherlands"
+    }
+  },
 
-}
+    "emailTracking": {
+    "templates": {
+      "title": "Email Templates",
+      "returnAccepted": "Return Accepted",
+      "returnDelivered": "Return Delivered to Courier",
+      "receivedWarehouse": "Received in Warehouse",
+      "subject": "Subject",
+      "subjectPlaceholder": "Write the email subject",
+      "content": "Content",
+      "contentPlaceholder": "Write the email content here...",
+      "saveTemplate": "Save Template",
+      "saving": "Saving..."
+    },
+    "placeholdersInfo": {
+      "showInfo": "Show placeholders info",
+      "hideInfo": "Hide placeholders info",
+      "title": "Did you know you can add order data to your message?",
+      "description": "In the subject and body you can use the following placeholders that will be replaced by actual order data.",
+      "tag": "Placeholder",
+      "attribute": "Attribute",
+      "tags": {
+        "orderId": "Order ID",
+        "customerName": "Customer Name",
+        "customerPhone": "Customer Phone",
+        "customerEmail": "Customer Email"
+      }
+    },
+    "validation": {
+      "invalidEmailFrom": "The sender email is invalid.",
+      "invalidEmailCCO": "The CCO email is invalid.",
+      "emptySubject": "The subject cannot be empty for the template",
+      "emptyContent": "The content cannot be empty for the template"
+    },
+    "saveSuccess": "Configuration saved successfully.",
+    "saveError": "Error saving configuration.",
+    "saveAll": "Save All",
+    "saving": "Saving..."
+  }
+
+  }
+
+

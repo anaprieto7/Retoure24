@@ -237,9 +237,88 @@
   "save": "Speichern",
   "saving": "Speichern...",
   "saved": "Gespeichert",
-  "main_address": "Hauptadresse",
-}
-}
+  "main_address": "Hauptadresse"
+},
+
+
+  "shipping": {
+    "add_new_provider": "Neuen Anbieter hinzufügen",
+    "edit_provider": "Anbieter bearbeiten",
+    "add_provider": "Anbieter hinzufügen",
+    "provider_name": "Anbietername",
+    "provider_name_placeholder": "z.B. DHL, GLS, DPS",
+    "contract_number": "Vertragsnummer",
+    "contract_number_placeholder": "z.B. VERTR-12345",
+    "country": "Land",
+    "select_country": "Wähle ein Land",
+    "logo_url": "Logo URL",
+    "logo_url_placeholder": "http://beispiel.de/logo.png",
+    "cancel": "Abbrechen",
+    "save_changes": "Änderungen speichern",
+    "add": "Hinzufügen",
+    "edit": "Bearbeiten",
+    "contract": "Vertrag",
+    "national": "National",
+    "international": "International",
+    "no_providers": "Keine Anbieter verfügbar",
+    "description":"In diesem Abschnitt können Sie die Disponenten hinzufügen und konfigurieren. Sie können nationale und internationale Disponenten hinzufügen.",
+    "validation": {
+      "name_required": "Der Anbietername ist erforderlich.",
+      "contract_required": "Die Vertragsnummer ist erforderlich.",
+      "country_required": "Bitte wählen Sie ein Land aus."
+    },
+    "countries": {
+      "NACIONAL": "National",
+      "DE": "Deutschland",
+      "FR": "Frankreich",
+      "ES": "Spanien",
+      "IT": "Italien",
+      "NL": "Niederlande"
+    }
+  },
+
+  "emailTracking": {
+    "templates": {
+      "title": "E-Mail-Vorlagen",
+      "returnAccepted": "Rückgabe akzeptiert",
+      "returnDelivered": "Rückgabe an Kurier geliefert",
+      "receivedWarehouse": "Im Lager erhalten",
+      "subject": "Betreff",
+      "subjectPlaceholder": "Schreiben Sie den Betreff der E-Mail",
+      "content": "Inhalt",
+      "contentPlaceholder": "Schreiben Sie hier den E-Mail-Inhalt...",
+      "saveTemplate": "Vorlage speichern",
+      "saving": "Speichern..."
+    },
+    "placeholdersInfo": {
+      "showInfo": "Platzhalter-Info anzeigen",
+      "hideInfo": "Platzhalter-Info ausblenden",
+      "title": "Wussten Sie, dass Sie Bestelldaten in Ihre Nachricht einfügen können?",
+      "description": "Im Betreff und Text können Sie die folgenden Platzhalter verwenden, die durch echte Bestelldaten ersetzt werden.",
+      "tag": "Platzhalter",
+      "attribute": "Attribut",
+      "tags": {
+        "orderId": "Bestellnummer",
+        "customerName": "Kundenname",
+        "customerPhone": "Kundentelefon",
+        "customerEmail": "Kunden-E-Mail"
+      }
+    },
+     "validation": {
+      "invalidEmailFrom": "Die Absender-E-Mail ist ungültig.",
+      "invalidEmailCCO": "Die CCO-E-Mail ist ungültig.",
+      "emptySubject": "Der Betreff darf für die Vorlage nicht leer sein",
+      "emptyContent": "Der Inhalt darf für die Vorlage nicht leer sein"
+    },
+    "saveSuccess": "Konfiguration erfolgreich gespeichert.",
+    "saveError": "Fehler beim Speichern der Konfiguration.",
+    "saveAll": "Alle speichern",
+    "saving": "Speichert..."
+  }
+  }
+
+
+
 
  
 

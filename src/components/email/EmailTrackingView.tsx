@@ -3,10 +3,16 @@
 import { useState, useEffect } from "react";
 import { Box, Text, VStack, Collapse, useToast, Button, Stack } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
-
+import { FiSettings, FiMail } from "react-icons/fi";
 import ActivationConfig from "./ActivationConfig";
-import EmailTemplates from "./ EmailTemplates";
 import PlaceholdersInfo from "./PlaceholdersInfo";
+import BreadcrumbNav from "@/components/BreadcrumbNav";
+import SettingsPageHeader from "../SettingsPageHeader";
+import dynamic from "next/dynamic";
+
+const EmailTemplates = dynamic(() => import("./EmailTemplates"), {
+  ssr: false,
+});
 
 import {
   fetchEmailTrackingConfig,
@@ -19,6 +25,17 @@ import type { EmailTemplate } from "./types";
 export default function EmailTrackingView() {
   const { t } = useTranslation("return");
   const toast = useToast();
+  
+
+  const [hasMounted, setHasMounted] = useState(false);
+useEffect(() => {
+  setHasMounted(true);
+}, []);
+
+    const breadcrumbs = [
+      { labelKey: "setting", href: "/setup/account", icon: FiSettings },
+      { labelKey: "email_tracking", icon: FiMail },
+    ];
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -134,34 +151,35 @@ export default function EmailTrackingView() {
 
   return (
     <Stack p={6} maxW="container.lg" mx="auto">
+      <BreadcrumbNav items={breadcrumbs} />
+      <SettingsPageHeader />
       <VStack spacing={6} align="stretch">
-        <Text fontSize="2xl" fontWeight="bold">
-          {t("emailTracking.title")}
-        </Text>
-        <ActivationConfig
-          isActive={isActive}
-          onToggleActive={setIsActive}
-          emailFrom={emailFrom}
-          onChangeEmailFrom={setEmailFrom}
-          emailCCO={emailCCO}
-          onChangeEmailCCO={setEmailCCO}
-        />
+  <ActivationConfig
+    isActive={isActive}
+    onToggleActive={setIsActive}
+    emailFrom={emailFrom}
+    onChangeEmailFrom={setEmailFrom}
+    emailCCO={emailCCO}
+    onChangeEmailCCO={setEmailCCO}
+  />
 
-        <Collapse in={isActive} animateOpacity>
-          <EmailTemplates templates={templates} onUpdateTemplate={setTemplates} />
-          <PlaceholdersInfo />
-          <Box textAlign="right" mt={4}>
-            <Button
-              colorScheme="orange"
-              onClick={handleSave}
-              isLoading={saving}
-              loadingText={t("emailTracking.saving")}
-            >
-              {t("emailTracking.saveAll")}
-            </Button>
-          </Box>
-        </Collapse>
-      </VStack>
+  {isActive && hasMounted && (
+    <Box suppressHydrationWarning>
+      <EmailTemplates
+        templates={templates}
+        onUpdateTemplate={(updatedTemplate) => {
+          setTemplates((prevTemplates) =>
+            prevTemplates.map((tpl) =>
+              tpl.id === updatedTemplate.id ? updatedTemplate : tpl
+            )
+          );
+        }}
+      />
+      <PlaceholdersInfo />
+    </Box>
+  )}
+</VStack>
+
     </Stack>
   );
 }

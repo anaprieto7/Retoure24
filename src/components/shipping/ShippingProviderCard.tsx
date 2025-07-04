@@ -25,15 +25,13 @@ interface ShippingProviderCardProps {
 export default function ShippingProviderCard({ provider, onEdit }: ShippingProviderCardProps) {
   const { t } = useTranslation("return");
   const bgColor = useColorModeValue("white", "gray.700");
-  const borderColor = useColorModeValue("gray.200", "gray.600");
 
   return (
     <Box
-      borderWidth="1px"
+      
       borderRadius="md"
       p={4}
       bg={bgColor}
-      borderColor={borderColor}
       boxShadow="sm"
       maxW="100%"
       role="group"
@@ -81,10 +79,10 @@ export default function ShippingProviderCard({ provider, onEdit }: ShippingProvi
         <HStack w="100%" justify="flex-end" pt={2}>
           <Button
             size="sm"
-            colorScheme="orange"
+            colorScheme="blue"
             variant="outline"
             onClick={onEdit}
-            _groupHover={{ bg: "orange.50" }}
+            _groupHover={{ bg: "blue.50" }}
           >
             {t("shipping.edit")}
           </Button>

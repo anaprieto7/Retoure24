@@ -80,7 +80,7 @@ export default function ReturnAccessOptions() {
               cursor="pointer"
             >
               <Box>
-                <Text fontWeight="medium">
+                <Text fontSize={"sm"} fontWeight="medium">
                   {t(opt.labelKey)}
                 </Text>
                 <Stack direction="row" spacing={2} mt={1}>

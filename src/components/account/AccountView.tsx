@@ -35,7 +35,7 @@ export default function AccountView() {
               gap={4}
               align="stretch"
               mb={6}
-            >
+      >
               <Box flex="1" display="flex">
                 <Box
                   rounded="xl"

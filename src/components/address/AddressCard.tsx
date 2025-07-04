@@ -36,8 +36,7 @@ export default function AddressCard({
   onEdit,
 }: AddressCardProps) {
   const { t } = useTranslation("return");
-  const cardBg = useColorModeValue("gray.50", "gray.700");
-  const cardBorder = useColorModeValue("gray.200", "gray.600");
+  const cardBg = useColorModeValue("white", "gray.700");
 
   const typeLabel = {
     sender: t("address_form.types.sender"),
@@ -47,8 +46,7 @@ export default function AddressCard({
 
   return (
     <Box
-      borderWidth="1px"
-      borderColor={cardBorder}
+      
       borderRadius="md"
       p={4}
       bg={cardBg}
@@ -86,6 +84,7 @@ export default function AddressCard({
           size="sm"
           onClick={onEdit}
           variant="ghost"
+          rounded={"full"}
         />
       </HStack>
 

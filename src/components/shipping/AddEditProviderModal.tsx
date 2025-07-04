@@ -170,10 +170,10 @@ export default function AddEditProviderModal({
           </VStack>
         </ModalBody>
         <ModalFooter>
-          <Button mr={3} onClick={onClose}>
+          <Button size={"sm"} mr={3} onClick={onClose}>
             {t("shipping.cancel")}
           </Button>
-          <Button colorScheme="orange" onClick={handleSubmit}>
+          <Button colorScheme="blue" size={"sm"} onClick={handleSubmit}>
             {initialData ? t("shipping.save_changes") : t("shipping.add")}
           </Button>
         </ModalFooter>

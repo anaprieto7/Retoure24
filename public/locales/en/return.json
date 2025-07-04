@@ -231,7 +231,12 @@
   "save": "Save",
   "saving": "Saving...",
   "saved": "Saved",
-  "main_address": "Main Address"
+  "main_address": "Main Address",
+   "types":{
+    "sender":"Sender Address",
+    "receiver":"Receiver Address",
+    "notification":"Address on Email Notifications"
+    }
 },
 
 
@@ -272,6 +277,12 @@
   },
 
     "emailTracking": {
+      "title": "Email Templates",
+    "activateEmailSending": "Activate email sending",
+    "emailFrom": "Sender email",
+    "emailCCO": "CCO email",
+    "description": "Configure the email address from which the emails will be sent and the recipients in blind carbon copy.",
+
     "templates": {
       "title": "Email Templates",
       "returnAccepted": "Return Accepted",
@@ -308,7 +319,17 @@
     "saveError": "Error saving configuration.",
     "saveAll": "Save All",
     "saving": "Saving..."
-  }
+  },
+  "help": {
+  "account": "Account",
+  "address": "Addresses",
+  "dispatchers": "Shipping Providers",
+  "email": "Email Tracking",
+  "sidebar_title": "Help Menu",
+  "open_sidebar": "Open menu",
+  "return":"Returns"
+}
+
 
   }
 

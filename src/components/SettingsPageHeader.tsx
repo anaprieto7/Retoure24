@@ -14,7 +14,7 @@ export default function SettingsPageHeader() {
   return (
     <Heading
       size="lg"
-      mb={6}
+      mb={2}
       color={useColorModeValue('gray.800', 'gray.300')}
     >
       {t(`settingHeadings.${pageKey}`)}

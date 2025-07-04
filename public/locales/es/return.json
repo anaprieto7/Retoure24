@@ -233,7 +233,12 @@
   "save": "Guardar",
   "saving": "Guardando...",
   "saved": "Guardado",
-  "main_address": "Dirección principal"
+  "main_address": "Dirección principal",
+  "types":{
+    "sender":"Remitente",
+    "receiver":"Destinatario",
+    "notification":"Dirección para notificaciones por email"
+    }
 },
 
 
@@ -274,6 +279,12 @@
 },
 
 "emailTracking": {
+  "title": "Plantillas de Email",
+     "activateEmailSending": "Activar envío de correos",
+    "emailFrom": "Email de envío",
+    "emailCCO": "Email CCO",
+    "description": "Configura la dirección de correo desde la que se enviarán los emails y los destinatarios en copia oculta.",
+
     "templates": {
       "title": "Plantillas de Email",
       "returnAccepted": "Devolución aceptada",
@@ -310,6 +321,17 @@
     "saveError": "Error al guardar configuración.",
     "saveAll": "Guardar todo",
     "saving": "Guardando..."
-  }
+  },
+
+  "help": {
+  "account": "Cuenta",
+  "address": "Direcciones",
+  "dispatchers": "Proveedores de envío",
+  "email": "Seguimiento por correo",
+  "sidebar_title": "Menú de ayuda",
+  "open_sidebar": "Abrir menú",
+  "return":"Devoluciones"
+}
+
   }
 

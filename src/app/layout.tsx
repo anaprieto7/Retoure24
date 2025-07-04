@@ -5,6 +5,7 @@ import { Metadata } from 'next';
 import Providers from './providers';
 import AppShell from '@/components/AppShell';
 
+
 export const metadata: Metadata = {
   title: "Retoure24 Dashboard",
   description: "Dashboard de devoluciones",

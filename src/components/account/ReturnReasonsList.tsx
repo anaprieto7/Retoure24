@@ -146,8 +146,8 @@ export default function ReturnReasonsList() {
         <Tbody>
           {paginatedReasons.map((item) => (
             <Tr key={item.id}>
-              <Td>{t(item.reasonKey)}</Td>
-              <Td>{t(item.descriptionKey)}</Td>
+              <Td fontSize={"sm"}>{t(item.reasonKey)}</Td>
+              <Td fontSize={"sm"}>{t(item.descriptionKey)}</Td>
               <Td>
                 <Badge colorScheme={item.status === 'active' ? 'green' : 'red'}>
                   {t(`return_reason.status.${item.status}`)}
@@ -163,6 +163,38 @@ export default function ReturnReasonsList() {
           ))}
         </Tbody>
       </Table>
+      <Stack direction="row" justify="center" mt={6} spacing={2}>
+              <IconButton
+                icon={<span>‹</span>}
+                aria-label="Previous"
+                size="sm"
+                isDisabled={currentPage === 1}
+                variant="ghost"
+                onClick={() => setCurrentPage(currentPage - 1)}
+                rounded={"full"}
+              />
+              {Array.from({ length: totalPages }, (_, i) => (
+                <Button
+                  key={i}
+                  size="sm"
+                  rounded={"full"}
+                  colorScheme="orange"
+                  onClick={() => setCurrentPage(i + 1)}
+                  variant={currentPage === i + 1 ? 'solid' : 'ghost'}
+                >
+                  {i + 1}
+                </Button>
+              ))}
+              <IconButton
+                icon={<span>›</span>}
+                aria-label="Next"
+                size="sm"
+                isDisabled={currentPage === totalPages}
+                variant="ghost"
+                onClick={() => setCurrentPage(currentPage + 1)}
+                rounded={"full"}
+              />
+            </Stack>
 
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
@@ -200,10 +232,10 @@ export default function ReturnReasonsList() {
             </Stack>
           </ModalBody>
           <ModalFooter>
-            <Button variant="ghost" mr={3} onClick={onClose}>
+            <Button size={"sm"} variant="ghost" mr={3} onClick={onClose}>
               {t('return_reason.cancel')}
             </Button>
-            <Button colorScheme="orange" onClick={handleSave}>
+            <Button size={"sm"} colorScheme="blue" onClick={handleSave}>
               {t('return_reason.save')}
             </Button>
           </ModalFooter>

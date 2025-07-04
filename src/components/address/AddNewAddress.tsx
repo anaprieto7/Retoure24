@@ -71,7 +71,7 @@ export default function AddNewAddress() {
 
   return (
     <>
-      <Button onClick={onOpen} colorScheme="orange" size="sm" mb={4}>
+      <Button onClick={onOpen} colorScheme="blue" size="sm" mb={4}>
         {t('address_form.add_button')}
       </Button>
 
@@ -216,7 +216,8 @@ export default function AddNewAddress() {
                     transition={{ duration: 0.3 }}
                 >
                     <Button
-                    colorScheme="orange"
+                    colorScheme="blue"
+                    size={"sm"}
                     onClick={handleSave}
                     isLoading={isSaving}
                     loadingText={t('address_form.saving')}

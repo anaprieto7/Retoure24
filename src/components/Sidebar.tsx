@@ -82,7 +82,7 @@ export default function Sidebar() {
 
       <Divider borderColor="gray.600" />
 
-      <SidebarItem icon={FiHelpCircle} label="Hilfe" href="/hilfe" active={pathname === '/hilfe'}  onClick={() => setIsOpen(false)} />
+      <SidebarItem icon={FiHelpCircle} label="HelpCenter" href="/help/account" active={pathname === '/help/account'}  onClick={() => setIsOpen(false)} />
     </VStack>
   )
 

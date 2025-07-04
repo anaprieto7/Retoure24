@@ -107,7 +107,7 @@ export default function AccountInfoCard({ name, email, phone, company }: Props) 
           { label: t("phone_label"), key: 'phone', icon: FiPhone },
           { label: t("company_label"), key: 'company', icon: FiBriefcase },
         ].map(({ label, key, icon }) => (
-          <FormControl key={key} isInvalid={touchedFields[key] && !formData[key].trim()}>
+          <FormControl fontSize={"sm"} key={key} isInvalid={touchedFields[key] && !formData[key].trim()}>
             <HStack spacing={3}>
               <Icon as={icon} color="gray.500" />
               <Editable
@@ -138,11 +138,10 @@ export default function AccountInfoCard({ name, email, phone, company }: Props) 
             leftIcon={<FiEdit3 />}
             colorScheme="blue"
             onClick={handleSave}
-            variant="solid"
+            variant="outline"
             rounded="lg"
             size="sm"
             fontWeight="medium"
-            fontSize="sm"
             boxShadow="md"
             _hover={{ boxShadow: 'lg' }}
             _active={{ boxShadow: 'md' }}

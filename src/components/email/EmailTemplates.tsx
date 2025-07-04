@@ -6,19 +6,23 @@ import {
   FormControl,
   FormLabel,
   Input,
+  InputGroup,
+  InputLeftElement,
   Tab,
   TabList,
   TabPanel,
   TabPanels,
   Tabs,
-  Textarea,
   VStack,
-  Text
+  Text,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-
+import { FiEdit } from "react-icons/fi";
 import type { EmailTemplate, EmailTemplatesProps } from "./types";
+
+import TiptapEditor from "./TiptapEditor"; // asegúrate que el path sea correcto
 
 export default function EmailTemplates({
   templates,
@@ -30,6 +34,9 @@ export default function EmailTemplates({
   const [isSaving, setIsSaving] = useState(false);
 
   const currentTemplate = localTemplates[activeTabIndex];
+
+  const bg = useColorModeValue("white", "gray.800");
+  const border = useColorModeValue("gray.200", "gray.700");
 
   function handleSubjectChange(value: string) {
     setLocalTemplates((prev) =>
@@ -49,7 +56,6 @@ export default function EmailTemplates({
 
   function handleSave() {
     setIsSaving(true);
-    // Simular guardado (en real llamar API)
     setTimeout(() => {
       onUpdateTemplate(localTemplates[activeTabIndex]);
       setIsSaving(false);
@@ -57,20 +63,28 @@ export default function EmailTemplates({
   }
 
   return (
-    <Box borderWidth="1px" borderRadius="md" p={4} bg="white" shadow="sm" mb={6}>
-      <Text fontWeight="bold" mb={4}>
+    <Box
+      borderRadius="md"
+      p={6}
+      bg={bg}
+      shadow="sm"
+      mb={6}
+    >
+      <Text fontWeight="bold" fontSize="lg" mb={4}>
         {t("emailTracking.templates.title")}
       </Text>
+
       <Tabs
         index={activeTabIndex}
         onChange={(index) => setActiveTabIndex(index)}
         variant="enclosed"
-        colorScheme="orange"
+        colorScheme="blue"
+        isFitted
       >
         <TabList>
-          <Tab>{t("emailTracking.templates.returnAccepted")}</Tab>
-          <Tab>{t("emailTracking.templates.returnDelivered")}</Tab>
-          <Tab>{t("emailTracking.templates.receivedWarehouse")}</Tab>
+          <Tab fontSize="sm">{t("emailTracking.templates.returnAccepted")}</Tab>
+          <Tab fontSize="sm">{t("emailTracking.templates.returnDelivered")}</Tab>
+          <Tab fontSize="sm">{t("emailTracking.templates.receivedWarehouse")}</Tab>
         </TabList>
 
         <TabPanels>
@@ -78,30 +92,40 @@ export default function EmailTemplates({
             <TabPanel key={tpl.id}>
               <VStack spacing={4} align="stretch">
                 <FormControl>
-                  <FormLabel>{t("emailTracking.templates.subject")}</FormLabel>
-                  <Input
-                    value={tpl.subject}
-                    onChange={(e) => handleSubjectChange(e.target.value)}
-                    placeholder={t("emailTracking.templates.subjectPlaceholder")}
-                  />
+                  <FormLabel fontSize="sm">
+                    {t("emailTracking.templates.subject")}
+                  </FormLabel>
+                  <InputGroup>
+                    <InputLeftElement pointerEvents="none">
+                      <FiEdit />
+                    </InputLeftElement>
+                    <Input
+                      fontSize="sm"
+                      value={tpl.subject}
+                      onChange={(e) => handleSubjectChange(e.target.value)}
+                      placeholder={t("emailTracking.templates.subjectPlaceholder")}
+                    />
+                  </InputGroup>
                 </FormControl>
 
                 <FormControl>
-                  <FormLabel>{t("emailTracking.templates.content")}</FormLabel>
-                  <Textarea
-                    rows={8}
-                    value={tpl.content}
-                    onChange={(e) => handleContentChange(e.target.value)}
-                    placeholder={t("emailTracking.templates.contentPlaceholder")}
+                  <FormLabel fontSize="sm">
+                    {t("emailTracking.templates.content")}
+                  </FormLabel>
+                  <TiptapEditor
+                    content={tpl.content}
+                    onChange={handleContentChange}
                   />
                 </FormControl>
 
                 <Button
-                  colorScheme="orange"
+                  colorScheme="blue"
+                  size="sm"
                   onClick={handleSave}
                   isLoading={isSaving}
-                  loadingText={t("emailTracking.templates.saving")}
-                  alignSelf="flex-end"
+                  loadingText={t("address_form.saving")}
+                  alignSelf="flex-start"
+                  fontSize="sm"
                 >
                   {t("emailTracking.templates.saveTemplate")}
                 </Button>

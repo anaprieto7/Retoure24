@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Stack, Grid } from "@chakra-ui/react";
+import { Stack, Grid, Flex } from "@chakra-ui/react";
 import { FiSettings, FiMapPin } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
 
@@ -46,9 +46,18 @@ export default function AddressView() {
   return (
     <Stack p={6} maxW="container.lg" mx="auto" spacing={6}>
       <BreadcrumbNav items={breadcrumbs} />
-      <SettingsPageHeader />
+      <Flex
+                direction={{ base: "column", md: "row" }}
+                justify="space-between"
+                align="center"
+                gap={4}
+                mb={0}
+              >
+                <SettingsPageHeader />
+                <AddNewAddress />
+        </Flex>
+      
       <AddressInfoSection />
-      <AddNewAddress />
 
       <Grid
         templateColumns={{ base: "1fr", md: "repeat(1, 1fr)", lg: "repeat(2, 1fr)" }}

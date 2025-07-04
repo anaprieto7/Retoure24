@@ -14,7 +14,7 @@ import {
   VStack,
   HStack,
   useBreakpointValue,
-  Stack
+  Stack, Flex
 } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { FiSettings, FiTruck } from "react-icons/fi";
@@ -22,6 +22,7 @@ import ShippingProviderCard from "./ShippingProviderCard";
 import AddEditProviderModal from "./AddEditProviderModal";
 import SettingsPageHeader from '@/components/SettingsPageHeader'
 import BreadcrumbNav from "../BreadcrumbNav";
+import { FiPlus } from 'react-icons/fi'
 
 const NATIONAL_CODE = "NACIONAL";
 
@@ -179,12 +180,22 @@ export default function ShippingView() {
   return (
     <Stack p={6} maxW="container.lg" mx="auto" spacing={6}>
         <BreadcrumbNav items={breadcrumbs} />
-        <SettingsPageHeader />
-        <Text>{t("shipping.description")}</Text>
+        <Flex
+          direction={{ base: "column", md: "row" }}
+          justify="space-between"
+          align="center"
+          gap={4}
+          mb={0}
+        >
+          <SettingsPageHeader />
+          <Button leftIcon={<FiPlus />} size={"sm"} colorScheme="blue" onClick={openAddModal}>
+            {t("shipping.add_new_provider")}
+          </Button>
+        </Flex>
+
+        <Text fontSize={"sm"} mt={0}>{t("shipping.description")}</Text>
       <VStack spacing={4} align="stretch">
-        <Button colorScheme="orange" onClick={openAddModal}>
-          {t("shipping.add_new_provider")}
-        </Button>
+       
 
         <Tabs
           index={activeTabIndex}
@@ -193,8 +204,8 @@ export default function ShippingView() {
           variant="enclosed"
         >
           <TabList>
-            <Tab>{t("shipping.national")}</Tab>
-            <Tab>{t("shipping.international")}</Tab>
+            <Tab fontSize={"sm"}>{t("shipping.national")}</Tab>
+            <Tab fontSize={"sm"}>{t("shipping.international")}</Tab>
           </TabList>
 
           <TabPanels>
@@ -238,7 +249,8 @@ export default function ShippingView() {
               {/* Tab Internacional con sub-tabs */}
               <Tabs
                 variant="soft-rounded"
-                colorScheme="orange"
+                colorScheme="blue"
+                size={"sm"}
                 index={europeanCountries.findIndex(
                   (c) => c.code === activeCountryCode
                 ) - 1} // -1 porque la primera es nacional

@@ -35,9 +35,10 @@ export default function SettingsSidebar() {
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   const bgActive = useColorModeValue('gray.100', 'gray.800');
-  const colorActive = useColorModeValue('gray.800', 'gray.100');
+  const inactiveColor = useColorModeValue('gray.500', 'gray.400');
   const hoverBg = useColorModeValue('gray.50', 'gray.700');
   const borderColor = useColorModeValue('orange.400', 'orange.300');
+   const textColor = useColorModeValue('gray.700', 'gray.200');
 
   const renderSidebarContent = () => (
     <VStack align="stretch" spacing={1}>
@@ -56,7 +57,7 @@ export default function SettingsSidebar() {
             size="md"
             fontWeight="medium"
             fontSize="sm"
-            color={isActive ? colorActive : 'gray.300'}
+            color={isActive ? textColor : inactiveColor}
             bg={isActive ? bgActive : 'transparent'}
             _hover={{ bg: hoverBg }}
             _active={{ bg: hoverBg }}
@@ -68,6 +69,7 @@ export default function SettingsSidebar() {
             paddingX={4}
             transition="all 0.2s ease"
             aria-current={isActive ? 'page' : undefined}
+            fontWeight={isActive ? 'semibold' : 'normal'}
           >
             {t(item.labelKey)}
           </Button>

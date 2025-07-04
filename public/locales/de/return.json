@@ -237,7 +237,12 @@
   "save": "Speichern",
   "saving": "Speichern...",
   "saved": "Gespeichert",
-  "main_address": "Hauptadresse"
+  "main_address": "Hauptadresse",
+   "types":{
+    "sender":"Absender",
+    "receiver":"Empfänger",
+    "notification":"Adresse für E-Mail-Benachrichtigungen"
+    }
 },
 
 
@@ -278,6 +283,13 @@
   },
 
   "emailTracking": {
+    "title": "E-Mail-Vorlagen",
+    "activateEmailSending": "E-Mail-Versand aktivieren",
+    "emailFrom": "Absender-E-Mail",
+    "emailCCO": "BCC-E-Mail",
+    "description": "Konfigurieren Sie die E-Mail-Adresse, von der die E-Mails gesendet werden, sowie die Empfänger in Blindkopie."
+  ,
+
     "templates": {
       "title": "E-Mail-Vorlagen",
       "returnAccepted": "Rückgabe akzeptiert",
@@ -314,7 +326,18 @@
     "saveError": "Fehler beim Speichern der Konfiguration.",
     "saveAll": "Alle speichern",
     "saving": "Speichert..."
-  }
+  },
+
+  "help": {
+  "account": "Konto",
+  "address": "Adressen",
+  "dispatchers": "Versanddienstleister",
+  "email": "E-Mail-Verfolgung",
+  "sidebar_title": "Hilfe-Menü",
+  "open_sidebar": "Menü öffnen",
+  "return":"Retouren"
+}
+
   }
 
 

@@ -3,6 +3,7 @@
 import { Box, Heading, Text, Flex, useColorModeValue } from '@chakra-ui/react';
 import HelpSidebar from '../HelpSidebar';
 import AccountHelp from '../sections/AccountHelp';
+import HelpContactFooter from '../HelpContactFooter';
 
 export default function AccountHelpView() {
   const headingColor = useColorModeValue('gray.800', 'gray.300');
@@ -17,12 +18,12 @@ export default function AccountHelpView() {
       </Box>
 
       <Box flex="1">
-        <Heading size="lg" mb={2} color={headingColor}>
+        <Heading size="lg" mb={8} color={headingColor}>
           Help Center – Retoure24
         </Heading>
 
-        <Heading size="md" mb={4} color={headingColor}>
-          Account – Help
+        <Heading size="md" mb={8} color={headingColor}>
+          Konto – Hilfe 
         </Heading>
 
         <Box
@@ -32,12 +33,13 @@ export default function AccountHelpView() {
           mb={8}
         >
           <Text fontSize="sm" color={textColor} lineHeight="1.8">
-            In this section you can manage the main information of your Retoure24 account and define access options to the returns page.
+            In diesem Bereich können Sie die wichtigsten Informationen Ihres Retoure24-Kontos verwalten und Zugriffsoptionen auf die Retourenseite festlegen.
           </Text>
         </Box>
 
         <AccountHelp />
+        <HelpContactFooter />
       </Box>
     </Flex>
   );
-}
+} 

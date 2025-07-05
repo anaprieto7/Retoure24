@@ -31,6 +31,12 @@ export default function HelpAccordion({ title, children }: HelpAccordionProps) {
       mb={4}
       bg={bgButton}
       rounded={"xl"}
+      _hover={{
+        shadow: 'sm', bg: 'bgPanel', color: 'gray.500'
+      }}
+      _focus={{ boxShadow: 'none' }}
+      _expanded={{ bg: 'bgPanel', color: 'gray.500' }}
+      transition="background-color 0.2s ease-in-out"
     >
       <h2>
         <AccordionButton
@@ -44,7 +50,7 @@ export default function HelpAccordion({ title, children }: HelpAccordionProps) {
           <AccordionIcon />
         </AccordionButton>
       </h2>
-      <AccordionPanel px={5} pb={5} pt={3} bg={bgPanel}>
+      <AccordionPanel px={5} pb={5} pt={3} bg={bgPanel} >
         <Box fontSize="sm" color={titleColor}>
           {children}
         </Box>

@@ -5,39 +5,44 @@ import HelpAccordion from '../HelpAccordion';
 import { FiUser, FiLink } from 'react-icons/fi';
 import { useTranslation } from 'react-i18next';
 
-export default function EmailHelp() {
+export default function DispatcherHelp() {
   const { t } = useTranslation('return');
   const bgYellow = useColorModeValue('yellow.50', 'yellow.800');
   const bgBlue = useColorModeValue('blue.50', 'blue.800');
 
   return (
     <Accordion allowMultiple defaultIndex={[0]}>
-      <HelpAccordion title=" 1. Wie aktiviert man den automatischen E-Mail-Versand?" icon={FiLink}>
+      <HelpAccordion title=" 1. Wie fügt man einen neue Disponent/Versanddienstleister hinzu?" icon={FiLink}>
+        <Text mb={2}>Klicke auf den Button <strong>  „+ Neuen Disponent hinzufügen“.</strong></Text>
         <Text mb={2}>Fülle die folgenden Felder aus: </Text>
         <ul style={{ paddingLeft: '20px', listStyle: 'disc' }}>
-          <li>Aktiviere die Option<strong> „E-Mail-Versand aktivieren“  </strong></li>
-          <li>Gib Folgendes ein: 
-            <strong> E-Mail Absender, E-Mail Betreff, E-Mail Inhalt</strong>
-            <Text mt={2}>E-Mail-Adresse des Absenders (von dieser Adresse werden die E-Mails gesendet).</Text>
-            <Text mt={2}>Bcc-E-Mail (optional, um eine versteckte Kopie aller gesendeten E-Mails zu erhalten).</Text>
-          </li>
+          <li>Name des Versanddienstleisters (Dispatcher Name)</li>
+          <li>ID (Service-Kennung)</li>
+          <li>Vertragsnummer</li>
+          <li>Typ: National oder International</li>
+          <li>Versanddienstleister (z.B. DHL, DPD, UPS)</li>
+          <li>Versanddienstleister Logo (optional)</li>
+          <li>Typ: National oder International</li>
+          <li>Standard Versanddienstleister (optional)</li>
         </ul>
         <Text mt={2}>Klicke auf den Button <strong>  „Speichern“.</strong></Text>
+        <Text mt={2}>Der neue Disponent/Versanddienstleister wird nun in der Liste angezeigt.</Text>
       </HelpAccordion>
-       <HelpAccordion title="2. Mail templates" icon={FiUser}>
-        <Text mb={2}>Du kannst den Inhalt der E-Mails entsprechend dem Rücksende-Status konfigurieren.</Text>
-        <Text mb={2}>Folgende Vorlagen stehen zur Verfügung:</Text>
+       <HelpAccordion title="2.Wie bearbeitet man einen Disponent?" icon={FiUser}>
         <ul style={{ paddingLeft: '20px', listStyle: 'disc' }}>
-          <li><strong>Rückgabe akzeptiert: </strong> wenn die Rücksendeanfrage akzeptiert wurde</li>
-          <li><strong>Rückgabe an Disponent/Versanddienstleister übergeben: </strong> wenn das Paket dem Disponent übergeben wurde.</li>
-          <li><strong>Rückgabe im Lager eingetroffen: </strong> wenn das Paket im Lager angekommen ist.</li>
-          <li>Jede Vorlage ermöglicht es dir:
-            <Text mt={2}>Den Betreff und den Inhalt der E-Mail anzupassen.</Text>
-            <Text mt={2}>Dynamische Variablen wie [[customer.name]] oder [[order.id]] zu verwenden.</Text>
-          </li>
+          <li>Finde den Disponent im entsprechenden Abschnitt (national oder international).</li>
+          <li>Klicke auf den Button <strong> „Diposent bearbeiten“</strong> .</li>
+          <li>Ändere die notwendigen Felder.</li>
+          <li>Klicke auf <strong>„speichern“ </strong>, um die Änderungen zu sichern.</li>
         </ul>
+        <Alert status="warning" mt={4} rounded={8} bg={bgYellow} borderColor="yellow.300" borderWidth={1}>
+          <Text fontSize="sm">⚠️ Wichtig Disponenten werden derzeit nicht gelöscht, sobald sie erstellt wurden.</Text>
+        </Alert>
         <Alert status="info" mt={4} rounded={8} bg={bgBlue} borderColor="blue.300" borderWidth={1}>
-          <Text fontSize="sm">💡 Du kannst den Rich-Text-Editor verwenden, um Formatierungen, Links, Symbole usw. hinzuzufügen.</Text>
+          <Text fontSize="sm">Du kannst deren Daten bearbeiten, falls sich etwas ändert.</Text>
+        </Alert>
+        <Alert status="info" mt={4} rounded={8} bg={bgBlue} borderColor="blue.300" borderWidth={1}>
+          <Text fontSize="sm">Achte darauf, die Vertragsnummer und die ID korrekt einzugeben, um eine reibungslose Integration mit dem Versanddienst zu gewährleisten.</Text>
         </Alert>
       </HelpAccordion>
     </Accordion>

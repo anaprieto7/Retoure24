@@ -82,7 +82,7 @@ export default function Sidebar() {
 
       <Divider borderColor="gray.600" />
 
-      <SidebarItem icon={FiHelpCircle} label="HelpCenter" href="/help/account" active={pathname === '/help/account'}  onClick={() => setIsOpen(false)} />
+      <SidebarItem icon={FiHelpCircle} label="HelpCenter" href="/help/account" active={pathname === '/help/account' || pathname === '/help/address' || pathname === '/help/shipping' || pathname === '/help/email' || pathname === '/help/returns'}  onClick={() => setIsOpen(false)} />
     </VStack>
   )
 
@@ -199,4 +199,4 @@ function SidebarItem({
 
   )
 }
-// Compare this snippet from src/app/dashboard/page.tsx:
+// Compare this snippet from src/app/dashboard/page.tsx: 

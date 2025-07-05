@@ -16,14 +16,15 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { usePathname, useRouter } from 'next/navigation';
-import { FiUser, FiMapPin, FiTruck, FiMail, FiHelpCircle } from 'react-icons/fi';
+import { FiUser, FiMapPin, FiTruck, FiMail, FiHelpCircle, FiLayout } from 'react-icons/fi';
 import { useTranslation } from 'react-i18next';
 
 const navItems = [
-  { labelKey: 'help.account', icon: FiUser, path: 'account' },
-  { labelKey: 'help.address', icon: FiMapPin, path: 'shipping' },
+  { labelKey: 'help.konto', icon: FiUser, path: 'account' },
+  { labelKey: 'help.addresses', icon: FiMapPin, path: 'address' },
+  { labelKey: 'help.dispatchers', icon: FiTruck, path: 'shipping' },
   { labelKey: 'help.email', icon: FiMail, path: 'email' },
-  { labelKey: 'help.return', icon: FiMail, path: 'return' },
+  { labelKey: 'help.returns', icon: FiLayout, path: 'returns' },
 ];
 
 export default function HelpSidebar() {

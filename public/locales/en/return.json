@@ -321,16 +321,76 @@
     "saving": "Saving..."
   },
   "help": {
-  "account": "Account",
-  "address": "Addresses",
+  "konto": "Account",
+  "addresses": "Addresses",
   "dispatchers": "Shipping Providers",
   "email": "Email Tracking",
   "sidebar_title": "Help Menu",
   "open_sidebar": "Open menu",
-  "return":"Returns"
+  "returns":"Returns",
+
+  "account": {
+    "title_1": "1. Account Information",
+    "title_2": "2. Options for accessing the returns page.",
+    "title_3": "3. User List",
+    "title_4": "4. How to add the logo to your brand",
+    "info_intro": "You can update the following info:",
+    "info_name": "Name and surname",
+    "info_email": "Email address",
+    "info_phone": "Phone number",
+    "info_company": "Company name",
+    "note": "Note",
+    "change_password": "You can also change your password here.",
+    "important": "Important",
+    "verify_email": "If you change your email address, you will need to verify it again.",
+    "warning": "Warning",
+    "logout_email": "If you change your email address, you will be logged out and will need to log in again with the new email.",
+    "how_update": "How can I update the information? Click on the “Edit” button, make the desired changes and save them.",
+    "auth_intro": "Define how your customers can authenticate themselves to access the returns page and register a return.",
+    "auth_options": "You can select one or more of the following combinations:",
+    "option_zip": "Order number + zip code (recommended)",
+    "option_email": "Order number + email address",
+    "option_phone": "Order number + phone number",
+    "option_id": "Order number + ID card number (strictest verification)",
+    "switches": "Activate or deactivate the options using the switches.",
+    "only_one": "Only one option can be activated.",
+    "user_intro": "Here you can manage the users who have access to Retoure24 in your company.",
+    "user_info": "Information displayed:",
+    "user_name": "Name",
+    "user_email": "Email address",
+    "user_role": "Role (Admin, Manager, Customer Service, etc.)",
+    "user_status": "Status (Active / Inactive)",
+    "user_actions": "Available actions: ✏️ Edit user  🗑️ Delete user",
+    "add_user": "To add a new user, click on the “Add new user” button.",
+    "logo_intro": "Here you can upload your company logo.",
+    "logo_info": "Accepted file specifications:",
+    "logo_format": "Upload an image file in JPG or PNG format.",
+    "logo_resolution": "Recommended resolution: 800x400 px.",
+    "logo_size": "Maximum file size: 10 MB.",
+    "logo_note": "The logo will be displayed at the top of the emails sent to your customers."
+  },
+  "address": {
+    "title_1": "1. How do I add a new address?",
+    "title_2": "2. How do I edit an address?",
+    "step_1": "Click on the “+ Add new address” button.",
+    "step_2": "Fill in the required information.",
+    "step_3": "Save to make the address available in the system.",
+    "edit_intro": "To edit one of the configured addresses:",
+    "edit_1": "Find the map of the address you want to edit.",
+    "edit_2": "Click on the “Edit” button.",
+    "edit_3": "Update the necessary data and save the changes.",
+    "warning": "Important: Existing addresses are not deleted. Addresses can only be edited or deactivated/activated, but not deleted."
+  },
+  "contact": {
+  "title": "Do you still have a question?",
+  "subtitle": "If you didn’t find an answer in our FAQ, feel free to contact us. We’ll respond as soon as possible!",
+  "phone_desc": "We are always happy to help you!",
+  "email_desc": "The best way to get a quick response!"
+}
+}
 }
 
 
-  }
+  
 
 

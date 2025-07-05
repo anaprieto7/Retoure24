@@ -324,13 +324,72 @@
   },
 
   "help": {
-  "account": "Cuenta",
-  "address": "Direcciones",
+  "konto": "Cuenta",
+  "addresses": "Direcciones",
   "dispatchers": "Proveedores de envío",
   "email": "Seguimiento por correo",
   "sidebar_title": "Menú de ayuda",
   "open_sidebar": "Abrir menú",
-  "return":"Devoluciones"
+  "returns":"Devoluciones",
+   "account": {
+    "title_1": "1. Información de la cuenta",
+    "title_2": "2. Opciones para acceder a la página de devoluciones",
+    "title_3": "3. Lista de usuarios",
+    "title_4": "4. Cómo añadir el logo a tu marca",
+    "info_intro": "Puedes actualizar la siguiente información:",
+    "info_name": "Nombre y apellido",
+    "info_email": "Dirección de correo electrónico",
+    "info_phone": "Número de teléfono",
+    "info_company": "Nombre de la empresa",
+    "note": "Nota",
+    "change_password": "También puedes cambiar tu contraseña aquí.",
+    "important": "Importante",
+    "verify_email": "Si cambias tu correo electrónico, deberás verificarlo nuevamente.",
+    "warning": "Advertencia",
+    "logout_email": "Si cambias tu correo electrónico, se cerrará tu sesión y deberás iniciar sesión nuevamente con el nuevo correo.",
+    "how_update": "¿Cómo puedo actualizar la información? Haz clic en el botón “Editar”, realiza los cambios deseados y guárdalos.",
+    "auth_intro": "Define cómo tus clientes pueden autenticarse para acceder a la página de devoluciones y registrar una devolución.",
+    "auth_options": "Puedes seleccionar una o más de las siguientes combinaciones:",
+    "option_zip": "Número de pedido + código postal (recomendado)",
+    "option_email": "Número de pedido + correo electrónico",
+    "option_phone": "Número de pedido + número de teléfono",
+    "option_id": "Número de pedido + número de documento (verificación más estricta)",
+    "switches": "Activa o desactiva las opciones usando los interruptores.",
+    "only_one": "Solo se puede activar una opción.",
+    "user_intro": "Aquí puedes gestionar los usuarios que tienen acceso a Retoure24 en tu empresa.",
+    "user_info": "Información mostrada:",
+    "user_name": "Nombre",
+    "user_email": "Correo electrónico",
+    "user_role": "Rol (Administrador, Gerente, Atención al cliente, etc.)",
+    "user_status": "Estado (Activo / Inactivo)",
+    "user_actions": "Acciones disponibles: ✏️ Editar usuario  🗑️ Eliminar usuario",
+    "add_user": "Para añadir un nuevo usuario, haz clic en el botón “Añadir nuevo usuario”.",
+    "logo_intro": "Aquí puedes subir el logo de tu empresa.",
+    "logo_info": "Especificaciones aceptadas:",
+    "logo_format": "Sube un archivo de imagen en formato JPG o PNG.",
+    "logo_resolution": "Resolución recomendada: 800x400 px.",
+    "logo_size": "Tamaño máximo del archivo: 10 MB.",
+    "logo_note": "El logo se mostrará en la parte superior de los correos electrónicos enviados a tus clientes."
+  },
+   "address": {
+    "title_1": "1. ¿Cómo agrego una nueva dirección?",
+    "title_2": "2. ¿Cómo edito una dirección?",
+    "step_1": "Haz clic en el botón “+ Agregar nueva dirección”.",
+    "step_2": "Rellena la información requerida.",
+    "step_3": "Guarda para que la dirección esté disponible en el sistema.",
+    "edit_intro": "Para editar una de las direcciones configuradas:",
+    "edit_1": "Busca el mapa de la dirección que deseas editar.",
+    "edit_2": "Haz clic en el botón “Editar”.",
+    "edit_3": "Actualiza los datos necesarios y guarda los cambios.",
+    "warning": "Importante: Las direcciones existentes no se eliminan. Solo pueden editarse o activarse/desactivarse, pero no eliminarse."
+  },
+  "contact": {
+  "title": "¿Aún tienes una pregunta?",
+  "subtitle": "Si no encontraste una respuesta en nuestras preguntas frecuentes, contáctanos. ¡Responderemos lo antes posible!",
+  "phone_desc": "¡Estamos encantados de ayudarte en cualquier momento!",
+  "email_desc": "¡La mejor manera de obtener una respuesta rápida!"
+}
+
 }
 
   }

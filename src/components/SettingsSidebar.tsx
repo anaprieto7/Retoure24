@@ -118,4 +118,4 @@ export default function SettingsSidebar() {
 // The sidebar is responsive, showing a drawer on mobile devices and a fixed sidebar on larger screens.
 // The sidebar includes navigation buttons for account settings, addresses, shipping, and email tracking.
 // It highlights the active section based on the current route.
-// The component also supports internationalization using react-i18next for translations.
+// The component also supports internationalization using react-i18next for translations.  

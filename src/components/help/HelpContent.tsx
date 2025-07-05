@@ -2,7 +2,7 @@
 
 import AccountHelp from './sections/AccountHelp';
 import AddressHelp from './sections/AddressHelp';
-import DistpacherHelp from './sections/DistpacherHelp';
+import DistpacherHelp from './sections/DispatcherHelp';
 import EmailHelp from './sections/EmailHelp';
 import ReturnsHelp from './sections/ReturnsHelp';
 

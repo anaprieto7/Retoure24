@@ -329,13 +329,72 @@
   },
 
   "help": {
-  "account": "Konto",
-  "address": "Adressen",
+  "konto": "Konto",
+  "addresses": "Adressen",
   "dispatchers": "Versanddienstleister",
   "email": "E-Mail-Verfolgung",
   "sidebar_title": "Hilfe-Menü",
   "open_sidebar": "Menü öffnen",
-  "return":"Retouren"
+  "returns":"Retouren",
+  "account": {
+    "title_1": "1. Kontoinformationen",
+    "title_2": "2. Optionen für den Zugang zur Rückgabeseite",
+    "title_3": "3. Benutzerliste",
+    "title_4": "4. So fügen Sie das Logo Ihrer Marke hinzu",
+    "info_intro": "Sie können folgende Informationen aktualisieren:",
+    "info_name": "Vor- und Nachname",
+    "info_email": "E-Mail-Adresse",
+    "info_phone": "Telefonnummer",
+    "info_company": "Firmenname",
+    "note": "Hinweis",
+    "change_password": "Sie können hier auch Ihr Passwort ändern.",
+    "important": "Wichtig",
+    "verify_email": "Wenn Sie Ihre E-Mail-Adresse ändern, müssen Sie sie erneut verifizieren.",
+    "warning": "Warnung",
+    "logout_email": "Wenn Sie Ihre E-Mail-Adresse ändern, werden Sie abgemeldet und müssen sich mit der neuen E-Mail erneut anmelden.",
+    "how_update": "Wie kann ich die Informationen aktualisieren? Klicken Sie auf den Button „Bearbeiten“, nehmen Sie die gewünschten Änderungen vor und speichern Sie diese.",
+    "auth_intro": "Legen Sie fest, wie sich Ihre Kunden authentifizieren können, um auf die Rückgabeseite zuzugreifen und eine Rückgabe zu registrieren.",
+    "auth_options": "Sie können eine oder mehrere der folgenden Kombinationen auswählen:",
+    "option_zip": "Bestellnummer + Postleitzahl (empfohlen)",
+    "option_email": "Bestellnummer + E-Mail-Adresse",
+    "option_phone": "Bestellnummer + Telefonnummer",
+    "option_id": "Bestellnummer + Personalausweisnummer (strengste Verifizierung)",
+    "switches": "Aktivieren oder deaktivieren Sie die Optionen mit den Schaltern.",
+    "only_one": "Nur eine Option kann aktiviert werden.",
+    "user_intro": "Hier können Sie die Benutzer verwalten, die in Ihrem Unternehmen Zugriff auf Retoure24 haben.",
+    "user_info": "Angezeigte Informationen:",
+    "user_name": "Name",
+    "user_email": "E-Mail-Adresse",
+    "user_role": "Rolle (Admin, Manager, Kundenservice usw.)",
+    "user_status": "Status (Aktiv / Inaktiv)",
+    "user_actions": "Verfügbare Aktionen: ✏️ Benutzer bearbeiten 🗑️ Benutzer löschen",
+    "add_user": "Um einen neuen Benutzer hinzuzufügen, klicken Sie auf die Schaltfläche „Neuen Benutzer hinzufügen“.",
+    "logo_intro": "Hier können Sie das Logo Ihres Unternehmens hochladen.",
+    "logo_info": "Erlaubte Dateispezifikationen:",
+    "logo_format": "Laden Sie eine Bilddatei im JPG- oder PNG-Format hoch.",
+    "logo_resolution": "Empfohlene Auflösung: 800x400 px.",
+    "logo_size": "Maximale Dateigröße: 10 MB.",
+    "logo_note": "Das Logo wird oben in den E-Mails angezeigt, die an Ihre Kunden gesendet werden."
+  },
+  "address": {
+    "title_1": "1. Wie füge ich eine neue Adresse hinzu?",
+    "title_2": "2. Wie bearbeite ich eine Adresse?",
+    "step_1": "Klicken Sie auf die Schaltfläche „+ Neue Adresse hinzufügen“.",
+    "step_2": "Füllen Sie die erforderlichen Informationen aus.",
+    "step_3": "Speichern Sie, um die Adresse im System verfügbar zu machen.",
+    "edit_intro": "So bearbeiten Sie eine der konfigurierten Adressen:",
+    "edit_1": "Suchen Sie die Karte der Adresse, die Sie bearbeiten möchten.",
+    "edit_2": "Klicken Sie auf die Schaltfläche „Bearbeiten“.",
+    "edit_3": "Aktualisieren Sie die notwendigen Daten und speichern Sie die Änderungen.",
+    "warning": "Wichtig: Bestehende Adressen werden nicht gelöscht. Sie können nur bearbeitet oder aktiviert/deaktiviert werden, aber nicht gelöscht."
+  },
+  "contact": {
+  "title": "Hast du noch eine Frage?",
+  "subtitle": "Falls du in unseren FAQ keine passende Antwort findest, kannst du uns jederzeit kontaktieren. Wir werden dir so schnell wie möglich antworten!",
+  "phone_desc": "Wir helfen dir jederzeit gerne!",
+  "email_desc": "Der beste Weg, um schnell eine Antwort zu bekommen!"
+}
+
 }
 
   }

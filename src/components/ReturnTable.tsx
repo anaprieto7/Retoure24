@@ -29,6 +29,19 @@ import SortIcon from "@/components/SortIcon";
 import Papa from "papaparse";
 import jsPDF from "jspdf";
 import { motion, AnimatePresence } from "framer-motion";
+import { mockShops } from "@/data/mockShops";
+import { mockWarehouses } from "@/data/mockWarehouses";
+
+
+const getShopName = (shopId: string) =>
+  mockShops.find((s) => s.id === shopId)?.name || "-";
+
+const getWarehouseName = (shopId: string) => {
+  const shop = mockShops.find((s) => s.id === shopId);
+  if (!shop) return "-";
+  return mockWarehouses.find((w) => w.id === shop.warehouseId)?.name || "-";
+};
+
 
 // Interface
 export interface ReturnItem {
@@ -39,16 +52,23 @@ export interface ReturnItem {
   products: string;
   returnReason: string;
   returnStatus: string;
+  shopId?: string; // Opcional si no siempre está
+  warehouseId?: string; // Opcional si no siempre está
+  shopName?: string; // Nombre de la tienda, opcional si no siempre está
+  warehouseName?: string; // Nombre del almacén, opcional si no siempre está
 }
 
 interface ReturnTableProps {
   returns: ReturnItem[];
   onClearFilters: () => void; // Para el botón de limpiar filtros
+  showShop?: boolean;
+  showWarehouse?: boolean;
 }
 
 const ROWS_PER_PAGE_OPTIONS = [5, 8, 12, 20];
 
-const ReturnTable: FC<ReturnTableProps> = ({ returns, onClearFilters }) => {
+
+const ReturnTable: FC<ReturnTableProps> = ({ returns, onClearFilters, showShop = false, showWarehouse = false }) => {
   // Paginación
   const [rowsPerPage, setRowsPerPage] = useState(8);
   const [page, setPage] = useState(1);
@@ -90,6 +110,10 @@ const ReturnTable: FC<ReturnTableProps> = ({ returns, onClearFilters }) => {
   const borderColor = useColorModeValue("blue.200", "gray.700");
   const headerBg = useColorModeValue("blue.50", "gray.900");
   const headerColor = useColorModeValue("blue.900", "gray.100");
+  const highlightBg = useColorModeValue("gray.50", "gray.800"); // gray.50/light, gray.800/dark
+  const hoverBg = useColorModeValue("gray.100", "gray.700");     // gray.100/light, gray.700/dark
+  const thColor = useColorModeValue("gray.700", "gray.300");
+  const tdColor = useColorModeValue("blue.900", "blue.50");
 
   // Exportar todo o solo lo seleccionado
 const handleExportSelectedOrAll = () => {
@@ -193,7 +217,8 @@ const exportToPDF = (data: ReturnItem[]) => {
     return [1, "...", page - 1, page, page + 1, "...", totalPages];
   };
   const allChecked = pagedData.length > 0 && pagedData.every(item => selectedRows.includes(item.id));
-const isIndeterminate = selectedRows.length > 0 && !allChecked && pagedData.some(item => selectedRows.includes(item.id));
+  const isIndeterminate = selectedRows.length > 0 && !allChecked && pagedData.some(item => selectedRows.includes(item.id));
+
 
 
 
@@ -297,7 +322,7 @@ const isIndeterminate = selectedRows.length > 0 && !allChecked && pagedData.some
           py={2}
           my={2}
           fontSize="sm"
-          color={useColorModeValue("gray.700", "gray.300")}
+          color={thColor}
           bgColor={useColorModeValue("gray.50", "gray.700")}
           display="flex"
           alignItems="center"
@@ -353,14 +378,16 @@ const isIndeterminate = selectedRows.length > 0 && !allChecked && pagedData.some
 
               </Th>
               {/* ... (el resto de los Th con ordenamiento, como ya tienes) */}
-              <Th onClick={() => setSortConfig({ key: "id", direction: sortConfig.direction === "asc" ? "desc" : "asc" })} cursor="pointer" color={useColorModeValue("gray.700", "gray.300")}>ID <SortIcon direction={sortConfig.key === "id" ? sortConfig.direction : undefined} active={sortConfig.key === "id"} /></Th>
-              <Th onClick={() => setSortConfig({ key: "customer", direction: sortConfig.direction === "asc" ? "desc" : "asc" })} cursor="pointer" color={useColorModeValue("gray.700", "gray.300")}>Customer <SortIcon direction={sortConfig.key === "customer" ? sortConfig.direction : undefined} active={sortConfig.key === "customer"} /></Th>
-              <Th onClick={() => setSortConfig({ key: "trackingNumber", direction: sortConfig.direction === "asc" ? "desc" : "asc" })} cursor="pointer" color={useColorModeValue("gray.700", "gray.300")}>Tracking No <SortIcon direction={sortConfig.key === "trackingNumber" ? sortConfig.direction : undefined} active={sortConfig.key === "trackingNumber"} /></Th>
-              <Th onClick={() => setSortConfig({ key: "requestDate", direction: sortConfig.direction === "asc" ? "desc" : "asc" })} cursor="pointer" color={useColorModeValue("gray.700", "gray.300")}>Request Date <SortIcon direction={sortConfig.key === "requestDate" ? sortConfig.direction : undefined} active={sortConfig.key === "requestDate"} /></Th>
-              <Th onClick={() => setSortConfig({ key: "products", direction: sortConfig.direction === "asc" ? "desc" : "asc" })} cursor="pointer" color={useColorModeValue("gray.700", "gray.300")}>Products <SortIcon direction={sortConfig.key === "products" ? sortConfig.direction : undefined} active={sortConfig.key === "products"} /></Th>
-              <Th onClick={() => setSortConfig({ key: "returnReason", direction: sortConfig.direction === "asc" ? "desc" : "asc" })} cursor="pointer" color={useColorModeValue("gray.700", "gray.300")}>Reason <SortIcon direction={sortConfig.key === "returnReason" ? sortConfig.direction : undefined} active={sortConfig.key === "returnReason"} /></Th>
-              <Th onClick={() => setSortConfig({ key: "returnStatus", direction: sortConfig.direction === "asc" ? "desc" : "asc" })} cursor="pointer" color={useColorModeValue("gray.700", "gray.300")}>Status <SortIcon direction={sortConfig.key === "returnStatus" ? sortConfig.direction : undefined} active={sortConfig.key === "returnStatus"} /></Th>
-              <Th color={useColorModeValue("gray.700", "gray.300")}>Actions</Th>
+              <Th onClick={() => setSortConfig({ key: "id", direction: sortConfig.direction === "asc" ? "desc" : "asc" })} cursor="pointer" color={thColor}>ID <SortIcon direction={sortConfig.key === "id" ? sortConfig.direction : undefined} active={sortConfig.key === "id"} /></Th>
+              <Th onClick={() => setSortConfig({ key: "customer", direction: sortConfig.direction === "asc" ? "desc" : "asc" })} cursor="pointer" color={thColor}>Customer <SortIcon direction={sortConfig.key === "customer" ? sortConfig.direction : undefined} active={sortConfig.key === "customer"} /></Th>
+              {showShop && <Th onClick={() => setSortConfig({ key: "shopName", direction: sortConfig.direction === "asc" ? "desc" : "asc" })} cursor="pointer" color={thColor}>Shop <SortIcon direction={sortConfig.key === "shopName" ? sortConfig.direction : undefined} active={sortConfig.key === "shopName"} /></Th>}
+              {showWarehouse && <Th onClick={() => setSortConfig({ key: "warehouseName", direction: sortConfig.direction === "asc" ? "desc" : "asc" })} cursor="pointer" color={thColor}>Warehouse <SortIcon direction={sortConfig.key === "warehouseName" ? sortConfig.direction : undefined} active={sortConfig.key === "warehouseName"} /></Th>}
+              <Th onClick={() => setSortConfig({ key: "trackingNumber", direction: sortConfig.direction === "asc" ? "desc" : "asc" })} cursor="pointer" color={thColor}>Tracking No <SortIcon direction={sortConfig.key === "trackingNumber" ? sortConfig.direction : undefined} active={sortConfig.key === "trackingNumber"} /></Th>
+              <Th onClick={() => setSortConfig({ key: "requestDate", direction: sortConfig.direction === "asc" ? "desc" : "asc" })} cursor="pointer" color={thColor}>Request Date <SortIcon direction={sortConfig.key === "requestDate" ? sortConfig.direction : undefined} active={sortConfig.key === "requestDate"} /></Th>
+              <Th onClick={() => setSortConfig({ key: "products", direction: sortConfig.direction === "asc" ? "desc" : "asc" })} cursor="pointer" color={thColor}>Products <SortIcon direction={sortConfig.key === "products" ? sortConfig.direction : undefined} active={sortConfig.key === "products"} /></Th>
+              <Th onClick={() => setSortConfig({ key: "returnReason", direction: sortConfig.direction === "asc" ? "desc" : "asc" })} cursor="pointer" color={thColor}>Reason <SortIcon direction={sortConfig.key === "returnReason" ? sortConfig.direction : undefined} active={sortConfig.key === "returnReason"} /></Th>
+              <Th onClick={() => setSortConfig({ key: "returnStatus", direction: sortConfig.direction === "asc" ? "desc" : "asc" })} cursor="pointer" color={thColor}>Status <SortIcon direction={sortConfig.key === "returnStatus" ? sortConfig.direction : undefined} active={sortConfig.key === "returnStatus"} /></Th>
+              <Th color={thColor}>Actions</Th>
             </Tr>
           </Thead>
           <Tbody>
@@ -393,8 +420,6 @@ const isIndeterminate = selectedRows.length > 0 && !allChecked && pagedData.some
     ) : (
       pagedData.map((item, idx) => {
         const isSelected = selectedRows.includes(item.id);
-        const highlightBg = useColorModeValue("#F7FAFC", "#1A202C"); // gray.50/light, gray.800/dark
-        const hoverBg = useColorModeValue("#EDF2F7", "#2D3748");     // gray.100/light, gray.700/dark
 
         return (
           <motion.tr
@@ -427,20 +452,22 @@ const isIndeterminate = selectedRows.length > 0 && !allChecked && pagedData.some
                 aria-label={`Seleccionar fila ${item.id}`}
               />
             </Td>
-            <Td color={useColorModeValue("blue.900", "blue.50")} fontSize="sm" fontWeight="semibold">{item.id}</Td>
-            <Td fontSize="sm">{item.customer}</Td>
-            <Td fontSize="sm">{item.trackingNumber}</Td>
+            <Td color={tdColor} fontSize="sm" fontWeight="semibold">{item.id}</Td>
+            <Td fontSize="sm">{item.client?.name}</Td>
+            {showShop && <Td fontSize="sm">{getShopName(item.shopId)}</Td>}
+            {showWarehouse && <Td fontSize="sm">{getWarehouseName(item.shopId)}</Td>}
+            <Td fontSize="sm">{item.trackingNumber || '-'}</Td>
             <Td fontSize="sm">{item.requestDate}</Td>
-            <Td fontSize="sm">{item.products}</Td>
-            <Td fontSize="sm">{item.returnReason}</Td>
+            <Td fontSize="sm">{item.products.map((p) => p.name).join(', ')}</Td>
+            <Td fontSize="sm">{item.products.map(p => p.reason).join(", ")}</Td>
             <Td>
-              <ReturnStatusBadge status={item.returnStatus} />
+              <ReturnStatusBadge status={item.status} />
             </Td>
             <Td>
               <Tooltip label="View details of this return">
                 <ChakraLink
                   as={NextLink}
-                  href="/ReturnDetails" // Cambia esto por el enlace correcto
+                  href={`/returns/${item.id}`} 
                   _hover={{ textDecoration: "none" }}
                   
                 >

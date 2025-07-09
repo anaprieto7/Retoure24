@@ -1,51 +1,18 @@
 "use client";
 
 import { Box, Flex, SimpleGrid, Heading, GridItem, Text, useColorModeValue } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
+import { FiShoppingBag, FiEdit, FiX, FiDollarSign, FiTrendingUp } from "react-icons/fi";
+
 import StoreMultiSelector from "@/components/dashboard/StoreMultiSelector";
 import DashboardCardsGlobal from "@/components/dashboard/DashboardCardsGlobal";
 import ReturnsShops from "@/components/dashboard/ReturnsShops";
-import { FiShoppingBag, FiEdit, FiX, FiDollarSign, FiTrendingUp } from "react-icons/fi";
 import TopReturnedProductsGlobal from "@/components/dashboard/TopReturnedProductsGlobal";
 
-const topReturnedProducts = [
-  {
-    product: "Xiaomi X Blau 128 g",
-    store: "Zara",
-    serial: "93837464",
-    returns: 132,
-  },
-  {
-    product: "Samsung Galaxy S21 256 g",
-    store: "H&M",
-    serial: "84736291",
-    returns: 200,
-  },
-  {
-    product: "Apple iPhone 13 128 g",
-    store: "Mango",
-    serial: "56372819",
-    returns: 150,
-  },
-  {
-    product: "OnePlus 9 Pro 256 g",
-    store: "H&M",
-    serial: "47638291",
-    returns: 90,
-  },
-  {
-    product: "Google Pixel 6 128 g",
-    store: "Zara",
-    serial: "19283746",
-    returns: 75,
-  },
-];
+import returnsMock from "@/data/returnsMock";
+import { mockShops } from "@/data/mockShops";
 
-
-
-
-
-
+type StoreOption = { label: string; value: string };
 
 type StoreMetrics = {
   store: string;
@@ -57,45 +24,61 @@ type StoreMetrics = {
   commonReason: string;
 };
 
+const allStores: StoreOption[] = mockShops.map((shop) => ({
+  label: shop.name,
+  value: shop.id,
+}));
 
-const metricsPerStore: StoreMetrics[] = [
-  {
-    store: "Zara",
-    totalReturns: 120,
-    registered: 60,
-    cancelled: 10,
-    refunded: 100,
-    returnRate: 8.2,
-    commonReason: "Too small",
-  },
-  {
-    store: "H&M",
-    totalReturns: 95,
-    registered: 52,
-    cancelled: 8,
-    refunded: 82,
-    returnRate: 6.1,
-    commonReason: "Wrong item",
-  },
-  {
-    store: "Mango",
-    totalReturns: 80,
-    registered: 32,
-    cancelled: 15,
-    refunded: 67,
-    returnRate: 7.3,
-    commonReason: "Color mismatch",
-  },
-];
+// Calcular métricas reales por tienda
+function getMetricsPerStoreFromReturns(): StoreMetrics[] {
+  const grouped: Record<string, StoreMetrics> = {};
 
-const allStores: StoreOption[] = [
-  { label: "Zara", value: "zara" },
-  { label: "H&M", value: "hm" },
-  { label: "Mango", value: "mango" },
-];
+  returnsMock.forEach((ret) => {
+    const shop = mockShops.find((s) => s.id === ret.shopId);
+    const storeName = shop?.name || ret.shopId;
 
+    if (!grouped[ret.shopId]) {
+      grouped[ret.shopId] = {
+        store: storeName,
+        totalReturns: 0,
+        registered: 0,
+        cancelled: 0,
+        refunded: 0,
+        returnRate: 0,
+        commonReason: "",
+      };
+    }
 
-type StoreOption = { label: string; value: string };
+    const group = grouped[ret.shopId];
+    group.totalReturns += 1;
+    if (ret.status === "Registered") group.registered += 1;
+    if (ret.status === "Cancelled") group.cancelled += 1;
+    if (ret.status === "Refunded") group.refunded += 1;
+  });
+
+  // Calcular razones más comunes por tienda
+  Object.entries(grouped).forEach(([shopId, group]) => {
+    const reasons: Record<string, number> = {};
+    returnsMock
+      .filter((r) => r.shopId === shopId)
+      .forEach((r) => {
+        r.products?.forEach((p) => {
+          const reason = p.reason?.trim();
+          if (reason) {
+            reasons[reason] = (reasons[reason] || 0) + (p.quantity || 1);
+          }
+        });
+      });
+
+    const sorted = Object.entries(reasons).sort((a, b) => b[1] - a[1]);
+    group.commonReason = sorted[0]?.[0] || "N/A";
+
+    // Simulamos tasa
+    group.returnRate = Number((group.totalReturns / 100) * 10);
+  });
+
+  return Object.values(grouped);
+}
 
 function getMetricDataByStores(
   selectedStores: StoreOption[],
@@ -112,19 +95,16 @@ function getMetricDataByStores(
     filtered.reduce((acc, curr) => acc + (curr[key] as number), 0);
 
   const average = (key: keyof StoreMetrics) =>
-    filtered.length > 0
-      ? sum(key) / filtered.length
-      : 0;
+    filtered.length > 0 ? sum(key) / filtered.length : 0;
 
   const mostCommonReason = (() => {
-    const reasonCount: { [reason: string]: number } = {};
+    const reasonCount: Record<string, number> = {};
     filtered.forEach((store) => {
       reasonCount[store.commonReason] = (reasonCount[store.commonReason] || 0) + 1;
     });
     const sorted = Object.entries(reasonCount).sort((a, b) => b[1] - a[1]);
     return sorted[0]?.[0] || "N/A";
   })();
-
 
   return [
     {
@@ -174,35 +154,34 @@ function getMetricDataByStores(
   ];
 }
 
-export default function DashboardGlobal() {
-  const [selectedStores, setSelectedStores] = useState(allStores); // por defecto: All
-  const returnsByStore = metricsPerStore.map((store) => ({
-  store: store.store,
-  returns: store.totalReturns,
-}));
+export default function DashboardGlobalView() {
+  const [selectedStores, setSelectedStores] = useState<StoreOption[]>(allStores);
+  const [searchTerm, setSearchTerm] = useState("");
 
+  const metricsPerStore = useMemo(() => getMetricsPerStoreFromReturns(), []);
+  const metricDataGlobal = useMemo(
+    () => getMetricDataByStores(selectedStores, metricsPerStore),
+    [selectedStores, metricsPerStore]
+  );
 
-  const filteredReturns =
-    selectedStores.length > 0
-      ? returnsByStore.filter((item) =>
-          selectedStores.some((s) => s.label === item.store)
-        )
-      : returnsByStore;
-
-const metricDataGlobal = getMetricDataByStores(selectedStores, metricsPerStore);
-const [searchTerm, setSearchTerm] = useState("");
+  const filteredReturns = useMemo(() => {
+    return returnsMock.filter((r) =>
+      selectedStores.some((s) => s.value === r.shopId)
+    );
+  }, [selectedStores]);
 
   return (
     <Box p={6}>
       <Flex direction="column" mb={6}>
-    <Heading size="lg" color={useColorModeValue("gray.700", "gray.100")}>
-      Hello, Ana 👋
-    </Heading>
-    <Text fontSize="md" color={useColorModeValue("gray.500", "gray.400")}>
-      Here's what's happening in your stores today – 📍Kiel, Germany
-    </Text>
-  </Flex>
-      {/* Selector arriba */}
+        <Heading size="lg" color={useColorModeValue("gray.700", "gray.100")}>
+          Hello, Ana 👋
+        </Heading>
+        <Text fontSize="md" color={useColorModeValue("gray.500", "gray.400")}>
+          Here's what's happening in your stores today – 📍Kiel, Germany
+        </Text>
+      </Flex>
+
+      {/* Selector y buscador */}
       <Flex justify="space-between" mb={6}>
         <Box flex="1">
           {/* Aquí irá GlobalSearch */}
@@ -213,39 +192,37 @@ const [searchTerm, setSearchTerm] = useState("");
           onChange={setSelectedStores}
         />
       </Flex>
-      <Heading size="md" mb={4}>
-  Dashboard {" "}
-  {selectedStores.length === 0
-    ? "– All stores"
-    : `- ${selectedStores.map((s) => s.label).join(", ")}`}
-</Heading>
 
-      {/* KPIs (puedes usar metricData simuladas aquí) */} 
+      <Heading size="md" mb={4}>
+        Dashboard{" "}
+        {selectedStores.length === 0
+          ? "– All stores"
+          : `- ${selectedStores.map((s) => s.label).join(", ")}`}
+      </Heading>
+
+      {/* Métricas */}
       <DashboardCardsGlobal data={metricDataGlobal} />
 
+      {/* Sección gráfica */}
+      <Box mt={10}>
+        <SimpleGrid columns={12} spacing={6} mt={8}>
+          {/* Gráfico de ranking por tiendas */}
+          <GridItem colSpan={{ base: 12, lg: 8 }}>
+            <ReturnsShops
+              returnsByStore={metricsPerStore}
+              selectedStores={selectedStores}
+            />
+          </GridItem>
 
-      {/* dos columnas */}
-       <Box mt={10}>
-<SimpleGrid columns={12} spacing={6} mt={8}>
-  {/* Gráfico de ranking por tiendas */}
-  <GridItem colSpan={{ base: 12, lg: 8 }}>
-    <ReturnsShops
-      returnsByStore={filteredReturns}
-      selectedStores={selectedStores}
-    />
-  </GridItem>
-
-  {/* Top productos devueltos */}
-  <GridItem colSpan={{ base: 12, lg: 4 }}>
-    <TopReturnedProductsGlobal
-      products={topReturnedProducts}
-      selectedStores={selectedStores}
-    />
-  </GridItem>
-</SimpleGrid>
-
-</Box>
-
+          {/* Top productos devueltos */}
+          <GridItem colSpan={{ base: 12, lg: 4 }}>
+            <TopReturnedProductsGlobal
+              products={returnsMock}
+              selectedStores={selectedStores}
+            />
+          </GridItem>
+        </SimpleGrid>
+      </Box>
     </Box>
   );
 }

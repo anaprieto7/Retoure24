@@ -1,4 +1,5 @@
 "use client";
+
 import {
   Box,
   VStack,
@@ -21,27 +22,18 @@ import {
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useReturnContext } from "@/context/useReturnContext";
 
-interface TimelineEvent {
-  id: string;
-  date: string;
-  status: string;
-  note?: string;
-  user?: string;
-  userAvatar?: string;
-}
-
-interface ReturnTimelineProps {
-  events: TimelineEvent[];
-  currentStatus: string;
-}
-
-export default function ReturnTimeline({ events, currentStatus }: ReturnTimelineProps) {
+export default function ReturnTimeline() {
   const { t } = useTranslation("return");
+  const { returnData, currentStatus } = useReturnContext();
+  const events = returnData.events || [];
+
   const [editedNotes, setEditedNotes] = useState<{ [key: string]: string }>({});
   const [editing, setEditing] = useState<{ [key: string]: boolean }>({});
 
   const lineColor = useColorModeValue("gray.300", "gray.600");
+  const bgColor = useColorModeValue("white", "gray.800");
 
   const statusIcon = {
     Registered: FiEdit3,
@@ -65,7 +57,7 @@ export default function ReturnTimeline({ events, currentStatus }: ReturnTimeline
 
   const alreadyExists = events.some((e) => e.status === currentStatus);
 
-  const generatedEvent: TimelineEvent = {
+  const generatedEvent = {
     id: "generated",
     date: new Date().toISOString(),
     status: currentStatus,
@@ -78,7 +70,6 @@ export default function ReturnTimeline({ events, currentStatus }: ReturnTimeline
 
   const fullEvents = alreadyExists ? events : [...events, generatedEvent];
 
-  // Orden descendente por fecha
   const sortedEvents = [...fullEvents].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
@@ -123,7 +114,7 @@ export default function ReturnTimeline({ events, currentStatus }: ReturnTimeline
                 <VStack position="relative" spacing={0} align="center" minW="24px">
                   <Circle
                     size="28px"
-                    bg={useColorModeValue("white", "gray.800")}
+                    bg={bgColor}
                     border="2px solid"
                     borderColor={iconColor}
                     color={iconColor}
@@ -223,3 +214,7 @@ export default function ReturnTimeline({ events, currentStatus }: ReturnTimeline
     </Box>
   );
 }
+// This component displays a timeline of events related to a return.
+// It shows the status changes, notes, and user information for each event.
+// The timeline is animated using Framer Motion and styled with Chakra UI.
+// Users can add notes to each event, and the latest event is highlighted.

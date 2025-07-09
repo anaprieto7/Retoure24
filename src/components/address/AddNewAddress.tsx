@@ -69,21 +69,25 @@ export default function AddNewAddress() {
     setForm({ ...form, [field]: value });
   };
 
+  const color= useColorModeValue("gray.700", "gray.300");
+  const buttonbgColor = useColorModeValue("blue.500","blue.800")
+  const buttonColor = useColorModeValue("white","blue.400")
+
   return (
     <>
-      <Button onClick={onOpen} colorScheme="blue" size="sm" mb={4}>
+      <Button onClick={onOpen} bg={buttonbgColor} color={buttonColor} size="sm" mb={4}>
         {t('address_form.add_button')}
       </Button>
 
       <Modal isOpen={isOpen} onClose={onClose} size="4xl" isCentered>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>{t('address_form.title')}</ModalHeader>
+          <ModalHeader color={color}>{t('address_form.title')}</ModalHeader>
           <ModalCloseButton />
 
           <ModalBody>
             {/* Contact Section */}
-            <Text fontWeight="bold" mb={3}>{t('address_form.contact_section')}</Text>
+            <Text fontWeight="bold" color={color} mb={3}>{t('address_form.contact_section')}</Text>
             <Grid templateColumns="repeat(2, 1fr)" gap={4} mb={6}>
               <FormControl>
                 <FormLabel>{t('address_form.company')}</FormLabel>

@@ -16,15 +16,9 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import { usePathname, useRouter } from 'next/navigation';
-import { FiUser, FiMapPin, FiTruck, FiMail, FiSettings } from 'react-icons/fi';
+import { FiUser, FiMapPin, FiTruck, FiMail, FiSettings, FiLayout, FiShoppingBag } from 'react-icons/fi';
 import { useTranslation } from 'react-i18next';
-
-const navItems = [
-  { labelKey: 'setting.account', icon: FiUser, path: 'account' },
-  { labelKey: 'setting.addresses', icon: FiMapPin, path: 'addresses' },
-  { labelKey: 'setting.shipping', icon: FiTruck, path: 'shipping' },
-  { labelKey: 'setting.email_tracking', icon: FiMail, path: 'email-tracking' },
-];
+import { useUser } from '@/context/UserContext';
 
 export default function SettingsSidebar() {
   const { t } = useTranslation('return');
@@ -38,7 +32,28 @@ export default function SettingsSidebar() {
   const inactiveColor = useColorModeValue('gray.500', 'gray.400');
   const hoverBg = useColorModeValue('gray.50', 'gray.700');
   const borderColor = useColorModeValue('orange.400', 'orange.300');
-   const textColor = useColorModeValue('gray.700', 'gray.200');
+  const textColor = useColorModeValue('gray.700', 'gray.200');
+
+  const { user } = useUser();
+
+  if (!user) return null;
+
+  const restrictedRoles = ['MerchantUser', 'Viewer'];
+
+  const showAdvancedSections = !restrictedRoles.includes(user.role || '');
+
+  const navItems = [
+    { labelKey: 'setting.account', icon: FiUser, path: 'account' },
+    ...(showAdvancedSections
+      ? [
+          { labelKey: 'Shops', icon: FiShoppingBag, path: 'shops' },
+          { labelKey: 'setting.addresses', icon: FiMapPin, path: 'addresses' },
+          { labelKey: 'setting.shipping', icon: FiTruck, path: 'shipping' },
+          { labelKey: 'setting.email_tracking', icon: FiMail, path: 'email-tracking' },
+          { labelKey: 'Landing Page', icon: FiLayout, path: 'landingpage' },
+        ]
+      : []),
+  ];
 
   const renderSidebarContent = () => (
     <VStack align="stretch" spacing={1}>
@@ -113,9 +128,3 @@ export default function SettingsSidebar() {
     </Box>
   );
 }
-// This component renders a settings sidebar with navigation items.
-// It uses Chakra UI for styling and layout, and Next.js for routing.
-// The sidebar is responsive, showing a drawer on mobile devices and a fixed sidebar on larger screens.
-// The sidebar includes navigation buttons for account settings, addresses, shipping, and email tracking.
-// It highlights the active section based on the current route.
-// The component also supports internationalization using react-i18next for translations.  

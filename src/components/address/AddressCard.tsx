@@ -36,7 +36,11 @@ export default function AddressCard({
   onEdit,
 }: AddressCardProps) {
   const { t } = useTranslation("return");
-  const cardBg = useColorModeValue("white", "gray.700");
+  const cardBg = useColorModeValue("white", "gray.800");
+  const color= useColorModeValue("gray.700", "gray.300");
+  const buttonbgColor = useColorModeValue("blue.500","blue.800")
+  const buttonColor = useColorModeValue("white","blue.400")
+
 
   const typeLabel = {
     sender: t("address_form.types.sender"),
@@ -62,18 +66,18 @@ export default function AddressCard({
       )}
 
       {/* Label tipo arriba */}
-      <Text fontSize="sm" color="gray.500" mb={1} fontWeight="semibold" textTransform="uppercase">
+      <Text fontSize="sm" color={color} mb={1} fontWeight="semibold" textTransform="uppercase">
         {typeLabel[type]}
       </Text>
 
       {/* Título y botón editar en línea */}
       <HStack justify="space-between" mb={2}>
         {company ? (
-          <Text fontWeight="bold" fontSize="lg">
+          <Text fontWeight="bold" fontSize="lg" color={color}>
             {company}
           </Text>
         ) : (
-          <Text fontWeight="bold" fontSize="lg" color="gray.600" fontStyle="italic">
+          <Text fontWeight="bold" fontSize="lg" color={color} fontStyle="italic">
             {t("address_form.no_company")}
           </Text>
         )}
@@ -85,6 +89,8 @@ export default function AddressCard({
           onClick={onEdit}
           variant="ghost"
           rounded={"full"}
+          bg={buttonbgColor}
+          color={buttonColor}
         />
       </HStack>
 

@@ -1,4 +1,5 @@
 "use client";
+
 import {
   Box,
   Flex,
@@ -19,10 +20,7 @@ import {
   FiXCircle,
   FiSlash,
 } from "react-icons/fi";
-
-interface ReturnStatusStepperProps {
-  status: "Registered" | "Approved" | "Received" | "Refunded" | "Rejected" | "Cancelled";
-}
+import { useReturnContext } from "@/context/useReturnContext";
 
 const MotionCircle = motion(Circle);
 
@@ -35,11 +33,12 @@ const iconsMap: Record<string, JSX.Element> = {
   Cancelled: <FiSlash />,
 };
 
-export default function ReturnStatusStepper({ status }: ReturnStatusStepperProps) {
-  const { t } = useTranslation();
+export default function ReturnStatusStepper() {
+  const { t } = useTranslation("return");
+  const { currentStatus } = useReturnContext();
 
-  const isRejected = status === "Rejected";
-  const isCancelled = status === "Cancelled";
+  const isRejected = currentStatus === "Rejected";
+  const isCancelled = currentStatus === "Cancelled";
 
   const baseSteps = [
     {
@@ -78,7 +77,7 @@ export default function ReturnStatusStepper({ status }: ReturnStatusStepperProps
       }]
     : baseSteps;
 
-  const currentStepIndex = steps.findIndex(step => step.key === status);
+  const currentStepIndex = steps.findIndex(step => step.key === currentStatus);
 
   const activeColor = useColorModeValue("blue.400", "blue.300");
   const completedColor = useColorModeValue("green.400", "green.300");
@@ -145,7 +144,6 @@ export default function ReturnStatusStepper({ status }: ReturnStatusStepperProps
         })}
       </HStack>
 
-      {/* Leyenda de colores */}
       <HStack spacing={2} mt={2} wrap="wrap">
         <HStack>
           <Circle size="12px" bg={completedColor} />
@@ -167,3 +165,8 @@ export default function ReturnStatusStepper({ status }: ReturnStatusStepperProps
     </VStack>
   );
 }
+// This component displays a stepper for the return status with animated icons and tooltips.
+// It uses Chakra UI for styling and Framer Motion for animations.
+// The stepper shows the current status, completed steps, and pending steps with appropriate colors.
+// Tooltips provide additional information about each status.
+// The component is responsive and adapts to different screen sizes.

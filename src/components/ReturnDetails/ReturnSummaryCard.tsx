@@ -1,41 +1,23 @@
 "use client";
+
 import {
   Box,
   Text,
   HStack,
   VStack,
-  Badge,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
+import { useReturnContext } from "@/context/useReturnContext";
 
-interface Product {
-  name: string;
-  quantity: number;
-  price: number;
-}
-
-interface ReturnSummaryCardProps {
-  products?: Product[];
-  deductions?: number;
-  currency?: string;
-  refundStatus: "Pendiente" | "Emitido" | "Rechazado";
-}
-
-const statusColor = {
-  Pendiente: "orange",
-  Emitido: "green",
-  Rechazado: "red",
-};
-
-export default function ReturnSummaryCard({
-  products = [],
-  deductions = 0,
-  currency = "€",
-  refundStatus,
-}: ReturnSummaryCardProps) {
+export default function ReturnSummaryCard() {
   const bg = useColorModeValue("white", "gray.800");
   const { t } = useTranslation("return");
+  const { returnData } = useReturnContext();
+
+  const products = returnData.products || [];
+  const deductions = returnData.deductions || 0;
+  const currency = "€"; // Puedes adaptarlo si tienes lógica de moneda
 
   const productsCount = products.reduce((sum, p) => sum + (p.quantity ?? 1), 0);
   const subtotal = products.reduce(
@@ -68,12 +50,10 @@ export default function ReturnSummaryCard({
             {isNaN(total) ? "—" : `${total.toFixed(2)} ${currency}`}
           </Text>
         </HStack>
-        <HStack justify="flex-end" mt={2}>
-          <Badge colorScheme={statusColor[refundStatus]} fontSize="sm" px={3}>
-            {refundStatus}
-          </Badge>
-        </HStack>
       </VStack>
     </Box>
   );
 }
+// This component displays a summary of the return including the number of products returned, subtotal, deductions, and total amount.
+// It uses Chakra UI for styling and i18next for translations.
+// The currency is hardcoded as "€" but can be adapted based on your application's logic.

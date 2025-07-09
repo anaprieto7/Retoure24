@@ -14,7 +14,7 @@ import {
   VStack,
   HStack,
   useBreakpointValue,
-  Stack, Flex
+  Stack, Flex, useColorModeValue
 } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { FiSettings, FiTruck } from "react-icons/fi";
@@ -176,6 +176,9 @@ export default function ShippingView() {
 
   const pagesCount = totalPages(displayedProviders);
   const pagedProviders = paginate(displayedProviders);
+    const color= useColorModeValue("gray.700", "gray.300");
+    const buttonbgColor = useColorModeValue("blue.500","blue.800")
+    const buttonColor = useColorModeValue("white","blue.400")
 
   return (
     <Stack p={6} maxW="container.lg" mx="auto" spacing={6}>
@@ -188,7 +191,7 @@ export default function ShippingView() {
           mb={0}
         >
           <SettingsPageHeader />
-          <Button leftIcon={<FiPlus />} size={"sm"} colorScheme="blue" onClick={openAddModal}>
+          <Button leftIcon={<FiPlus />} size={"sm"} bg={buttonbgColor} color={buttonColor} onClick={openAddModal}>
             {t("shipping.add_new_provider")}
           </Button>
         </Flex>

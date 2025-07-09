@@ -88,15 +88,20 @@ export default function AccountInfoCard({ name, email, phone, company }: Props) 
     setHasChanges(false);
   };
 
+  const color= useColorModeValue("gray.700", "gray.300");
+  const buttonbgColor = useColorModeValue("blue.500","blue.800")
+  const buttonColor = useColorModeValue("white","blue.400")
+  const bg = useColorModeValue("white","gray.800")
+
   return (
     <Box
-      bg={useColorModeValue("white", "gray.700")}
-      color={useColorModeValue("gray.800", "gray.300")}
+      bg={bg}
+      color={color}
       p={6}
       borderRadius="xl"
       shadow="sm"
     >
-      <Heading size="md" mb={4}>
+      <Heading size="md" mb={4} color={color}>
         {t("title")}
       </Heading>
 
@@ -136,12 +141,12 @@ export default function AccountInfoCard({ name, email, phone, company }: Props) 
         >
           <Button
             leftIcon={<FiEdit3 />}
-            colorScheme="blue"
+            bg={buttonbgColor}
+            color={buttonColor}
             onClick={handleSave}
-            variant="outline"
             rounded="lg"
             size="sm"
-            fontWeight="medium"
+            fontWeight="bold"
             boxShadow="md"
             _hover={{ boxShadow: 'lg' }}
             _active={{ boxShadow: 'md' }}

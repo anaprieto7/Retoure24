@@ -1,4 +1,5 @@
 "use client";
+
 import {
   VStack,
   Button,
@@ -17,8 +18,9 @@ import {
 } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
+import { useReturnContext } from "@/context/useReturnContext";
 
-export const RETURN_STATUSES = [
+const RETURN_STATUSES = [
   "Registered",
   "Approved",
   "Received",
@@ -27,24 +29,19 @@ export const RETURN_STATUSES = [
   "Cancelled",
 ];
 
-interface ReturnActionsProps {
-  initialStatus: string;
-  onStatusChange: (newStatus: string, note?: string) => void;
-}
 
-export default function ReturnActions({
-  initialStatus,
-  onStatusChange,
-}: ReturnActionsProps) {
+export default function ReturnActions() {
   const { t } = useTranslation("return");
-  const [selectedStatus, setSelectedStatus] = useState(initialStatus);
-  const [note, setNote] = useState("");
+  const { currentStatus, setCurrentStatus, setNote } = useReturnContext();
+
+  const [selectedStatus, setSelectedStatus] = useState(currentStatus);
+  const [localNote, setLocalNote] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 
   const handleOpenModal = () => {
-    if (selectedStatus === initialStatus) return;
+    if (selectedStatus === currentStatus) return;
     onOpen();
   };
 
@@ -63,8 +60,9 @@ export default function ReturnActions({
         isClosable: true,
       });
 
-      onStatusChange(selectedStatus, note); // ← pasamos la nota
-      setNote("");
+      setCurrentStatus(selectedStatus);
+      setNote(localNote); // ← guardamos la nota en contexto
+      setLocalNote("");
       onClose();
     } catch (err) {
       toast({
@@ -89,7 +87,7 @@ export default function ReturnActions({
         >
           {RETURN_STATUSES.map((status) => (
             <option key={status} value={status}>
-              {t(`status.${status}`)} {status === initialStatus ? `(${t("current")})` : ""}
+              {t(`status.${status}`)} {status === currentStatus ? `(${t("current")})` : ""}
             </option>
           ))}
         </Select>
@@ -97,7 +95,7 @@ export default function ReturnActions({
         <Button
           colorScheme="blue"
           onClick={handleOpenModal}
-          isDisabled={selectedStatus === initialStatus}
+          isDisabled={selectedStatus === currentStatus}
         >
           {t("actions.confirm_change")}
         </Button>
@@ -115,11 +113,11 @@ export default function ReturnActions({
                 status: t(`status.${selectedStatus}`),
               })}
             </Text>
-           {/* <Textarea
+            <Textarea
               placeholder={t("optional_note")}
-              value={note}
-              onChange={(e) => setNote(e.target.value)}
-            /> */}
+              value={localNote}
+              onChange={(e) => setLocalNote(e.target.value)}
+            />
           </ModalBody>
           <ModalFooter>
             <Button onClick={onClose} variant="ghost" mr={3}>
@@ -138,3 +136,8 @@ export default function ReturnActions({
     </>
   );
 }
+// This component provides actions for managing the return status.
+// It allows users to change the status of a return and add an optional note.
+// The status options are defined in a constant array, and the component uses Chakra UI for styling.
+// A modal is used for confirmation before changing the status, and it provides feedback via toast notifications.
+// The component is responsive and user-friendly, ensuring a smooth experience when managing returns.

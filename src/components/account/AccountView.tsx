@@ -3,7 +3,6 @@
 import { Heading, Stack, Flex, Box } from '@chakra-ui/react'
 import AccountInfoCard from '@/components/account/AccountInfoCard'
 import CompanyLogoUploader from '@/components/account/CompanyLogoUploader'
-import ReturnAuthOptions from '@/components/account/ReturnAuthOptions'
 import UserList from '@/components/account/UserList'
 import ReturnReasonsList from '@/components/account/ReturnReasonsList'
 import SettingsPageHeader from '@/components/SettingsPageHeader'
@@ -61,7 +60,7 @@ export default function AccountView() {
               </Box>
             </Flex>
       
-            <ReturnAuthOptions />
+            
             <UserList />
             <ReturnReasonsList />
     </Stack>

@@ -64,6 +64,7 @@ const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
             borderColor={borderDefault}
           >
             <MenuOptionGroup
+              
               value={selected}
               type="checkbox"
               onChange={(vals) => onChange(vals as string[])}

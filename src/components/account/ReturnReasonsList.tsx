@@ -125,11 +125,16 @@ export default function ReturnReasonsList() {
     }
   }
 
+  const color= useColorModeValue("gray.700", "gray.300");
+  const buttonbgColor = useColorModeValue("blue.500","blue.800")
+  const buttonColor = useColorModeValue("white","blue.400")
+  const bg = useColorModeValue("white","gray.800")
+
   return (
-    <Box bg={useColorModeValue("white", "gray.700")} color={useColorModeValue("gray.800", "gray.300")} p={6} borderRadius="md" shadow="sm" mt={10}>
+    <Box bg={bg} color={color} p={6} borderRadius="md" shadow="sm" mt={10}>
       <Stack direction="row" justify="space-between" align="center" mb={4}>
         <Heading size="md">{t('return_reason.return_reasons')}</Heading>
-        <Button size="sm" leftIcon={<FiPlus />} colorScheme="blue" onClick={openAddModal}>
+        <Button size="sm" leftIcon={<FiPlus />} bg={buttonbgColor} color={buttonColor} onClick={openAddModal}>
           {t('return_reason.add_reason')}
         </Button>
       </Stack>

@@ -59,10 +59,15 @@ export default function CompanyLogoUploader() {
     toast({ title: t("logo.deleted"), status: 'info' })
   }
 
+    const color= useColorModeValue("gray.700", "gray.300");
+    const buttonbgColor = useColorModeValue("blue.500","blue.800")
+    const buttonColor = useColorModeValue("white","blue.400")
+    const bg = useColorModeValue("white","gray.800")
+
   return (
     <Box
-      bg={useColorModeValue("white", "gray.700")}
-      color={useColorModeValue("gray.800", "gray.300")}
+      bg={bg}
+      color={color}
       p={6}
       borderRadius="xl"
       shadow="sm"

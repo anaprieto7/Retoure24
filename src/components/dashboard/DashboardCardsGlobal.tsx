@@ -11,7 +11,7 @@ import {
   Icon,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { ReactElement } from "react";
+import { ReactElement } from "react"; 
 
 type CardData = {
   label: string;

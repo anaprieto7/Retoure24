@@ -11,22 +11,60 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { ReactElement } from "react";
+import  returnsMock  from "@/data/returnsMock";
+import { FiShoppingBag, FiEdit, FiX, FiDollarSign } from "react-icons/fi";
 
 type CardData = {
   label: string;
   value: string | number;
   change?: number;
   icon?: ReactElement;
-  color: string;       // Chakra color (ej: 'orange', 'blue', etc.)
-  arrowColor?: string; // Chakra color for change indicator
+  color: string;
+  arrowColor?: string;
 };
 
 type Props = {
-  data: CardData[];
+  shopId: string;
 };
 
-export default function DashboardCardsSingle({ data }: Props) {
+export default function DashboardCardsSingle({ shopId }: Props) {
   const bg = useColorModeValue("white", "gray.800");
+
+  // Filtramos los returns por tienda
+  const returns = returnsMock.filter((ret) => ret.shopId === shopId);
+
+  // Cálculos simples (puedes adaptar luego con lógica más real)
+  const total = returns.length;
+  const registered = returns.filter((r) => r.status === "Registered").length;
+  const refunded = returns.filter((r) => r.status === "Refunded").length;
+  const cancelled = returns.filter((r) => r.status === "Cancelled").length;
+
+  const data: CardData[] = [
+    {
+      label: "Gesamt Retouren",
+      value: total,
+      icon: FiShoppingBag,
+      color: "orange",
+    },
+    {
+      label: "Retouren Angemeldet",
+      value: registered,
+      icon: FiEdit,
+      color: "blue",
+    },
+    {
+      label: "Retouren Storniert",
+      value: cancelled,
+      icon: FiX,
+      color: "red",
+    },
+    {
+      label: "Retouren Erstattet",
+      value: refunded,
+      icon: FiDollarSign,
+      color: "green",
+    },
+  ];
 
   return (
     <Flex gap={6} wrap="wrap">

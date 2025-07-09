@@ -25,6 +25,9 @@ interface ShippingProviderCardProps {
 export default function ShippingProviderCard({ provider, onEdit }: ShippingProviderCardProps) {
   const { t } = useTranslation("return");
   const bgColor = useColorModeValue("white", "gray.700");
+    const color= useColorModeValue("gray.700", "gray.300");
+  const buttonbgColor = useColorModeValue("blue.500","blue.800")
+  const buttonColor = useColorModeValue("white","blue.400")
 
   return (
     <Box
@@ -79,7 +82,8 @@ export default function ShippingProviderCard({ provider, onEdit }: ShippingProvi
         <HStack w="100%" justify="flex-end" pt={2}>
           <Button
             size="sm"
-            colorScheme="blue"
+            bg={buttonbgColor}
+            color={buttonColor}
             variant="outline"
             onClick={onEdit}
             _groupHover={{ bg: "blue.50" }}

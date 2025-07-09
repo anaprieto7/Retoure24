@@ -2,126 +2,127 @@
 
 import {
   Box,
-  Flex,
   Heading,
   Text,
-  IconButton,
+  Flex,
   Menu,
   MenuButton,
-  MenuItem,
   MenuList,
-  VStack,
+  MenuItem,
+  IconButton,
   HStack,
-  Button,
+  VStack,
+  Spacer,
 } from "@chakra-ui/react";
-import { FiMoreVertical } from "react-icons/fi";
+import { FiMoreVertical, FiArrowUp, FiArrowDown } from "react-icons/fi";
+import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { useColorModeValue } from "@chakra-ui/react";
+import returnsMock from "@/data/returnsMock"; // default import según tu archivo
 
-const products = [
-  {
-    name: "Xiaomi X Blau 128 g",
-    serial: "93837464",
-    orders: 132,
-  },
-  {
-    name: "Samsung Galaxy S21 256 g",
-    serial: "84736291",
-    orders: 200,
-  },
-  {
-    name: "Apple iPhone 13 128 g",
-    serial: "56372819",
-    orders: 150,
-  },
-  {
-    name: "OnePlus 9 Pro 256 g",
-    serial: "47638291",
-    orders: 90,
-  },
-  {
-    name: "Google Pixel 6 128 g",
-    serial: "19283746",
-    orders: 75,
-  },
-];
+type Props = {
+  shopId: string;
+};
 
-export default function TopProducts({ searchTerm }: { searchTerm: string }) {
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    product.serial.includes(searchTerm)
-  );
+export default function ReasonsDonutsChart({ shopId }: Props) {
+  const borderColor = useColorModeValue("gray.200", "gray.700");
 
-  const exportToCSV = () => {
-    const headers = ["Name", "Serial", "Orders"];
-    const rows = filteredProducts.map(p => [p.name, p.serial, p.orders]);
+  // 🎯 1. Filtrar devoluciones por tienda
+  const returns = returnsMock.filter((r) => r.shopId === shopId);
 
-    const csvContent =
-      [headers, ...rows]
-        .map(e => e.map(String).map(str => `"${str}"`).join(","))
-        .join("\n");
+  // 🎯 2. Contar razones de productos
+  const reasonMap = new Map<string, number>();
 
-    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    
-    const link = document.createElement("a");
-    link.href = url;
-    link.setAttribute("download", "top_products.csv");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-    const borderColor = useColorModeValue("gray.200", "gray.700"); 
+  returns.forEach((ret) => {
+    ret.products?.forEach((prod) => {
+      const reason = prod.reason || "Andere"; // fallback
+      reasonMap.set(reason, (reasonMap.get(reason) || 0) + 1);
+    });
+  });
+
+  const totalReasons = Array.from(reasonMap.values()).reduce((a, b) => a + b, 0);
+
+  // 🎨 Colores base (hasta 6 razones)
+  const defaultColors = ["#ef4444", "#fbbf24", "#22c55e", "#3b82f6", "#a855f7", "#ec4899"];
+
+  // 📊 Arreglo para gráfico y lista
+  const data = Array.from(reasonMap.entries()).map(([name, value], index) => ({
+    name,
+    value: Math.round((value / totalReasons) * 100),
+    change: 0,
+    trend: "up",
+    color: defaultColors[index % defaultColors.length],
+  }));
+
   return (
     <Box
       bg={useColorModeValue("white", "gray.800")}
+      p={5}
       borderRadius="md"
       boxShadow="sm"
-      p={5}
-      w="full"
-      h="100%"
       borderColor={borderColor}
+      shadow="sm"
     >
       <Flex justify="space-between" align="start" mb={4}>
-        <Heading size="md">Retouren nach Produkten</Heading>
+        <Heading size="md">Retouren nach Gründen</Heading>
         <Menu>
           <MenuButton
             as={IconButton}
             icon={<FiMoreVertical />}
             variant="ghost"
             size="sm"
-            aria-label="Options"
+            aria-label="Filter"
           />
           <MenuList>
-            <MenuItem onClick={exportToCSV}>
-              Exportar CSV
+            <MenuItem _hover={{ bg: "orange.100" }} _active={{ bg: "orange.400", color: "white" }}>
+              Letzten 7 Tage
             </MenuItem>
-            <MenuItem _hover={{ bg: "orange.100" }} _focus={{ bg: "orange.400", color: "white" }}>Letzte 7 Tage</MenuItem>
-            <MenuItem _hover={{ bg: "orange.100" }} _focus={{ bg: "orange.400", color: "white" }}>Letzter Monat</MenuItem>
-            <MenuItem _hover={{ bg: "orange.100" }} _focus={{ bg: "orange.400", color: "white" }}>Letztes Jahr</MenuItem>
+            <MenuItem _hover={{ bg: "orange.100" }} _active={{ bg: "orange.400", color: "white" }}>
+              Letzter Monat
+            </MenuItem>
+            <MenuItem _hover={{ bg: "orange.100" }} _active={{ bg: "orange.400", color: "white" }}>
+              Letztes Jahr
+            </MenuItem>
           </MenuList>
         </Menu>
       </Flex>
 
-      <VStack spacing={4} align="stretch">
-        {filteredProducts.length > 0 ? (
-          filteredProducts.map((product, index) => (
-            <HStack key={index} justify="space-between">
-              <Box>
-                <Text fontWeight="bold">{product.name}</Text>
-                <Text fontSize="sm" color="gray.500">
-                  Serial N.: {product.serial}
-                </Text>
-              </Box>
-              <Text fontWeight="bold" color="red.500">
-                {product.orders} Orders
-              </Text>
+      <ResponsiveContainer width="100%" height={200}>
+        <PieChart>
+          <Pie
+            data={data}
+            dataKey="value"
+            nameKey="name"
+            cx="50%"
+            cy="50%"
+            innerRadius={60}
+            outerRadius={80}
+            paddingAngle={2}
+          >
+            {data.map((entry, index) => (
+              <Cell key={`cell-${index}`} fill={entry.color} />
+            ))}
+          </Pie>
+        </PieChart>
+      </ResponsiveContainer>
+
+      <VStack spacing={2} mt={4} align="start">
+        {data.map((item, index) => (
+          <Flex key={index} align="center" gap={2}>
+            <Box boxSize={2.5} borderRadius="full" bg={item.color} />
+            <Text fontWeight="medium">
+              {item.name} - {item.value}%
+            </Text>
+            <Spacer />
+            <HStack>
+              <Text color="gray.500">{Math.abs(item.change)}%</Text>
+              {item.trend === "up" ? (
+                <FiArrowUp color="red" />
+              ) : (
+                <FiArrowDown color="green" />
+              )}
             </HStack>
-          ))
-        ) : (
-          <Text color="gray.500" textAlign="center">
-            Kein Produkt gefunden.
-          </Text>
-        )}
+          </Flex>
+        ))}
       </VStack>
     </Box>
   );

@@ -12,89 +12,49 @@ import TopProducts from "@/components/dashboard/TopProducts";
 import GlobalSearch from "@/components/dashboard/GlobalSearch";
 import MotionWrapper from "@/components/MotionWrapper";
 
-// Lazy load del mapa
 const ReturnsMap = dynamic(() => import("@/components/dashboard/ReturnsMap"), {
   ssr: false,
 });
 
-// Métricas
-const metricData = [
-  {
-    label: "Gesamt Retouren",
-    value: 286,
-    change: 4.5,
-    icon: FiShoppingBag,
-    color: "orange",
-    arrowColor: "green.500",
-  },
-  {
-    label: "Retouren Angemeldet",
-    value: 122,
-    change: 8,
-    icon: FiEdit,
-    color: "blue",
-    arrowColor: "red.500",
-  },
-  {
-    label: "Retouren Storniert",
-    value: 23,
-    change: -1.5,
-    icon: FiX,
-    color: "red",
-    arrowColor: "red.500",
-  },
-  {
-    label: "Retouren Erstattet",
-    value: 356,
-    change: 2.5,
-    icon: FiDollarSign,
-    color: "green",
-    arrowColor: "green.500",
-  },
-];
+type Props = {
+  shopId: string;
+};
 
-export default function DashboardView() {
+export default function DashboardView({ shopId }: Props) {
   const [searchTerm, setSearchTerm] = useState("");
 
   return (
-    <Box  minH="100vh" p={{ base: 4, md: 6 }}>
-      {/* Buscador global */}
+    <Box minH="100vh" p={{ base: 4, md: 6 }}>
       <Box mb={6}>
         <GlobalSearch onSearch={(term) => setSearchTerm(term)} />
       </Box>
 
-      {/* Tarjetas métricas */}
       <MotionWrapper>
-        <DashboardCards data={metricData} />
-        </MotionWrapper>
+        <DashboardCards shopId={shopId} />
+      </MotionWrapper>
 
-
-      {/* Grilla principal */}
       <SimpleGrid columns={12} spacing={6} mt={6}>
-        {/* Columna izquierda (8 columnas) */}
         <GridItem colSpan={{ base: 12, lg: 8 }}>
           <Box mb={6}>
             <MotionWrapper>
-              <ReturnOverTimeChart />
+              <ReturnOverTimeChart shopId={shopId} />
             </MotionWrapper>
           </Box>
 
           <Box mb={6}>
             <MotionWrapper>
-              <ReturnsMap searchTerm={searchTerm} />
+              <ReturnsMap shopId={shopId} searchTerm={searchTerm} />
             </MotionWrapper>
-              
           </Box>
         </GridItem>
 
-        {/* Columna derecha (4 columnas) */}
         <GridItem colSpan={{ base: 12, lg: 4 }}>
           <MotionWrapper>
-            <ReasonsDonutsChart />
+            <ReasonsDonutsChart shopId={shopId} />
           </MotionWrapper>
           <Box mt={4}>
             <MotionWrapper>
-             <TopProducts searchTerm={searchTerm} />
+              <TopProducts shopId={shopId} searchTerm={searchTerm} />
             </MotionWrapper>
           </Box>
         </GridItem>

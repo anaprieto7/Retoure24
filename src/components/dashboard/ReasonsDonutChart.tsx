@@ -18,18 +18,54 @@ import {
 import { FiMoreVertical, FiArrowUp, FiArrowDown } from "react-icons/fi";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { useColorModeValue } from "@chakra-ui/react";
+import  returnsMock  from "@/data/returnsMock";
 
-const data = [
-  { name: "Falsche Größe", value: 80, change: 2, trend: "up", color: "#ef4444" },
-  { name: "Beschädigt oder defekt", value: 10, change: 8, trend: "up", color: "#fbbf24" },
-  { name: "Entspricht nicht den Erwartungen", value: 20, change: -5, trend: "down", color: "#22c55e" },
-];
-  
-export default function RetourenNachGruenden() {
+type Props = {
+  shopId: string;
+};
+
+export default function ReasonsDonutsChart({ shopId }: { shopId: string }) {
   const borderColor = useColorModeValue("gray.200", "gray.700");
+
+  // 1. Filtrar devoluciones de la tienda
+  const returns = returnsMock.filter((r) => r.shopId === shopId);
+
+  // 2. Contar razones
+  const reasonsMap = new Map<string, number>();
+
+ returns.forEach((ret) => {
+  ret.products?.forEach((prod) => {
+    if (!prod.reason) return;
+
+    const reason = prod.reason.trim();
+    reasonsMap.set(reason, (reasonsMap.get(reason) || 0) + (prod.quantity || 1));
+  });
+});
+
+
+  const total = Array.from(reasonsMap.values()).reduce((a, b) => a + b, 0);
+
+  // 3. Generar colores fijos para hasta 6 razones
+  const defaultColors = ["#ef4444", "#fbbf24", "#22c55e", "#3b82f6", "#a855f7", "#ec4899"];
+
+  // 4. Convertir a array para el gráfico
+  const data = Array.from(reasonsMap.entries()).map(([name, value], index) => ({
+    name,
+    value: Math.round((value / total) * 100), // porcentaje
+    change: 0, // opcional si no hay lógica histórica
+    trend: "up", // solo para mantener el diseño
+    color: defaultColors[index % defaultColors.length],
+  }));
+
   return (
-    <Box bg={useColorModeValue("white", "gray.800")}
- p={5} borderRadius="md" boxShadow="sm" borderColor={borderColor} shadow="sm">
+    <Box
+      bg={useColorModeValue("white", "gray.800")}
+      p={5}
+      borderRadius="md"
+      boxShadow="sm"
+      borderColor={borderColor}
+      shadow="sm"
+    >
       <Flex justify="space-between" align="start" mb={4}>
         <Heading size="md">Retouren nach Gründen</Heading>
         <Menu>
@@ -95,4 +131,3 @@ export default function RetourenNachGruenden() {
     </Box>
   );
 }
-// This component is a donut chart that displays the reasons for returns context.

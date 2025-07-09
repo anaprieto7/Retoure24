@@ -1,124 +1,178 @@
-"use client";
+'use client';
 
 import {
   Flex,
-  Box,
-  Heading,
-  Text,
-  IconButton,
-  Avatar,
   InputGroup,
   InputLeftElement,
   Input,
   useColorMode,
   useColorModeValue,
   HStack,
-  Image,
-} from "@chakra-ui/react";
-import { FiSearch, FiBell, FiInfo, FiSettings, FiSun, FiMoon } from "react-icons/fi";
-import LanguageSelector from "@/components/LanguageSelector";
+  IconButton,
+  Avatar,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Text,
+  Box,
+  Button,
+  Spacer,
+  Badge
+} from '@chakra-ui/react';
+import {
+  FiSearch,
+  FiBell,
+  FiInfo,
+  FiSettings,
+  FiSun,
+  FiMoon,
+  FiLogOut,
+  FiUser,
+} from 'react-icons/fi';
+import { useRouter } from 'next/navigation';
+import { useUser } from '@/context/UserContext';
+import LanguageSelector from '@/components/LanguageSelector';
 
-export default function Header({ user = "AP", lang = "en", location = "Kiel" }) {
+export default function Header() {
   const { colorMode, toggleColorMode } = useColorMode();
+  const { user, logout, isLoading } = useUser();
+  const router = useRouter();
 
-  // Colores adaptados a modo claro/oscuro
-  const bgHeader = useColorModeValue("white", "gray.800");
-  const bgSearch = useColorModeValue("gray.50", "whiteAlpha.100");
-  const iconColor = useColorModeValue("gray.500", "gray.300");
-  const avatarBg = useColorModeValue("blue.900", "blue.300");
-  const avatarColor = useColorModeValue("white", "black");
+  const bgHeader = useColorModeValue('white', 'gray.800');
+  const bgSearch = useColorModeValue('gray.50', 'whiteAlpha.100');
+  const iconColor = useColorModeValue('gray.600', 'gray.300');
+  const hoverBg = useColorModeValue('gray.100', 'gray.700');
+  const expandedBg = useColorModeValue('gray.200', 'gray.600');  
+
+  const handleLogout = async () => {
+    await fetch('/api/logout', { method: 'POST' });
+    logout();
+    router.push('/login');
+  };
 
   return (
     <Flex
-  as="header"
-  position="sticky"
-  top="0"
-  w="100%"
-  px={6}
-  py={4}
-  bg={useColorModeValue("white", "gray.800")}
-  justify="space-between"
-  align="center"
-  gap={4}
-  zIndex={900}
-  _dark={{ bg: "rgba(36, 47, 69, 0.75)" }} // para dark mode
->
+      as="header"
+      position="sticky"
+      top="0"
+      w="100%"
+      px={6}
+      py={3}
+      bg={bgHeader}
+      boxShadow="sm"
+      align="center"
+      zIndex={1000}
+    >
+      {/* Zona izquierda: buscador */}
+      <InputGroup
+        bg={bgSearch}
+        borderRadius="full"
+        px={3}
+        w="280px"
+        h="40px"
+      >
+        <InputLeftElement
+          pointerEvents="none"
+          children={<FiSearch size="16px" />}
+          mt="2px"
+          color={iconColor}
+        />
+        <Input
+          variant="unstyled"
+          placeholder="Buscar..."
+          _placeholder={{ color: iconColor }}
+          pl="10"
+          fontSize="sm"
+          h="100%"
+        />
+      </InputGroup>
 
-      {/* Parte izquierda: título */}
-      <Box>
-       
-      </Box>
+      <Spacer />
 
-      {/* Parte derecha: controles */}
-      <HStack spacing={4}>
-        {/* Buscador */}
-       <InputGroup
-  bg={bgSearch}
-  borderRadius="full"
-  px={3}
-  w="280px" // más ancho
-  h="40px"  // más alto
->
-  <InputLeftElement
-    pointerEvents="none"
-    children={<FiSearch size="16px" />} // tamaño consistente
-    mt="2px" // pequeño ajuste vertical
-    color={iconColor}
-  />
-  <Input
-    variant="unstyled"
-    placeholder="Search..."
-    _placeholder={{ color: iconColor }}
-    pl="10" // padding izquierdo extra para que el texto no se monte sobre el ícono
-    fontSize="sm"
-    h="100%" // altura igual al InputGroup
-  />
-</InputGroup>
-
-
-        {/* Iconos */}
+      {/* Acciones */}
+      <HStack spacing={2}>
         <IconButton
-          aria-label="Notifications"
+          aria-label="Notificaciones"
           icon={<FiBell />}
           variant="ghost"
           size="sm"
           color={iconColor}
         />
         <IconButton
-          aria-label="Info"
+          aria-label="Información"
           icon={<FiInfo />}
           variant="ghost"
           size="sm"
           color={iconColor}
         />
         <IconButton
-          aria-label="Settings"
+          aria-label="Configuraciones"
           icon={<FiSettings />}
           variant="ghost"
           size="sm"
           color={iconColor}
         />
         <IconButton
-          aria-label="Toggle dark mode"
-          icon={colorMode === "light" ? <FiMoon /> : <FiSun />}
+          aria-label="Modo oscuro"
+          icon={colorMode === 'light' ? <FiMoon /> : <FiSun />}
           onClick={toggleColorMode}
           variant="ghost"
           size="sm"
           color={iconColor}
         />
+        <LanguageSelector />
 
-         {/* 🌐 lANGUAGE SELECTOR*/}
-           <LanguageSelector />
+        {/* Usuario */}
+        {user && (
+          <Menu>
+            <MenuButton
+              as={Button}
+              variant="ghost"
+              size="md"
+              rightIcon={<Avatar size="sm" name={user.name} />}
+              aria-label="User menu"
+              color={iconColor}
+              _hover={{ bg: hoverBg }}
+              _expanded={{ bg: expandedBg }}
+              _focus={{ boxShadow: 'outline' }}
+            >
+              <Text fontSize="xs" color={iconColor}>
+                {user.name}
+              </Text>
+              <Badge ml="1" 
+              colorScheme={
+                  user.role === 'SuperAdmin'
+                    ? 'purple'
+                    : user.role === 'MerchantAdmin'
+                    ? 'green'
+                    : user.role === 'MerchantUser'
+                    ? 'orange'
+                    : 'blue'
+                } fontSize="0.6em" padding={1} rounded={'md'} >
+                {user.role}
+              </Badge>
+            </MenuButton>
+            <MenuList fontSize="sm">
+              <MenuItem icon={<FiUser />}>Perfil</MenuItem>
+              <MenuItem icon={<FiLogOut />} onClick={handleLogout}>
+                Cerrar sesión
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        )}
 
-        {/* Avatar */}
-        <Avatar
-          size="sm"
-          name={user}
-          bg={avatarBg}
-          color={avatarColor}
-          fontWeight="bold"
-          fontSize="xs"
-        />
+        {!user && !isLoading && (
+          <Button size="sm" colorScheme="teal" onClick={() => router.push('/login')}>
+            Iniciar sesión
+          </Button>
+        )}
+
+        {isLoading && (
+          <Text fontSize="sm" color={iconColor}>
+            Cargando...
+          </Text>
+        )}
       </HStack>
     </Flex>
   );

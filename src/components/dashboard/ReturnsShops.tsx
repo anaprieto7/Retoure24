@@ -11,19 +11,16 @@ import {
   Cell,
 } from "recharts";
 import { FiBarChart2 } from "react-icons/fi";
+import returnsMock from "@/data/returnsMock";
+import { mockShops } from "@/data/mockShops";
 
-
-type StoreData = { store: string; returns: number };
 type StoreOption = { label: string; value: string };
 
 type Props = {
-  returnsByStore: StoreData[];
   selectedStores?: StoreOption[];
   isCompactView?: boolean;
   onBarClick?: (store: string) => void;
 };
-
-
 
 const CustomTooltip = ({ active, payload }: any) => {
   if (active && payload?.length) {
@@ -44,7 +41,6 @@ const CustomTooltip = ({ active, payload }: any) => {
 };
 
 export default function ReturnsShops({
-  returnsByStore,
   selectedStores = [],
   isCompactView = false,
   onBarClick,
@@ -52,12 +48,27 @@ export default function ReturnsShops({
   const bg = useColorModeValue("white", "gray.800");
   const theme = useTheme();
 
-  const storeColors: { [store: string]: string } = {
-    Zara: theme.colors.orange[500],
-    "H&M": theme.colors.blue[500],
-    Mango: theme.colors.green[500],
+  // Map de colores por tienda
+  const storeColors: { [shopId: string]: string } = {
+    "shop-1": theme.colors.orange[500],
+    "shop-2": theme.colors.blue[500],
+    "shop-3": theme.colors.green[500],
+    "shop-4": theme.colors.purple[500],
   };
 
+  // Agrupar devoluciones por tienda
+  const returnsByStore: { store: string; returns: number; shopId: string }[] = [];
+
+  mockShops.forEach((shop) => {
+    const count = returnsMock.filter((r) => r.shopId === shop.id).length;
+    returnsByStore.push({
+      store: shop.name,
+      returns: count,
+      shopId: shop.id,
+    });
+  });
+
+  // Filtrar por tiendas seleccionadas
   const filteredStores =
     selectedStores.length > 0
       ? returnsByStore.filter((storeItem) =>
@@ -66,7 +77,6 @@ export default function ReturnsShops({
       : returnsByStore;
 
   return (
-    
     <Box bg={bg} p={4} rounded="md" shadow="sm">
       <Flex align="center" mb={4}>
         <Icon as={FiBarChart2} mr={2} boxSize={5} color="orange.500" />
@@ -76,41 +86,34 @@ export default function ReturnsShops({
       </Flex>
 
       <ResponsiveContainer width="100%" height={isCompactView ? 200 : 300}>
-  <BarChart
-    layout="vertical"
-    data={filteredStores}
-    barCategoryGap={10}
-    margin={{ top: 20, right: 30, left: 10, bottom: 30 }}
-  >
-    <XAxis
-      type="number"
-      axisLine={{ stroke: "#ccc" }}
-      tickLine={{ stroke: "#ccc" }}
-      tick={{ fill: "#666", fontSize: 12 }}
-    />
-    <YAxis
-      dataKey="store"
-      type="category"
-      tick={{ fill: "#666", fontWeight: "500", fontSize: 14 }}
-    />
-    <Tooltip />
-    <Bar dataKey="returns">
-      {filteredStores.map((entry, index) => (
-        <Cell
-          key={`cell-${index}`}
-          fill={
-            entry.store === "Zara"
-              ? "#DD6B20"
-              : entry.store === "H&M"
-              ? "#3182CE"
-              : "#38A169"
-          }
-        />
-      ))}
-    </Bar>
-  </BarChart>
-</ResponsiveContainer>
-
+        <BarChart
+          layout="vertical"
+          data={filteredStores}
+          barCategoryGap={10}
+          margin={{ top: 20, right: 30, left: 10, bottom: 30 }}
+        >
+          <XAxis
+            type="number"
+            axisLine={{ stroke: "#ccc" }}
+            tickLine={{ stroke: "#ccc" }}
+            tick={{ fill: "#666", fontSize: 12 }}
+          />
+          <YAxis
+            dataKey="store"
+            type="category"
+            tick={{ fill: "#666", fontWeight: "500", fontSize: 14 }}
+          />
+          <Tooltip content={<CustomTooltip />} />
+          <Bar dataKey="returns" onClick={(data) => onBarClick?.(data.shopId)}>
+            {filteredStores.map((entry, index) => (
+              <Cell
+                key={`cell-${index}`}
+                fill={storeColors[entry.shopId] || "#E53E3E"}
+              />
+            ))}
+          </Bar>
+        </BarChart>
+      </ResponsiveContainer>
     </Box>
   );
 }

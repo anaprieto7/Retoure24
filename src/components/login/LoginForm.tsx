@@ -49,8 +49,8 @@ export function LoginForm() {
       // Ya no necesitas 'foundUser' porque la API es quien te lo debe dar.
       if (userData && userData.id) { // Verificar que `userData` sea válido (ej. tiene un ID)
         toast({
-          title: 'Sesión iniciada',
-          description: `Bienvenido, ${userData.name}`, // Muestra el nombre del usuario
+          title: 'Sitzung gestartet',
+          description: `Willkommen, ${userData.name}`, // Muestra el nombre del usuario
           status: 'success',
           duration: 100000,
           isClosable: true,
@@ -62,18 +62,18 @@ export function LoginForm() {
         setError('No se pudo obtener la información del usuario.');
         toast({
           title: 'Error',
-          description: 'No se recibieron datos válidos del usuario.',
+          description: 'Es wurden keine gültigen Benutzerdaten empfangen.',
           status: 'error',
-          duration: 5000,
+          duration: 1000,
           isClosable: true,
         });
       }
     } catch (err) {
-      console.error('Error al enviar la solicitud de login:', err);
-      setError('Error de conexión. Intenta de nuevo.');
+      console.error('Fehler beim Senden der Anmeldeanfrage:', err);
+      setError('Verbindungsfehler. Versuchen Sie es erneut.');
       toast({
-        title: 'Error de red',
-        description: 'No se pudo conectar al servidor.',
+        title: 'Netzwerkfehler',
+        description: 'Die Verbindung zum Server konnte nicht hergestellt werden.',
         status: 'error',
         duration: 5000,
         isClosable: true,

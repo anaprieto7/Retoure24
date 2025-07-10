@@ -61,7 +61,7 @@ export default function LandingPageView() {
   const color= useColorModeValue("gray.700", "gray.300");
     const breadcrumbs = [
     { labelKey: 'setting', href: '/setup/landingpage', icon: FiLayout },
-    { labelKey: 'LandingPage' }
+    { labelKey: 'Landing Page' }
   ];
 
   return (

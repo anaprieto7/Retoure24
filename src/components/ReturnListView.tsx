@@ -129,7 +129,7 @@ const ReturnListPage = () => {
       <BreadcrumbNav
         items={[
           { label: "Dashboard", href: "/dashboard", icon: FiHome },
-          { label: "Retoure Liste", icon: FiList }
+          { label: "Retouren Liste", icon: FiList }
         ]}
       />
       <PageTitle title="Retouren Liste" />

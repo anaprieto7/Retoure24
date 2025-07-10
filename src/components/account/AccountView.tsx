@@ -7,7 +7,7 @@ import UserList from '@/components/account/UserList'
 import ReturnReasonsList from '@/components/account/ReturnReasonsList'
 import SettingsPageHeader from '@/components/SettingsPageHeader'
 import BreadcrumbNav from '@/components/BreadcrumbNav';
-import { FiUser } from 'react-icons/fi';
+import { FiSettings, FiUser } from 'react-icons/fi';
 import { useTranslation } from 'react-i18next';
 
 export default function AccountView() {
@@ -19,8 +19,8 @@ export default function AccountView() {
     company: 'Example Name'
   }
   const breadcrumbs = [
-  { labelKey: 'setting', href: '/setup/account', icon: FiUser },
-  { labelKey: 'account' }
+  { labelKey: 'Settings', href: '/setup/account', icon: FiSettings },
+  { labelKey: 'Account', icon: FiUser }
 ];
 
   return (

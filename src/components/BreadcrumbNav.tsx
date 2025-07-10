@@ -36,7 +36,7 @@ export default function BreadcrumbNav({ items }: BreadcrumbNavProps) {
         {items.map((item, idx) => {
           const isLast = idx === items.length - 1;
           const Icon = item.icon;
-          const label = t(`setting.${item.labelKey}`); // usa return.bread
+          const label = (`${item.labelKey}`); // usa return.bread
 
           return (
             <BreadcrumbItem key={idx} isCurrentPage={isLast}>

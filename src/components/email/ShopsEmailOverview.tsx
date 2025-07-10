@@ -13,7 +13,8 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
-import { FiMail } from "react-icons/fi";
+import { FiMail, FiSettings } from "react-icons/fi";
+import BreadcrumbNav from "../BreadcrumbNav";
 
 export default function ShopsEmailOverview() {
   const { user } = useUser();
@@ -43,10 +44,15 @@ export default function ShopsEmailOverview() {
     );
   }
 
+  const breadcrumbs = [
+        { labelKey: 'Settings', href: '/setup/account', icon: FiSettings },
+        { labelKey: 'Email Tracking', href: '/setup/email-tracking', icon: FiMail},
+      ];
+
   return (
     <Box p={6}>
       <Heading size="lg" mb={6}>Email Tracking</Heading>
-
+      <BreadcrumbNav items={breadcrumbs} />
       <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }} spacing={6}>
         {accessibleShops.map((shop) => {
           const warehouse = mockWarehouses.find(
@@ -79,7 +85,7 @@ export default function ShopsEmailOverview() {
                     router.push(`/setup/email-tracking/${shop.id}`)
                   }
                 >
-                  Configurar emails
+                  E-mails einstellen
                 </Button>
               </VStack>
             </Box>

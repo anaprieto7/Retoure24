@@ -209,13 +209,13 @@ export default function UserList() {
       <Table variant="simple" size="sm">
         <Thead>
           <Tr>
-            <Th>Nombre</Th>
-            <Th>Email</Th>
+            <Th>Name</Th>
+            <Th>E-mail</Th>
             <Th>Rol</Th>
-            <Th>Estado</Th>
+            <Th>Status</Th>
             <Th>Warehouses</Th>
-            <Th>Tiendas</Th>
-            <Th>Acciones</Th>
+            <Th>Shops</Th>
+            <Th>Aktionen</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -282,20 +282,21 @@ export default function UserList() {
         </Tbody>
       </Table>
 
+
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>{editingUser ? 'Editar usuario' : 'Nuevo usuario'}</ModalHeader>
+          <ModalHeader>{editingUser ? 'Benutzer Bearbeiten' : 'Neue Benutzer'}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <UserModalForm form={form} setForm={setForm}/>
           </ModalBody>
           <ModalFooter>
             <Button size="sm" variant="ghost" mr={3} onClick={onClose}>
-              Cancelar
+              Schließen
             </Button>
             <Button size="sm" colorScheme="blue" onClick={handleSave}>
-              Guardar
+              Speicher
             </Button>
           </ModalFooter>
         </ModalContent>

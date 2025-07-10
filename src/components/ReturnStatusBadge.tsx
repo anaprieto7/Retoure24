@@ -1,17 +1,21 @@
 import { Badge } from "@chakra-ui/react";
 
 const statusColorSchemes: Record<string, string> = {
-  Pending: "yellow",
+  Received: "yellow",
   Registered: "blue",
   Rejected: "red",
-  Completed: "green",
+  Approved: "green",
+  Refunded:"green",
+  Cancelled: "red"
 };
 
 const statusTextColors: Record<string, string> = {
-  Pending: "yellow.600",
+  Received: "yellow.600",
   Registered: "blue.600",
   Rejected: "red.600",
-  Completed: "green.600",
+  Refunded: "green.600",
+  Approved: "green.600",
+  Cancelled:"red.600"
   // Puedes cambiar el color del texto para los demás estados si lo deseas
 };
 

@@ -174,10 +174,10 @@ export default function DashboardGlobalView() {
     <Box p={6}>
       <Flex direction="column" mb={6}>
         <Heading size="lg" color={useColorModeValue("gray.700", "gray.100")}>
-          Hello, Ana 👋
+          Hallo, Paul 👋
         </Heading>
         <Text fontSize="md" color={useColorModeValue("gray.500", "gray.400")}>
-          Here's what's happening in your stores today – 📍Kiel, Germany
+          Here's what's happening in your management today – 📍Kiel, Germany
         </Text>
       </Flex>
 

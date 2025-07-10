@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { FiSettings } from "react-icons/fi";
 
+
 interface LandingCardProps {
   shopId: string;
   shopName: string;
@@ -66,7 +67,7 @@ export default function LandingCard({
           variant="solid"
           onClick={() => onConfigure(shopId)}
         >
-          einstellen
+          Landing Page einstellen
         </Button>
       </VStack>
     </Box>

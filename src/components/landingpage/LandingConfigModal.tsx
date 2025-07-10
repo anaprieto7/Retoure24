@@ -18,9 +18,12 @@ import {
   Stack,
   Select,
   useToast,
+  Box,
+  Text
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import ReturnAccessOptions from "./ReturnAuthOptions";
+import LandingPreview from "./LandingPreview";
 
 interface LandingConfigModalProps {
   isOpen: boolean;
@@ -130,13 +133,19 @@ export default function LandingConfigModal({
               </Select>
             </FormControl>
           </Stack>
+          <LandingPreview
+            logoUrl={shop.logoUrl}
+            welcomeText={welcomeText}
+            primaryColor={primaryColor}
+            returnPolicy={returnPolicy}
+            requiredFields={requiredFields}
+          />
         </ModalBody>
-
         <ModalFooter>
-          <Button variant="ghost" onClick={onClose} mr={3}>
+          <Button variant="ghost" size="sm" onClick={onClose} mr={3}>
             Schließen
           </Button>
-          <Button colorScheme="blue" onClick={handleSave}>
+          <Button colorScheme="blue" size="sm" onClick={handleSave}>
             Speicher
           </Button>
         </ModalFooter>

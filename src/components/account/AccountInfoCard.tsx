@@ -14,10 +14,20 @@ import {
   Button,
   FormHelperText,
   FormControl,
-  useColorModeValue
+  useColorModeValue,
+  Input,
+  FormLabel,
+  useDisclosure,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  ModalCloseButton,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { FiMail, FiPhone, FiUser, FiBriefcase, FiEdit3 } from 'react-icons/fi';
+import { FiMail, FiPhone, FiUser, FiBriefcase, FiEdit3, FiEye, FiEyeOff } from 'react-icons/fi';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 
@@ -93,6 +103,56 @@ export default function AccountInfoCard({ name, email, phone, company }: Props) 
   const buttonColor = useColorModeValue("white","blue.400")
   const bg = useColorModeValue("white","gray.800")
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [passwordForm, setPasswordForm] = useState({
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: '',
+    });
+  const [passwordError, setPasswordError] = useState<string | null>(null);
+
+  const handlePasswordChange = () => {
+  const { currentPassword, newPassword, confirmPassword } = passwordForm;
+
+      if (!currentPassword || !newPassword || !confirmPassword) {
+        setPasswordError(t("error_required"));
+        return;
+      }
+
+      if (newPassword !== confirmPassword) {
+        setPasswordError(t("password_mismatch"));
+        return;
+      }
+
+      setPasswordError(null);
+
+      // Aquí iría la lógica real de cambio de contraseña
+
+      toast({
+        title: t("success_updated"),
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
+
+      setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
+      onClose();
+    };
+  
+  const [showPasswords, setShowPasswords] = useState({
+  current: false,
+  new: false,
+  confirm: false,
+});
+
+const toggleShow = (field: 'current' | 'new' | 'confirm') => {
+  setShowPasswords(prev => ({
+    ...prev,
+    [field]: !prev[field],
+  }));
+};
+
+
   return (
     <Box
       bg={bg}
@@ -157,7 +217,120 @@ export default function AccountInfoCard({ name, email, phone, company }: Props) 
             {t("edit")}
           </Button>
         </motion.div>
+        
       </Box>
+      <Box display="flex" justifyContent="flex-end" mt={4}>
+        <Button
+          onClick={onOpen}
+          variant="outline"
+          size="sm"
+          fontWeight="bold"
+        >
+          {"Passwort ändern"}
+        </Button>
+      </Box>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>{"Passwort ändern"}</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Stack spacing={4}>
+              <FormControl isRequired>
+                <FormLabel>{ "Aktuelles Passwort"}</FormLabel>
+                <HStack>
+                  <Input
+                    type={showPasswords.current ? "text" : "password"}
+                    size="sm"
+                    rounded={"lg"}
+                    value={passwordForm.currentPassword}
+                    onChange={(e) =>
+                      setPasswordForm((prev) => ({
+                        ...prev,
+                        currentPassword: e.target.value,
+                      }))
+                    }
+                  />
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => toggleShow("current")}
+                  >
+                    {showPasswords.current ? <FiEyeOff /> : <FiEye />}
+                  </Button>
+                </HStack>
+              </FormControl>
+
+              <FormControl isRequired>
+                <FormLabel>{"Neues Passwort"}</FormLabel>
+                <HStack>
+                  <Input
+                    type={showPasswords.new ? "text" : "password"}
+                    size="sm"
+                    rounded={"lg"}
+                    value={passwordForm.newPassword}
+                    onChange={(e) =>
+                      setPasswordForm((prev) => ({
+                        ...prev,
+                        newPassword: e.target.value,
+                      }))
+                    }
+                  />
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => toggleShow("new")}
+                  >
+                    {showPasswords.new ? <FiEyeOff /> : <FiEye />}
+                  </Button>
+                </HStack>
+              </FormControl>
+
+              <FormControl isRequired>
+                <FormLabel>{t("confirm_password") || "Neues Passwort bestätigen"}</FormLabel>
+                <HStack>
+                  <Input
+                    type={showPasswords.confirm ? "text" : "password"}
+                    size="sm"
+                    rounded={"lg"}
+                    value={passwordForm.confirmPassword}
+                    onChange={(e) =>
+                      setPasswordForm((prev) => ({
+                        ...prev,
+                        confirmPassword: e.target.value,
+                      }))
+                    }
+                  />
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => toggleShow("confirm")}
+                  >
+                    {showPasswords.confirm ? <FiEyeOff /> : <FiEye />}
+                  </Button>
+                </HStack>
+              </FormControl>
+
+
+              {passwordError && (
+                <Text color="red.500" fontSize="sm">
+                  {passwordError}
+                </Text>
+              )}
+            </Stack>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button size="sm" variant="ghost" mr={3} onClick={onClose}>
+              {t("cancel") || "Abbrechen"}
+            </Button>
+            <Button colorScheme="blue" size="sm" onClick={handlePasswordChange}>
+              {t("save") || "Speichern"}
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+
     </Box>
   );
 }

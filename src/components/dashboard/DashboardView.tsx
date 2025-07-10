@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, SimpleGrid, GridItem } from "@chakra-ui/react";
+import { Box, SimpleGrid, GridItem, Flex,Heading, Text, useColorModeValue } from "@chakra-ui/react";
 import { FiShoppingBag, FiEdit, FiX, FiDollarSign } from "react-icons/fi";
 import { useState } from "react";
 import dynamic from "next/dynamic";
@@ -25,6 +25,14 @@ export default function DashboardView({ shopId }: Props) {
 
   return (
     <Box minH="100vh" p={{ base: 4, md: 6 }}>
+      <Flex direction="column" mb={6}>
+              <Heading size="lg" color={useColorModeValue("gray.700", "gray.100")}>
+                Hallo, User 👋
+              </Heading>
+              <Text fontSize="md" color={useColorModeValue("gray.500", "gray.400")}>
+                Here's what's happening in your stores today – 📍Kiel, Germany
+              </Text>
+        </Flex>
       <Box mb={6}>
         <GlobalSearch onSearch={(term) => setSearchTerm(term)} />
       </Box>

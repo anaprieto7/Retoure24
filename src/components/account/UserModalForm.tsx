@@ -113,7 +113,7 @@ export default function UserModalForm({ form, setForm }: Props) {
       {form.role === 'WarehouseAdmin' && (
         <>
           <FormControl>
-            <FormLabel>Asignar a uno o más Warehouses</FormLabel>
+            <FormLabel>Asiggn one or more Warehouses</FormLabel>
             <CheckboxGroup
               value={form.warehouseIds || []}
               onChange={(val) =>
@@ -132,7 +132,7 @@ export default function UserModalForm({ form, setForm }: Props) {
 
           {selectedWarehouseIds.length > 0 && (
             <FormControl>
-              <FormLabel>Tiendas asignadas</FormLabel>
+              <FormLabel>Assigned Shops</FormLabel>
               <CheckboxGroup
                 value={form.shopIds || []}
                 onChange={(val) => setForm({ ...form, shopIds: val as string[] })}
@@ -155,9 +155,9 @@ export default function UserModalForm({ form, setForm }: Props) {
       {/* MerchantUser → seleccionar MerchantAdmin */}
       {form.role === 'MerchantUser' && isSuperAdmin && (
         <FormControl>
-          <FormLabel>Asignar a MerchantAdmin</FormLabel>
+          <FormLabel>Asiggn to MerchantAdmin</FormLabel>
           <Select
-            placeholder="Selecciona un MerchantAdmin"
+            placeholder="Select a MerchantAdmin"
             value={form.merchantId || ''}
             onChange={(e) =>
               setForm({ ...form, merchantId: e.target.value })
